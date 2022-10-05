@@ -1,0 +1,23 @@
+{
+  "name": "backend_nodejs_v1",
+  "version": "1.0.0",
+  "description": "Backend for Online Music Store created using Node.js",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zvdas/OnlineMusicStore.git"
+  },
+  "keywords": [
+    "node",
+    "express"
+  ],
+  "author": "zvdas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zvdas/OnlineMusicStore/issues"
+  },
+  "homepage": "https://github.com/zvdas/OnlineMusicStore#readme"
+}
