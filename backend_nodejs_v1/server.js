@@ -10,6 +10,10 @@ const connectDB = require('./config/database');
 
 // route files
 const albums = require('./routes/albums');
+const tracks = require('./routes/tracks');
+
+// middleware files
+const logger = require('./middleware/logger');
 
 // initialize express app
 const app = express();
@@ -20,12 +24,19 @@ app.use(express.json());
 // connect database
 connectDB();
 
+// use middleware
+app.use(logger);
+
 app.get('/', (req, res) => {
     res.status(200).json({ success: true, msg: 'Welcome to the online music store' });
 });
 
 // mount routers
 app.use('/api/v1/albums', albums);
+app.use('/api/v1/tracks', tracks);
+
+// use middleware
+app.use(logger);
 
 const PORT = process.env.PORT || 5000;
 

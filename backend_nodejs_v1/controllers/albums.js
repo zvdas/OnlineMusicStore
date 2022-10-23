@@ -2,7 +2,7 @@ const AlbumModel = require('../models/Album');
 
 // @desc    Get all albums
 // @route   GET /api/v1/albums
-// @access  private
+// @access  Public
 exports.getAlbums = async(req, res) => {
     const albums = await AlbumModel.find();
 
@@ -11,7 +11,7 @@ exports.getAlbums = async(req, res) => {
 
 // @desc    Get album by ID
 // @route   GET /api/v1/albums/:id
-// @access  private
+// @access  Public
 exports.getAlbumById = async(req, res) => {
     const album = await AlbumModel.findById(req.params.id);
 
@@ -20,7 +20,7 @@ exports.getAlbumById = async(req, res) => {
 
 // @desc    Create new album
 // @route   POST /api/v1/albums
-// @access  private
+// @access  Private
 exports.createAlbum = async(req, res) => {
     const albums = await AlbumModel.create(req.body);
 
@@ -29,7 +29,7 @@ exports.createAlbum = async(req, res) => {
 
 // @desc    Update an album
 // @route   PUT /api/v1/albums/:id
-// @access  private
+// @access  Private
 exports.updateAlbumById = async(req, res) => {
     const album = await AlbumModel.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
 
@@ -38,7 +38,7 @@ exports.updateAlbumById = async(req, res) => {
 
 // @desc    Delete an album
 // @route   DELETE /api/v1/albums/:id
-// @access  private
+// @access  Private
 exports.deleteAlbumById = async(req, res) => {
     const album = await AlbumModel.findByIdAndDelete(req.params.id);
 
