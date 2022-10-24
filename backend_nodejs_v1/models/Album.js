@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const AlbumSchema =  new mongoose.Schema({
     album_name: {
@@ -38,6 +39,12 @@ const AlbumSchema =  new mongoose.Schema({
         type: Date,
         default: Date.now()
     }
-})
+});
+
+// create album slug from the name
+AlbumSchema.pre('save', function(next) {
+    this.slug = slugify(this.album_name, { lower: true });
+    next();
+});
 
 module.exports = mongoose.model('Album', AlbumSchema);
