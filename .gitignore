@@ -1,5 +1,6 @@
 ## node modules
 backend_nodejs_v1/node_modules
+backend_nodejs_v1/node_modules/*
 
 ## env file
 backend_nodejs_v1/config/config.env
