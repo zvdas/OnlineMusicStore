@@ -5,15 +5,15 @@ const TrackSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add a name for the Track']
     },
-    duration: {
-        type: String
-    },
+    duration: String,
     track_file: {
         type: String,
         default: 'no-track'
     },
-    file_size: {
-        type: String
+    file_size: String,
+    createdAt: {
+        type: Date,
+        default: Date.now()
     }
 })
 

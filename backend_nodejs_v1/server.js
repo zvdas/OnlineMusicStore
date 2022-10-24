@@ -1,6 +1,7 @@
 // import the necessary modules
 const express = require('express');
 const dotenv = require('dotenv');
+const morgan = require('morgan');
 
 // load environment variables
 dotenv.config({ path: './config/config.env' });
@@ -13,7 +14,7 @@ const albums = require('./routes/albums');
 const tracks = require('./routes/tracks');
 
 // middleware files
-const logger = require('./middleware/logger');
+const errorHandler = require('./middleware/error');
 
 // initialize express app
 const app = express();
@@ -24,9 +25,12 @@ app.use(express.json());
 // connect database
 connectDB();
 
-// use middleware
-app.use(logger);
+// dev logging middleware: use in development mode
+if(process.env.NODE_ENV === 'development'){
+    app.use(morgan('dev'));
+}
 
+// get homepage route
 app.get('/', (req, res) => {
     res.status(200).json({ success: true, msg: 'Welcome to the online music store' });
 });
@@ -35,8 +39,8 @@ app.get('/', (req, res) => {
 app.use('/api/v1/albums', albums);
 app.use('/api/v1/tracks', tracks);
 
-// use middleware
-app.use(logger);
+// use error handler middleware
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
