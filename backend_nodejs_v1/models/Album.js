@@ -10,7 +10,7 @@ const AlbumSchema =  new mongoose.Schema({
         maxlength: [50, 'Name cannot exceed 50 characters']
     },
     slug: String,
-    // to slugify the url path (ie) "Hear Me Now" => "hear-me-now" for parsing url
+    // to slugify the url path (ie) "Admiral Bob" => "admiral-bob" for parsing url
     cover_photo: {
         type: String,
         default: 'no-photo.jpg'
@@ -31,10 +31,7 @@ const AlbumSchema =  new mongoose.Schema({
         type: String,
         maxlength: [500, 'Name cannot exceed 500 characters']
     },
-    price: {
-        type: Number,
-        required: [true, 'Please add a price amount']
-    },
+    album_url: String,
     createdAt: {
         type: Date,
         default: Date.now()
