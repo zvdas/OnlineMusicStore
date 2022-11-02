@@ -1,0 +1,52 @@
+[
+    {
+        "album_name": "Airtone",
+        "cover_photo": "airtone.jpeg",
+        "artist": "Martyn Bloor",
+        "genre": "Instrumental",
+        "year": 2022,
+        "producer": "CCMixter",
+        "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, http://dig.ccmixter.org",
+        "album_url": "http://dig.ccmixter.org/people/airtone"
+    },
+    {
+        "album_name": "Admiral Bob",
+        "cover_photo": "admiral_bob.jpg",
+        "artist": "Admiral Bob",
+        "genre": "Instrumental",
+        "year": 2020,
+        "producer": "CCMixters",
+        "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, http://dig.ccmixter.org",
+        "album_url": "http://dig.ccmixter.org/people/admiralbob77"
+    },
+    {
+        "album_name": "Mindmapthat",
+        "cover_photo": "kara_square.jpg",
+        "artist": "Kara Square",
+        "genre": "Instrumental",
+        "year": 2021,
+        "producer": "CCMixter",
+        "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, http://dig.ccmixter.org",
+        "album_url": "http://dig.ccmixter.org/people/mindmapthat"
+    },
+    {
+        "album_name": "Siobhan Dakay",
+        "cover_photo": "siobhan_dakay.jpg",
+        "artist": "Siobhan Dakay",
+        "genre": "Instrumental",
+        "year": 2007,
+        "producer": "CCMixter",
+        "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, http://dig.ccmixter.org",
+        "album_url": "http://dig.ccmixter.org/people/SiobhanD"
+    },
+    {
+        "album_name": "Radioontheshelf",
+        "cover_photo": "Radioontheshelf.jpg",
+        "artist": "Radioontheshelf",
+        "genre": "Instrumental",
+        "year": 2022,
+        "producer": "CCMixter",
+        "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, http://dig.ccmixter.org",
+        "album_url": "http://dig.ccmixter.org/people/Radioontheshelf"
+    }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Leanne Graham",
+    "email": "publisher@gmail.com",
+    "role": "publisher",
+    "password": "123456"
+  },
+  {
+    "name": "Ervin Howell",
+    "email": "admin@gmail.com",
+    "role": "admin",
+    "password": "123456"
+  },
+  {
+    "name": "Clementine Bauch",
+    "email": "user@gmail.com",
+    "role": "user",
+    "password": "123456"
+  },
+  {
+    "name": "Patricia Lebsack",
+    "email": "Julianne.OConner@kory.org",
+    "role": "publisher",
+    "password": "123456"
+  },
+  {
+    "name": "Chelsey Dietrich",
+    "email": "Lucio_Hettinger@annie.ca",
+    "role": "publisher",
+    "password": "123456"
+  },
+  {
+    "name": "Mrs. Dennis Schulist",
+    "email": "Karley_Dach@jasper.info",
+    "role": "publisher",
+    "password": "123456"
+  },
+  {
+    "name": "Kurtis Weissnat",
+    "email": "Telly.Hoeger@billy.biz",
+    "role": "publisher",
+    "password": "123456"
+  },
+  {
+    "name": "Nicholas Runolfsdottir V",
+    "email": "Sherwood@rosamond.me",
+    "role": "publisher",
+    "password": "123456"
+  },
+  {
+    "name": "Glenna Reichert",
+    "email": "Chaim_McDermott@dana.io",
+    "role": "publisher",
+    "password": "123456"
+  },
+  {
+    "name": "Clementina DuBuque",
+    "email": "Rey.Padberg@karina.biz",
+    "role": "publisher",
+    "password": "123456"
+  }
+]
