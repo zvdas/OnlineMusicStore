@@ -1,5 +1,6 @@
 [
     {
+        "_id": "6361ff4314b08a4853714b68",
         "album_name": "Airtone",
         "cover_photo": "airtone.jpeg",
         "artist": "Martyn Bloor",
@@ -10,6 +11,7 @@
         "album_url": "http://dig.ccmixter.org/people/airtone"
     },
     {
+        "_id": "6361ff4314b08a4853714b69",
         "album_name": "Admiral Bob",
         "cover_photo": "admiral_bob.jpg",
         "artist": "Admiral Bob",
@@ -20,6 +22,7 @@
         "album_url": "http://dig.ccmixter.org/people/admiralbob77"
     },
     {
+        "_id": "6361ff4314b08a4853714b6a",
         "album_name": "Mindmapthat",
         "cover_photo": "kara_square.jpg",
         "artist": "Kara Square",
@@ -30,6 +33,7 @@
         "album_url": "http://dig.ccmixter.org/people/mindmapthat"
     },
     {
+        "_id": "63627554c1648b56814fc92d",
         "album_name": "Siobhan Dakay",
         "cover_photo": "siobhan_dakay.jpg",
         "artist": "Siobhan Dakay",
@@ -40,6 +44,7 @@
         "album_url": "http://dig.ccmixter.org/people/SiobhanD"
     },
     {
+        "_id": "6361ff4314b08a4853714b6c",
         "album_name": "Radioontheshelf",
         "cover_photo": "Radioontheshelf.jpg",
         "artist": "Radioontheshelf",
