@@ -5,7 +5,8 @@ const ErrorResponse = require('../utils/errorResponse');
 // @desc    Get all albums
 // @route   GET /api/v1/albums
 // @access  Public
-exports.getAlbums = asyncHandler(async(req, res, next) => {
+// exports.getAlbums = asyncHandler(async(req, res, next) => {
+exports.getAlbums = (req, res, next) => {
     let query;
 
     // copy req.query
@@ -54,12 +55,13 @@ exports.getAlbums = asyncHandler(async(req, res, next) => {
         // end index at
     const endIndex = page * limit;
         // total resources
-    const total = await AlbumModel.countDocuments();
+    // const total = await AlbumModel.countDocuments();
 
     query = query.skip(startIndex).limit(limit);
 
     // executing query
-    const albums = await query;
+    // const albums = await query;
+    const albums = query;
 
     // pagination result
     const pagination = {};
@@ -90,7 +92,7 @@ exports.getAlbums = asyncHandler(async(req, res, next) => {
             limit,
             data: albums 
         });
-});
+};
 
 // @desc    Get album by ID
 // @route   GET /api/v1/albums/:id

@@ -4,9 +4,19 @@ const ErrorResponse = require('../utils/errorResponse');
 
 // @desc    Get all tracks
 // @route   GET /api/v1/tracks
+// @route   GET /api/v1/albums/:albumId/tracks
 // @access  Public
 exports.getTracks = asyncHandler(async(req, res, next) => {
-    const tracks = await TrackModel.find();
+    let query;
+
+    if (req.params.albumId) {
+        // get all tracks for a particular album (by album id)
+        query = TrackModel.find({ album: req.params.albumId });
+    } else {
+        query = TrackModel.find();
+    }
+
+    const tracks = await query;
 
     res
         .status(200)

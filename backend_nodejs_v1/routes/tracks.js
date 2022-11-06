@@ -2,7 +2,7 @@ const express = require('express');
 
 const { getTracks, createTrack, getTrackById, updateTrackById, deleteTrackById } = require('../controllers/tracks');
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router
     .route('/')
