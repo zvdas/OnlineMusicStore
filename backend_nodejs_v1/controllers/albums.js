@@ -5,8 +5,7 @@ const ErrorResponse = require('../utils/errorResponse');
 // @desc    Get all albums
 // @route   GET /api/v1/albums
 // @access  Public
-// exports.getAlbums = asyncHandler(async(req, res, next) => {
-exports.getAlbums = (req, res, next) => {
+exports.getAlbums = asyncHandler(async(req, res, next) => {
     let query;
 
     // copy req.query
@@ -27,7 +26,7 @@ exports.getAlbums = (req, res, next) => {
     // const albums = await AlbumModel.find();
 
     // finding resource
-    query = AlbumModel.find(JSON.parse(queryStr));
+    query = AlbumModel.find(JSON.parse(queryStr)).populate({ path: 'tracks', select: 'track_name featuring duration file_size' });
     
     // select fields
     if (req.query.select) {
@@ -55,13 +54,12 @@ exports.getAlbums = (req, res, next) => {
         // end index at
     const endIndex = page * limit;
         // total resources
-    // const total = await AlbumModel.countDocuments();
+    const total = await AlbumModel.countDocuments();
 
     query = query.skip(startIndex).limit(limit);
 
     // executing query
-    // const albums = await query;
-    const albums = query;
+    const albums = await query;
 
     // pagination result
     const pagination = {};
@@ -92,7 +90,7 @@ exports.getAlbums = (req, res, next) => {
             limit,
             data: albums 
         });
-};
+});
 
 // @desc    Get album by ID
 // @route   GET /api/v1/albums/:id
@@ -152,12 +150,14 @@ exports.updateAlbumById = asyncHandler(async(req, res, next) => {
 // @route   DELETE /api/v1/albums/:id
 // @access  Private
 exports.deleteAlbumById = asyncHandler(async(req, res, next) => {
-    const album = await AlbumModel.findByIdAndDelete(req.params.id);
+    const album = await AlbumModel.findById(req.params.id);
 
     // error for correctly formatted id not present in database
     if(!album) {
         return next(new ErrorResponse(`Album with id '${req.params.id}' not found`, 404));
     }
+
+    album.remove();
 
     res
         .status(200)

@@ -13,7 +13,7 @@ exports.getTracks = asyncHandler(async(req, res, next) => {
         // get all tracks for a particular album (by album id)
         query = TrackModel.find({ album: req.params.albumId });
     } else {
-        query = TrackModel.find();
+        query = TrackModel.find().populate({ path: 'album', select: 'album_name album_url createdAt' });
     }
 
     const tracks = await query;

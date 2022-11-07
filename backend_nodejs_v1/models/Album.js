@@ -36,11 +36,28 @@ const AlbumSchema =  new mongoose.Schema({
         type: Date,
         default: Date.now()
     }
+}, {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
 });
 
 // create album slug from the name
 AlbumSchema.pre('save', function(next) {
     this.slug = slugify(this.album_name, { lower: true });
+    next();
+});
+
+// reverse populate with virtuals
+AlbumSchema.virtual('tracks', {
+    ref: 'Track',
+    localField: '_id',
+    foreignField: 'album',
+    justOne: false
+});
+
+// cascade delete tracks when an album is deleted
+AlbumSchema.pre('remove', async function (next) {
+    await this.model('Track').deleteMany({ album: this._id });
     next();
 });
 
