@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const AlbumModel = require('../models/Album');
 const asyncHandler = require('../middleware/async');
@@ -119,15 +120,28 @@ exports.albumPhotoUpload = asyncHandler(async(req, res, next) => {
     }
 
     // create custom filename
-    file.name = `cover_photo_${album.slug}${path.parse(file.name).ext}`;
+    file.name = `cover_photo_${album.album_slug}${path.parse(file.name).ext}`;
 
+    // create folder with artist-album name if it doesn't exist
+    const folder_path = `${process.env.PHOTO_UPLOAD_PATH}/${album.artist_slug}-${album.album_slug}`;
+    if(!fs.existsSync(folder_path)){
+        fs.mkdir(`${folder_path}`, async err => {
+            if(err) {
+                return next(new ErrorResponse(`Problem with folder creation. ${err}`, 500));
+            }
+        });
+    }
+    
+    // convert the file to buffer string and send to database
+    const image_base64 = file.data.toString('base64');
+    
     // upload the file
-    file.mv(`${process.env.PHOTO_UPLOAD_PATH}/${file.name}`, async err => {
+    file.mv(`${folder_path}/${file.name}`, async err => {
         if(err) {
             return next(new ErrorResponse(`Problem with file upload. ${err}`, 500));
         }
 
-        await AlbumModel.findByIdAndUpdate(req.params.id, { cover_photo: file.name })
+        await AlbumModel.findByIdAndUpdate(req.params.id, { cover_photo: file.name, cover_photo_data: image_base64 })
         
         res
             .status(200)

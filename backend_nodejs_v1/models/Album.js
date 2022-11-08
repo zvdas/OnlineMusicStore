@@ -9,16 +9,18 @@ const AlbumSchema =  new mongoose.Schema({
         trim: true,
         maxlength: [50, 'Name cannot exceed 50 characters']
     },
-    slug: String,
+    album_slug: String,
     // to slugify the url path (ie) "Admiral Bob" => "admiral-bob" for parsing url
     cover_photo: {
         type: String,
         default: 'no-photo.jpg'
     },
+    cover_photo_data: String,
     artist: {
         type: String,
         required: [true, 'Please add an artist\'s name'],
     },
+    artist_slug: String,
     genre: String,
     year: Number,
     producer: String,
@@ -43,7 +45,8 @@ const AlbumSchema =  new mongoose.Schema({
 
 // create album slug from the name
 AlbumSchema.pre('save', function(next) {
-    this.slug = slugify(this.album_name, { lower: true });
+    this.album_slug = slugify(this.album_name, { lower: true });
+    this.artist_slug = slugify(this.artist, { lower: true });
     next();
 });
 

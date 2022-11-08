@@ -7,13 +7,14 @@ const TrackSchema = new mongoose.Schema({
         trim: true,
         required: [true, 'Please add a name for the Track']
     },
-    slug: String,
+    track_slug: String,
     featuring: String,
     duration: String,
     track_file: {
         type: String,
         default: 'no-track'
     },
+    track_data: String,
     credit: String,
     file_size: String,
     createdAt: {
@@ -30,7 +31,7 @@ const TrackSchema = new mongoose.Schema({
 
 // create track slug from the name
 TrackSchema.pre('save', function(next) {
-    this.slug = slugify(this.track_name, { lower: true });
+    this.track_slug = slugify(this.track_name, { lower: true });
     next();
 });
 

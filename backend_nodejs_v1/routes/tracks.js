@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { getTracks, createTrack, getTrackById, updateTrackById, deleteTrackById } = require('../controllers/tracks');
+const { getTracks, createTrack, getTrackById, updateTrackById, deleteTrackById, trackAudioUpload } = require('../controllers/tracks');
 
 // use advancedResults middleware with track model
 const TrackModel = require('../models/Track');
@@ -17,6 +17,10 @@ router
     .route('/:id')
     .get(getTrackById)
     .put(updateTrackById)
-    .delete(deleteTrackById)
+    .delete(deleteTrackById);
+
+router
+    .route('/:id/audio')
+    .put(trackAudioUpload);
 
 module.exports = router;

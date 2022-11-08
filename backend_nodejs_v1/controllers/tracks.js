@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const TrackModel = require('../models/Track');
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');
@@ -108,4 +110,69 @@ exports.deleteTrackById = asyncHandler(async(req, res, next) => {
             success: true, 
             msg: `Track with id ${req.params.id} deleted successfully` 
         });
+});
+
+// @desc    Upload an audio track for a track
+// @route   PUT /api/v1/tracks/:id/audio
+// @access  Private
+exports.trackAudioUpload = asyncHandler(async(req, res, next) => {
+    const track = await TrackModel.findById(req.params.id).populate('album');
+
+    // error for correctly formatted id not present in database
+    if(!track) {
+        return next(new ErrorResponse(`Track with id '${req.params.id}' not found`, 404));
+    }
+
+    if(!req.files) {
+        return next(new ErrorResponse(`Kindly upload a file`, 400));
+    }
+
+    const file = req.files.audio;
+
+     // ensure the image is a photo
+     if(!file.mimetype.startsWith('audio')) {
+        return next(new ErrorResponse(`Kindly upload an audio file`, 400));
+    }
+    
+    let max_track_size = process.env.MAX_TRACK_UPLOAD.split('*')[0] * process.env.MAX_TRACK_UPLOAD.split('*')[1] * process.env.MAX_TRACK_UPLOAD.split('*')[2];
+    let mbs = process.env.MAX_TRACK_UPLOAD.split('*')[1] * process.env.MAX_TRACK_UPLOAD.split('*')[2];
+
+    // check file size (should be less than MAX_TRACK_UPLOAD in config.env)
+    if(file.size > max_track_size) {
+        return next(new ErrorResponse(`The uploaded track exceeds ${max_track_size/mbs}MB. Kindly upload a smaller image.`, 400));
+    }
+
+    // create custom filename
+    file.name = `${track.album.artist_slug}_-_${track.track_slug}${path.parse(file.name).ext}`;
+    
+    // create folder with artist-album name if it doesn't exist
+    const folder_path = `${process.env.PHOTO_UPLOAD_PATH}/${track.album.artist_slug}-${track.album.album_slug}`;
+
+    if(!fs.existsSync(folder_path)){
+        fs.mkdir(`${folder_path}`, async err => {
+            if(err) {
+                return next(new ErrorResponse(`Problem with folder creation. ${err}`, 500));
+            }
+        });
+    }
+
+    // convert the file to buffer string and send to database
+    const audio_base64 = req.files.audio.data.toString('base64');
+
+    // upload the file
+    file.mv(`${folder_path}/${file.name}`, async err => {
+        if(err) {
+            return next(new ErrorResponse(`Problem with file upload. ${err}`, 500));
+        }
+
+        await TrackModel.findByIdAndUpdate(req.params.id, { track_file: file.name, track_data: audio_base64 })
+        
+        res
+            .status(200)
+            .json({ 
+                success: true, 
+                msg: `Track uploaded to track with id '${req.params.id}' successfully`,
+                data: file.name
+            });    
+    })
 });
