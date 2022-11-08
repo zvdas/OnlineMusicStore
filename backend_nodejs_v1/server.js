@@ -1,7 +1,9 @@
 // import the necessary modules
 const express = require('express');
+const path = require('path');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+const fileupload = require('express-fileupload');
 
 // load environment variables
 dotenv.config({ path: './config/config.env' });
@@ -29,6 +31,12 @@ connectDB();
 if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'));
 }
+
+// file upload
+app.use(fileupload());
+
+// set public folder static folder
+app.use(express.static(path.join(__dirname,'public')));
 
 // get homepage route
 app.get('/', (req, res) => {

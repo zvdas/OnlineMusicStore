@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { getAlbums, getAlbumById, createAlbum, updateAlbumById, deleteAlbumById } = require('../controllers/albums');
+const { getAlbums, getAlbumById, createAlbum, updateAlbumById, deleteAlbumById, albumPhotoUpload } = require('../controllers/albums');
 
 // use other resource routers
 const trackRouter = require('./tracks');
@@ -22,5 +22,8 @@ router
     .put(updateAlbumById)
     .delete(deleteAlbumById);
 
+router
+    .route('/:id/photo')
+    .put(albumPhotoUpload);
 
 module.exports = router;
