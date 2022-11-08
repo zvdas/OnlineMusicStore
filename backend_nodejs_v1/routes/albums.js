@@ -5,6 +5,10 @@ const { getAlbums, getAlbumById, createAlbum, updateAlbumById, deleteAlbumById, 
 // use other resource routers
 const trackRouter = require('./tracks');
 
+// use advancedResults middleware with album model
+const AlbumModel = require('../models/Album');
+const advancedResults = require('../middleware/advancedResults');
+
 const router = express.Router();
 
 // re-route to other resource routers
@@ -13,7 +17,7 @@ router
 
 router
     .route('/')
-    .get(getAlbums)
+    .get(advancedResults(AlbumModel, { path: 'tracks', select: 'track_name featuring duration file_size'}), getAlbums)
     .post(createAlbum);
 
 router

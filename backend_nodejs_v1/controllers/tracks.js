@@ -8,24 +8,22 @@ const AlbumModel = require('../models/Album');
 // @route   GET /api/v1/albums/:albumId/tracks
 // @access  Public
 exports.getTracks = asyncHandler(async(req, res, next) => {
-    let query;
-
     if (req.params.albumId) {
         // get all tracks for a particular album (by album id)
-        query = TrackModel.find({ album: req.params.albumId });
-    } else {
-        query = TrackModel.find().populate({ path: 'album', select: 'album_name album_url createdAt' });
-    }
+        const tracks = await TrackModel.find({ album: req.params.albumId });
 
-    const tracks = await query;
-
-    res
+        res
         .status(200)
         .json({ 
             success: true, 
             count: tracks.length, 
             data: tracks 
         });
+    } else {
+        res
+            .status(200)
+            .json(res.advancedResults);
+    }
 });
 
 // @desc    Get track by ID
