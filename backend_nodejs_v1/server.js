@@ -14,6 +14,7 @@ const connectDB = require('./config/database');
 // route files
 const albums = require('./routes/albums');
 const tracks = require('./routes/tracks');
+const auth = require('./routes/auth');
 
 // middleware files
 const errorHandler = require('./middleware/error');
@@ -46,6 +47,7 @@ app.get('/', (req, res) => {
 // mount routers
 app.use('/api/v1/albums', albums);
 app.use('/api/v1/tracks', tracks);
+app.use('/api/v1/auth', auth);
 
 // use error handler middleware
 app.use(errorHandler);
