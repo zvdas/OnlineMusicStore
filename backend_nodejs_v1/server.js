@@ -4,6 +4,7 @@ const path = require('path');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const fileupload = require('express-fileupload');
+const cookieParser = require('cookie-parser');
 
 // load environment variables
 dotenv.config({ path: './config/config.env' });
@@ -24,6 +25,9 @@ const app = express();
 
 // body-parser
 app.use(express.json());
+
+// cookie-parser
+app.use(cookieParser());
 
 // connect database
 connectDB();
