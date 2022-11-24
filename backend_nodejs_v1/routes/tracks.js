@@ -8,19 +8,22 @@ const advancedResults = require('../middleware/advancedResults');
 
 const router = express.Router({ mergeParams: true });
 
+// use protect & authorize middleware
+const { protect, authorize } = require('../middleware/auth');
+
 router
     .route('/')
     .get(advancedResults(TrackModel, { path: 'album', select: 'album_name album_url createdAt' }), getTracks)
-    .post(createTrack);
+    .post(protect, authorize('publisher', 'admin'), createTrack);
 
 router
     .route('/:id')
     .get(getTrackById)
-    .put(updateTrackById)
-    .delete(deleteTrackById);
+    .put(protect, authorize('publisher', 'admin'), updateTrackById)
+    .delete(protect, authorize('publisher', 'admin'), deleteTrackById);
 
 router
     .route('/:id/audio')
-    .put(trackAudioUpload);
+    .put(protect, authorize('publisher', 'admin'), trackAudioUpload);
 
 module.exports = router;

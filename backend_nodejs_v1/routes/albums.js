@@ -11,6 +11,9 @@ const advancedResults = require('../middleware/advancedResults');
 
 const router = express.Router();
 
+// use protect & authorize middleware
+const { protect, authorize } = require('../middleware/auth');
+
 // re-route to other resource routers
 router
     .use('/:albumId/tracks', trackRouter);
@@ -18,16 +21,16 @@ router
 router
     .route('/')
     .get(advancedResults(AlbumModel, { path: 'tracks', select: 'track_name featuring duration file_size'}), getAlbums)
-    .post(createAlbum);
+    .post(protect, authorize('publisher', 'admin'), createAlbum);
 
 router
     .route('/:id')
     .get(getAlbumById)
-    .put(updateAlbumById)
-    .delete(deleteAlbumById);
+    .put(protect, authorize('publisher', 'admin'), updateAlbumById)
+    .delete(protect, authorize('publisher', 'admin'), deleteAlbumById);
 
 router
     .route('/:id/photo')
-    .put(albumPhotoUpload);
+    .put(protect, authorize('publisher', 'admin'), albumPhotoUpload);
 
 module.exports = router;
