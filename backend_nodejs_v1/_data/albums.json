@@ -8,7 +8,8 @@
         "year": 2022,
         "producer": "CCMixter",
         "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, http://dig.ccmixter.org",
-        "album_url": "http://dig.ccmixter.org/people/airtone"
+        "album_url": "http://dig.ccmixter.org/people/airtone",
+        "user": "636deb3fc36c3f9adb0afb9f"
     },
     {
         "_id": "6361ff4314b08a4853714b69",
@@ -19,7 +20,8 @@
         "year": 2020,
         "producer": "CCMixters",
         "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, http://dig.ccmixter.org",
-        "album_url": "http://dig.ccmixter.org/people/admiralbob77"
+        "album_url": "http://dig.ccmixter.org/people/admiralbob77",
+        "user": "63823151fc9ebaaba5228152"
     },
     {
         "_id": "6361ff4314b08a4853714b6a",
@@ -30,7 +32,8 @@
         "year": 2021,
         "producer": "CCMixter",
         "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, http://dig.ccmixter.org",
-        "album_url": "http://dig.ccmixter.org/people/mindmapthat"
+        "album_url": "http://dig.ccmixter.org/people/mindmapthat",
+        "user": "638232bb5115c7c0ae4b102d"
     },
     {
         "_id": "63627554c1648b56814fc92d",
@@ -41,7 +44,8 @@
         "year": 2007,
         "producer": "CCMixter",
         "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, http://dig.ccmixter.org",
-        "album_url": "http://dig.ccmixter.org/people/SiobhanD"
+        "album_url": "http://dig.ccmixter.org/people/SiobhanD",
+        "user": "6382330f8f89608157d4a795"
     },
     {
         "_id": "6361ff4314b08a4853714b6c",
@@ -52,6 +56,7 @@
         "year": 2022,
         "producer": "CCMixter",
         "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, http://dig.ccmixter.org",
-        "album_url": "http://dig.ccmixter.org/people/Radioontheshelf"
+        "album_url": "http://dig.ccmixter.org/people/Radioontheshelf",
+        "user": "63823375743b2c4f10cc7d60"
     }
 ]
