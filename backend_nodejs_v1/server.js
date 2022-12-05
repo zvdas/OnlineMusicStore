@@ -16,6 +16,7 @@ const connectDB = require('./config/database');
 const albums = require('./routes/albums');
 const tracks = require('./routes/tracks');
 const auth = require('./routes/auth');
+const users = require('./routes/users');
 
 // middleware files
 const errorHandler = require('./middleware/error');
@@ -33,40 +34,41 @@ app.use(cookieParser());
 connectDB();
 
 // dev logging middleware: use in development mode
-if(process.env.NODE_ENV === 'development'){
-    app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
 }
 
 // file upload
 app.use(fileupload());
 
 // set public folder static folder
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // get homepage route
 app.get('/', (req, res) => {
-    res.status(200).json({ success: true, msg: 'Welcome to the online music store' });
+  res
+    .status(200)
+    .json({ success: true, msg: 'Welcome to the online music store' });
 });
 
 // mount routers
 app.use('/api/v1/albums', albums);
 app.use('/api/v1/tracks', tracks);
 app.use('/api/v1/auth', auth);
+app.use('/api/v1/auth/users', users);
 
 // use error handler middleware
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-const server = 
-app.listen(
-    PORT, 
-    () => console.log(`Server running in ${ process.env.NODE_ENV } mode on port ${ PORT }`)
+const server = app.listen(PORT, () =>
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
 );
 
 // handle unhandled promise rejections
 process.on('unhandledRejection', (err, promise) => {
-    console.log(`Error: ${err.message}`);
-    // close server & exit process
-    server.close(() => process.exit(1));
+  console.log(`Error: ${err.message}`);
+  // close server & exit process
+  server.close(() => process.exit(1));
 });
