@@ -17,6 +17,7 @@ const albums = require('./routes/albums');
 const tracks = require('./routes/tracks');
 const auth = require('./routes/auth');
 const users = require('./routes/users');
+const reviews = require('./routes/reviews');
 
 // middleware files
 const errorHandler = require('./middleware/error');
@@ -56,6 +57,7 @@ app.use('/api/v1/albums', albums);
 app.use('/api/v1/tracks', tracks);
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/auth/users', users);
+app.use('/api/v1/reviews', reviews);
 
 // use error handler middleware
 app.use(errorHandler);

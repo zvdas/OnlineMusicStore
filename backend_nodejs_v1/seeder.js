@@ -11,6 +11,7 @@ dotenv.config({ path: './config/config.env' });
 const Album = require('./models/Album');
 const Track = require('./models/Track');
 const User = require('./models/User');
+const Review = require('./models/Review');
 
 // connect to DB
 mongoose.connect(process.env.MONGODB_URI, {
@@ -28,6 +29,9 @@ const tracks = JSON.parse(
 const users = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/users.json`, 'utf-8')
 );
+const reviews = JSON.parse(
+  fs.readFileSync(`${__dirname}/_data/reviews.json`, 'utf-8')
+);
 
 // import into db
 const importData = async () => {
@@ -35,6 +39,7 @@ const importData = async () => {
     await Album.create(albums);
     await Track.create(tracks);
     await User.create(users);
+    await Review.create(reviews);
 
     console.log('data imported...'.green.inverse);
     // exit the process
@@ -50,6 +55,7 @@ const deleteData = async () => {
     await Album.deleteMany();
     await Track.deleteMany();
     await User.deleteMany();
+    await Review.deleteMany();
 
     console.log('data deleted...'.red.inverse);
     // exit the process
