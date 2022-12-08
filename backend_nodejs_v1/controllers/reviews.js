@@ -72,6 +72,16 @@ exports.updateReviewById = asyncHandler(async (req, res, next) => {
     next(new ErrorResponse(`Review with  id ${req.params.id} not found`, 404));
   }
 
+  // ensure review belongs to user or user is admin
+  if (review.user.toString() !== req.user.id && req.user.role !== admin) {
+    next(
+      new ErrorResponse(
+        `User with  id ${req.user.id} not authorized to update review`,
+        401
+      )
+    );
+  }
+
   res.status(200).json({
     success: true,
     msg: `Review with id ${req.params.id} updated successfully`,
@@ -87,6 +97,16 @@ exports.deleteReviewById = asyncHandler(async (req, res, next) => {
 
   if (!review) {
     next(new ErrorResponse(`Review with  id ${req.params.id} not found`, 404));
+  }
+
+  // ensure review belongs to user or user is admin
+  if (review.user.toString() !== req.user.id && req.user.role !== admin) {
+    next(
+      new ErrorResponse(
+        `User with  id ${req.user.id} not authorized to delete review`,
+        401
+      )
+    );
   }
 
   res.status(200).json({
