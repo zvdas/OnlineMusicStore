@@ -5,6 +5,12 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const fileupload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
+const xss = require('xss-clean');
+const rateLimit = require('express-rate-limit');
+const hpp = require('hpp');
+const cors = require('cors');
 
 // load environment variables
 dotenv.config({ path: './config/config.env' });
@@ -30,6 +36,29 @@ app.use(express.json());
 
 // cookie-parser
 app.use(cookieParser());
+
+// express-mongo-sanitize prevent noSQL injections
+app.use(mongoSanitize());
+
+// secure HTTP headers
+app.use(helmet());
+
+// prevent cross-side-scripting attacks
+app.use(xss());
+
+// limit API requests to 5
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 Minutes
+  max: 100, // limit each IP upto 100 requests per windowMs
+});
+
+app.use(limiter);
+
+// prevent HTTP param pollution
+app.use(hpp());
+
+//enable CORS
+app.use(cors());
 
 // connect database
 connectDB();
