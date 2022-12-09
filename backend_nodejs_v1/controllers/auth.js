@@ -199,3 +199,20 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
 
   sendTokenResponse(user, 200, res, 'Password updated successfully');
 });
+
+// @desc    Logout user & clear cookies
+// @route   GET /api/v1/auth/logout
+// @access  Private
+exports.logout = asyncHandler(async (req, res, next) => {
+  // delete cookie
+  res
+    .cookie('token', 'none', {
+      expires: new Date(Date.now() + 10 * 1000),
+      httpOnly: true,
+    })
+    .status(200)
+    .json({
+      success: true,
+      msg: 'User logged out successfully',
+    });
+});
