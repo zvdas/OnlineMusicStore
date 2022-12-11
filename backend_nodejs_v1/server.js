@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
-const fileupload = require('express-fileupload');
+const fileUpload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
@@ -69,17 +69,20 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // file upload
-app.use(fileupload());
+app.use(fileUpload());
 
 // set public folder static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
 // get homepage route
+/*
 app.get('/', (req, res) => {
   res
     .status(200)
-    .json({ success: true, msg: 'Welcome to the online music store' });
+    // .json({ success: true, msg: 'Welcome to the online music store' });
+    .redirect('https://documenter.getpostman.com/view/19419701/2s8YzTThXz');
 });
+*/
 
 // mount routers
 app.use('/api/v1/albums', albums);

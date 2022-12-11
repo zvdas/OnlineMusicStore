@@ -18,7 +18,7 @@
 
 ---
 
-4. Create a file app.js. This will be the maon file which will contain all the middlewares responsible for the application flow. Declare all the middlewares using require(), and then use them by using use().The connection is initiated using express which will add a listener on the port specified (3000).
+4. Create a file app.js. This will be the main file which will contain all the middleware responsible for the application flow. Declare all the middleware using require(), and then use them by using use().The connection is initiated using express which will add a listener on the port specified (3000).
 
 ---
 

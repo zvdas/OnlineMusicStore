@@ -1,0 +1,992 @@
+{
+	"info": {
+		"_postman_id": "e9cf51b5-5b16-46c3-bfd3-0c48e4a94822",
+		"name": "Online Music Store API",
+		"description": "API requests to perform CRUD operations in the Online Music Store Application\n\n\\*   GET\n\\*   POST\n\\*   PUT\n\\*   DELETE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19419701"
+	},
+	"item": [
+		{
+			"name": "Albums",
+			"item": [
+				{
+					"name": "Get All Albums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/albums?limit=5&select=album_name,cover_photo,album_slug,artist_slug",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"albums"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "select",
+									"value": "album_name,cover_photo,album_slug,artist_slug"
+								}
+							]
+						},
+						"description": "Retrieve all albums from database including advanced requests like select, limit, page number, etc including pagination."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Album By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/albums/6360c4e5bdea6f0358e910c1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"albums",
+								"6360c4e5bdea6f0358e910c1"
+							]
+						},
+						"description": "Retrieve an existing album by providing its ID number."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Album",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"album_name\": \"Siobhan Dakay\",\r\n    \"cover_photo\": \"siobhan_dakay.jpg\",\r\n    \"artist\": \"Siobhan Dakay\",\r\n    \"genre\": \"Instrumental\",\r\n    \"year\": 2007,\r\n    \"producer\": \"CCMixter\",\r\n    \"description\": \"Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, http://dig.ccmixter.org\",\r\n    \"album_url\": \"http://dig.ccmixter.org/people/SiobhanD\"\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/albums",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"albums"
+							]
+						},
+						"description": "Create a new album, consisting of an album name, a cover photo for the album, the name of the artist, the musical genre or category of music, the year of release, the name of the record producer, a description for the album, and a website URL for the album."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Album By ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"year\": 2021\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/albums/6360c4e5bdea6f0358e910c1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"albums",
+								"6360c4e5bdea6f0358e910c1"
+							]
+						},
+						"description": "Update an existing album by ID. The entire request body is not required to be sent, only the fields to update."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Album By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/albums/6361ff4314b08a4853714b6b",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"albums",
+								"6361ff4314b08a4853714b6b"
+							]
+						},
+						"description": "Delete an existing album by ID from the database."
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Cover Photo for Album By ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/C:/Users/rodri/Downloads/admiral_bob/admiral_bob.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/albums/6361ff4314b08a4853714b69/photo",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"albums",
+								"6361ff4314b08a4853714b69",
+								"photo"
+							]
+						},
+						"description": "Upload a cover photo for an existing album by ID."
+					},
+					"response": []
+				}
+			],
+			"description": "API requests to send & receive album information to/from the database, create new album, get all albums/album by ID, update/delete album by ID & upload cover photos for albums."
+		},
+		{
+			"name": "Tracks",
+			"item": [
+				{
+					"name": "Get All Tracks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/tracks?limit=10&select=track_name,featuring,duration,file_size,track_slug",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"tracks"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "select",
+									"value": "track_name,featuring,duration,file_size,track_slug"
+								}
+							]
+						},
+						"description": "Retrieve all tracks from database including advanced requests like select, limit, page number, etc including pagination."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tracks By Album",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/albums/6361ff4314b08a4853714b6c/tracks",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"albums",
+								"6361ff4314b08a4853714b6c",
+								"tracks"
+							]
+						},
+						"description": "Retrieve all the existing tracks in a specific existing record by providing the ID number of the album."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Track By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/tracks/63674371637b3b4560a9cb77",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"tracks",
+								"63674371637b3b4560a9cb77"
+							]
+						},
+						"description": "Retrieve an existing track by providing its ID number."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Track",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"track_name\": \"I Can't Breathe\",\r\n    \"featuring\": \"Subhashish\",\r\n    \"duration\": \"08:52\",\r\n    \"track_file\": \"admiralbob77_-_I_Can_t_Breathe.mp3\",\r\n    \"credit\": \"<div class='attribution-block'><a href='http://dig.ccmixter.org/files/admiralbob77/61763'>I Can't Breathe</a> by Admiral Bob (c) copyright 2020 Licensed under a Creative Commons <a href='http://creativecommons.org/licenses/by/3.0/'>Attribution (3.0)</a> license. Ft: Subhashish</div>\",\r\n    \"file_size\": \"12.19MB\",\r\n    \"album\": \"6361ff4314b08a4853714b69\"\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/albums/6361ff4314b08a4853714b69/tracks",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"albums",
+								"6361ff4314b08a4853714b69",
+								"tracks"
+							]
+						},
+						"description": "Create a new track, consisting of a track name, the name of the featured artist(s), the duration (length in mm:ss) of the track, the file name (& location) of the track, track credits, the file size, and a link to the Album ID to create a relationship with Album information."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Track By ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"file_size\": \"17.55MB\"\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/tracks/63674371637b3b4560a9cb77",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"tracks",
+								"63674371637b3b4560a9cb77"
+							]
+						},
+						"description": "Update an existing track by ID. The entire request body is not required to be sent, only the fields to update."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Track By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/tracks/63674371637b3b4560a9cb77",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"tracks",
+								"63674371637b3b4560a9cb77"
+							]
+						},
+						"description": "Delete an existing track by ID from the database."
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Track File for Track By ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "audio",
+									"type": "file",
+									"src": "/C:/Users/rodri/Downloads/admiral_bob/admiralbob77_-_Warm_Vacuum_Tube_.mp3"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/tracks/636a1c6e39ae92284e312e1a/audio",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"tracks",
+								"636a1c6e39ae92284e312e1a",
+								"audio"
+							]
+						},
+						"description": "Upload a track file for an existing track by ID."
+					},
+					"response": []
+				}
+			],
+			"description": "API requests to send & receive tracks information (in an album) to/from the database, create new track, get all tracks/track by ID, get all tracks by album ID, update/delete track by ID & upload audio files for tracks."
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"publisher\",\r\n    \"email\": \"publisher@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"role\": \"publisher\"\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/register",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Register a new user, consisting of a name, email address, role (restricted to \"user\" or \"publisher\"; \"admin\" must be set manually in the database) and a password. Kindly note that the password is hashed during storage or utilization to ensure security."
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"123456\"\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Logs in an existing user. Login enables a user to access private/protected & authorized routes."
+					},
+					"response": []
+				},
+				{
+					"name": "Current Logged in User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/me",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"me"
+							]
+						},
+						"description": "Retrieve the details of a logged in user from the database."
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"publisher@gmail.com\"\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/forgotpassword",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"forgotpassword"
+							]
+						},
+						"description": "Send a password reset token to the user's email address if forgot password is accessed."
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"1234567\"\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/resetpassword/82232226ef8c1c34303b2685b236a8098e0ed34c\n",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"resetpassword",
+								"82232226ef8c1c34303b2685b236a8098e0ed34c\n"
+							]
+						},
+						"description": "Reset the password by providing a new password using the password token received in the email."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Logged in User Details",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"Lucio_Hettinger@annie.ca\",\r\n    \"name\": \"Chelsey Dietrich\"\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/updatedetails",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"updatedetails"
+							]
+						},
+						"description": "Update the details such as name, email & role of a logged in user."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Logged in User Password",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"Lucio_Hettinger@annie.ca\",\r\n    \"name\": \"Chelsey Dietrich\"\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/updatepassword",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"updatepassword"
+							]
+						},
+						"description": "Update the password of a logged in user."
+					},
+					"response": []
+				},
+				{
+					"name": "Logout User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/logout",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"logout"
+							]
+						},
+						"description": "Log out a currently logged in user. Kindly note, after logout, a user will not be able to access private/protected routes."
+					},
+					"response": []
+				}
+			],
+			"description": "API requests to send & receive authentication information to/from the database, register a user, login& logout a user, get details of a currently logged-in user, forgot/reset password using email, update authentication details of a logged-in user such as email, password & role."
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get All Users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/users?limit=5",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"users"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						},
+						"description": "Retrieve all users from database including advanced requests like select, limit, page number, etc. including pagination."
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/users/63823375743b2c4f10cc7d60",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"users",
+								"63823375743b2c4f10cc7d60"
+							]
+						},
+						"description": "Retrieve an existing user by providing its ID number."
+					},
+					"response": []
+				},
+				{
+					"name": "Create New User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Petronov Hiertchick\",\r\n    \"email\": \"phiertchick@gmail.com\",\r\n    \"role\": \"publisher\",\r\n    \"password\": \"123456\"\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"users"
+							]
+						},
+						"description": "Create a new track, consisting of a user name, user email, role (restricted to \"publisher\" or \"user\"; \"admin\" must be set manually in database) and a password. Kindly note the password is hashed and stored/utilized for security purposes."
+					},
+					"response": []
+				},
+				{
+					"name": "Update User By ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Petronov Moltov Hiertchick\",\r\n    \"role\": \"user\"\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/users/638e03e13ea31fe716804db4",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"users",
+								"638e03e13ea31fe716804db4"
+							]
+						},
+						"description": "Update an existing user by ID. The entire request body is not required to be sent, only the fields to update."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/users/638e03e13ea31fe716804db4",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"users",
+								"638e03e13ea31fe716804db4"
+							]
+						},
+						"description": "Delete an existing user by ID from the database."
+					},
+					"response": []
+				}
+			],
+			"description": "API requests to send & receive user information to/from the database, create new user, get all users/user by ID, update/delete user by ID"
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "Get All Reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/reviews",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews"
+							]
+						},
+						"description": "Retrieve all reviews from database including advanced requests like select, limit, page number, etc. including pagination."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reviews By Album",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/albums/6361ff4314b08a4853714b6a/reviews",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"albums",
+								"6361ff4314b08a4853714b6a",
+								"reviews"
+							]
+						},
+						"description": "Retrieve all the existing reviews in an existing album by providing the ID number of the album."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Review By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/reviews/6391f2da06b0ab9e53864436",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"6391f2da06b0ab9e53864436"
+							]
+						},
+						"description": "Retrieve an existing review by providing its ID number."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Review",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Learned a ton!\",\r\n    \"text\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec viverra feugiat mauris id viverra. Duis luctus ex sed facilisis ultrices. Curabitur scelerisque bibendum ligula, quis condimentum libero fermentum in. Aenean erat erat, aliquam in purus a, rhoncus hendrerit tellus. Donec accumsan justo in felis consequat sollicitudin. Fusce luctus mattis nunc vitae maximus. Curabitur semper felis eu magna laoreet scelerisque\",\r\n    \"rating\": \"8\"\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/albums/6361ff4314b08a4853714b6a/reviews",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"albums",
+								"6361ff4314b08a4853714b6a",
+								"reviews"
+							]
+						},
+						"description": "Create a new review title, text content for the review and rating between 1 & 10 for the review. Kindly note the review is averaged for all reviews in the album and a link to the Album ID and the User ID to create a relationship with Album and User information."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Review By ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Lorem just massively reduced scelerisque\"\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/reviews/6391f2da06b0ab9e53864436",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"6391f2da06b0ab9e53864436"
+							]
+						},
+						"description": "Update an existing review by ID. The entire request body is not required to be sent, only the fields to update."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Review By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/reviews/6391f2da06b0ab9e53864436",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"6391f2da06b0ab9e53864436"
+							]
+						},
+						"description": "Delete an existing review by ID from the database."
+					},
+					"response": []
+				}
+			],
+			"description": "API requests to send & receive review information to/from the database, create new review, get all reviews/review by ID, update/delete review by ID"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://localhost:5000",
+			"type": "string"
+		}
+	]
+}
