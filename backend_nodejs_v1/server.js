@@ -11,6 +11,7 @@ const xss = require('xss-clean');
 const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
 const cors = require('cors');
+const ghpages = require('gh-pages');
 
 // load environment variables
 dotenv.config({ path: './config/config.env' });
@@ -106,3 +107,30 @@ process.on('unhandledRejection', (err, promise) => {
   // close server & exit process
   server.close(() => process.exit(1));
 });
+
+/*
+// publish to GitHub using gh-pages
+ghpages.publish(
+  'build',
+  {
+    branch: 'master',
+    dest: 'backend_nodejs_v1/build',
+    dotfiles: true,
+    add: true,
+    repo: 'https://github.com/zvdas/OnlineMusicStore.git',
+    // remote: 'upstream',
+    // remove: '*.json',
+    // push: false,
+    // history: false,
+    // silent: true,
+    // user: {
+    //   name: 'zvdas',
+    //   email: 'rodriguezzude@gmail.com',
+    // },
+    message: 'auto generated commit',
+  },
+  () => {
+    console.log('Pushed to GitHub Successfully');
+  }
+);
+*/

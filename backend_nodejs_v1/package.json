@@ -7,9 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "SET NODE_ENV=production && node server",
     "dev": "nodemon server",
-    "build": "ng build",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d backend_nodejs_v1/build"
   },
   "repository": {
     "type": "git",
@@ -25,7 +23,6 @@
     "url": "https://github.com/zvdas/OnlineMusicStore/issues"
   },
   "homepage": "https://zvdas.github.io/OnlineMusicStore",
-  "homepage_1": "https://github.com/zvdas/OnlineMusicStore#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
@@ -47,6 +44,7 @@
     "nodemon": "^2.0.20",
     "pug": "^3.0.2",
     "slugify": "^1.6.5",
-    "xss-clean": "^0.1.1"
+    "xss-clean": "^0.1.1",
+    "gh-pages": "^4.0.0"
   }
 }
