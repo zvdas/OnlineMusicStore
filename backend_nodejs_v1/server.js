@@ -95,9 +95,8 @@ app.use('/api/v1/reviews', reviews);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-const HOST = '0.0.0.0';
 
-const server = app.listen(PORT, HOST, () =>
+const server = app.listen(PORT, () =>
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
 );
 
