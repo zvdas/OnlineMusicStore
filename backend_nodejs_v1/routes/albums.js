@@ -27,6 +27,19 @@ router
   .use('/:albumId/tracks', trackRouter)
   .use('/:albumId/reviews', reviewRouter);
 
+/**
+ * @openApi
+ * paths:
+ *  '/api/v1/albums':
+ *    get:
+ *      tags:
+ *        - Albums
+ *      description: Get all Albums
+ *      responses:
+ *        '200':
+ *          description: OK
+*/
+
 router
   .route('/')
   .get(
@@ -35,8 +48,10 @@ router
       select: 'track_name featuring duration file_size',
     }),
     getAlbums
-  )
-  .post(protect, authorize('publisher', 'admin'), createAlbum);
+    )
+    .post(protect, authorize('publisher', 'admin'), createAlbum);
+    
+  
 
 router
   .route('/:id')
