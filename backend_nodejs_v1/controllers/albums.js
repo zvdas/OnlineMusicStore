@@ -8,7 +8,10 @@ const ErrorResponse = require('../utils/errorResponse');
 // @route   GET /api/v1/albums
 // @access  Public
 exports.getAlbums = asyncHandler(async (req, res, next) => {
-  res.status(200).json(res.advancedResults);
+  if(req.headers['user-agent'].includes('PostmanRuntime')) {
+    res.status(200).json(res.advancedResults);
+  }
+  res.status(200).render('albums');
 });
 
 // @desc    Get album by ID

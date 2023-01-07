@@ -22,11 +22,14 @@ const sendTokenResponse = (user, statusCode, res, msg) => {
     options.secure = true;
   }
 
-  res.status(statusCode).cookie('token', token, options).json({
-    success: true,
-    msg,
-    token,
-  });
+  res
+    .status(statusCode)
+    .cookie('token', token, options)
+    .json({
+      success: true,
+      msg,
+      token,
+    });
 };
 
 // @desc    Register a user

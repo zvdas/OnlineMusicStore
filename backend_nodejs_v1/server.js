@@ -11,6 +11,7 @@ const xss = require('xss-clean');
 const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
 const cors = require('cors');
+const ejs = require('ejs');
 
 // load environment variables
 dotenv.config({ path: './config/config.env' });
@@ -18,7 +19,7 @@ dotenv.config({ path: './config/config.env' });
 // config file
 const connectDB = require('./config/database');
 
-// route files
+// route files - apis
 const albums = require('./routes/albums');
 const tracks = require('./routes/tracks');
 const auth = require('./routes/auth');
@@ -72,17 +73,19 @@ if (process.env.NODE_ENV === 'development') {
 app.use(fileUpload());
 
 // set public folder static folder
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'views')));
+
+// set view render engine as 'ejs'
+app.set('view engine', 'ejs'); 
 
 // get homepage route
-/*
 app.get('/', (req, res) => {
   res
     .status(200)
     // .json({ success: true, msg: 'Welcome to the online music store' });
-    .redirect('https://documenter.getpostman.com/view/19419701/2s8YzTThXz');
+    // .redirect('https://documenter.getpostman.com/view/19419701/2s8YzTThXz');
+    .render('login');
 });
-*/
 
 // mount routers
 app.use('/api/v1/albums', albums);
