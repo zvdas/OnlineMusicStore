@@ -11,13 +11,17 @@ exports.getReviews = asyncHandler(async (req, res, next) => {
   if (req.params.albumId) {
     const reviews = await ReviewModel.find({ album: req.params.albumId });
 
-    return res.status(200).json({
-      success: true,
-      count: reviews.length,
-      data: reviews,
-    });
+    if(req.headers['user-agent'].includes('PostmanRuntime')) {
+      return res.status(200).json({
+        success: true,
+        count: reviews.length,
+        data: reviews,
+      });
+    }
   } else {
-    res.status(200).json(res.advancedResults);
+    if(req.headers['user-agent'].includes('PostmanRuntime')) {
+      res.status(200).json(res.advancedResults);
+    }
   }
 });
 

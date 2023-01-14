@@ -5,7 +5,7 @@ const sendEmail = require('../utils/sendEmail');
 const crypto = require('crypto');
 
 // get token from model, create cookie & send response
-const sendTokenResponse = (user, statusCode, res, msg) => {
+const sendTokenResponse = (user, statusCode, res, msg, urlpath) => {
   // create token
   const token = user.getSignedJwtToken();
 
@@ -22,7 +22,8 @@ const sendTokenResponse = (user, statusCode, res, msg) => {
     options.secure = true;
   }
 
-  res
+  // if(req.headers['user-agent'].includes('PostmanRuntime')) {
+    res
     .status(statusCode)
     .cookie('token', token, options)
     .json({
@@ -30,6 +31,13 @@ const sendTokenResponse = (user, statusCode, res, msg) => {
       msg,
       token,
     });
+  // }
+  // console.log(path);
+  // res
+    // .status(statusCode)
+    // .cookie('token', token, options)
+    // .redirect(urlpath);
+    // .render(urlpath, { user, msg });
 };
 
 // @desc    Register a user
@@ -49,11 +57,19 @@ exports.register = asyncHandler(async (req, res, next) => {
   sendTokenResponse(user, 200, res, 'User registered successfully');
 });
 
+// @desc    Get login user
+// @route   GET /api/v1/auth/login
+// @access  Public
+exports.getlogin = asyncHandler(async (req, res, next) => {
+  res.status(200).render('login');
+})
+
 // @desc    Login user
 // @route   POST /api/v1/auth/login
 // @access  Public
 exports.login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
+  console.log(req.body);
 
   // validate email & password
   if (!email || !password) {
@@ -75,8 +91,13 @@ exports.login = asyncHandler(async (req, res, next) => {
   if (!isMatch) {
     return next(new ErrorResponse('Invalid credentials', 401));
   }
-
-  sendTokenResponse(user, 200, res, 'User logged in successfully');
+  
+  if(req.headers['user-agent'].includes('PostmanRuntime')) {
+    sendTokenResponse(user, 200, res, 'User logged in successfully', '/api/v1/albums');
+  }
+  res
+    // .render('albums', { user });
+    .redirect('/api/v1/albums');
 });
 
 // @desc    Get current logged in user
@@ -85,10 +106,14 @@ exports.login = asyncHandler(async (req, res, next) => {
 exports.getMe = asyncHandler(async (req, res, next) => {
   const user = await UserModel.findById(req.user.id);
 
-  res.status(200).json({
-    success: true,
-    data: user,
-  });
+  if(req.headers['user-agent'].includes('PostmanRuntime')) {
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
+  }
+  res
+    .render('navbar', { user });
 });
 
 // @desc    Forgot password

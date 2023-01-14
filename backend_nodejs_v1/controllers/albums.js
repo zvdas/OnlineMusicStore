@@ -11,7 +11,7 @@ exports.getAlbums = asyncHandler(async (req, res, next) => {
   if(req.headers['user-agent'].includes('PostmanRuntime')) {
     res.status(200).json(res.advancedResults);
   }
-  res.status(200).render('albums');
+  res.status(200).render('albums', {results: res.advancedResults});
 });
 
 // @desc    Get album by ID

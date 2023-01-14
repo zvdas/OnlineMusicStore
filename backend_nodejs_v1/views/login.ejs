@@ -13,7 +13,7 @@
         Login
       </div>
       <div class='card-body'>
-        <form class='row g-3' action='/login' method='POST'>
+        <form class='row g-3' name='loginForm' action='login' method='POST'>
           <div class='my-3 row'>
             <label for='inputEmail' class='col-sm-2 col-form-label'>Email</label>
             <div class='col-sm-10'>
@@ -23,11 +23,12 @@
           <div class='mb-3 row'>
             <label for='inputPassword' class='col-sm-2 col-form-label'>Password</label>
             <div class='col-sm-10'>
-              <input type='password' class='form-control' name='password' id='inputPassword'/>
+              <input type='password' class='form-control' name='password' id='inputPassword' placeholder="password"/>
             </div>
           </div>
           <div class='mb-3 row'>
-            <input type='submit' class='btn btn-primary mb-3' value='Submit'>
+            <input type='submit' class='btn btn-primary mb-3' value='Submit'/>
+            <!-- <button type='submit' class='btn btn-primary mb-3' value='Submit'>Submit</button> -->
           </div>
         </form>
       </div>

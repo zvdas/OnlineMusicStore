@@ -14,13 +14,17 @@ exports.getTracks = asyncHandler(async (req, res, next) => {
     // get all tracks for a particular album (by album id)
     const tracks = await TrackModel.find({ album: req.params.albumId });
 
-    res.status(200).json({
-      success: true,
-      count: tracks.length,
-      data: tracks,
-    });
+    if(req.headers['user-agent'].includes('PostmanRuntime')) {
+      res.status(200).json({
+        success: true,
+        count: tracks.length,
+        data: tracks,
+      });
+    }
   } else {
-    res.status(200).json(res.advancedResults);
+    if(req.headers['user-agent'].includes('PostmanRuntime')) {
+      res.status(200).json(res.advancedResults);
+    }
   }
 });
 

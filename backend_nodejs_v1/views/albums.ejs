@@ -8,6 +8,14 @@
     <title>Albums</title>
 </head>
 <body>
-    Albums
+    <%- include('navbar') %>
+    <h1>Albums</h1>
+    <p><%#user %></p>
+    <p>status: <%= results.success %></p>
+    <p><%= results.count %> results | <%= results.pagination.curr.page %> of <%= results.total %> | prev<%# results.pagination.prev.page %>|<%= results.pagination.curr.page %>|<%# results.pagination.next.page %> next</p>
+    <% results.data.map(album => { %>
+        <img src="/uploads/albums/<%= album.artist_slug %>-<%= album.album_slug %>/<%= album.cover_photo %>"/>
+        <p><%= album.album_name %></p>
+    <% }) %>
 </body>
 </html>
