@@ -28,7 +28,7 @@ router
   .use('/:albumId/reviews', reviewRouter);
 
 /**
- * @openApi
+ * @openapi
  * paths:
  *  '/api/v1/albums':
  *    get:
