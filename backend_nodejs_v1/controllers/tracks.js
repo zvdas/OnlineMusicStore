@@ -14,16 +14,24 @@ exports.getTracks = asyncHandler(async (req, res, next) => {
     // get all tracks for a particular album (by album id)
     const tracks = await TrackModel.find({ album: req.params.albumId });
 
-    if(req.headers['user-agent'].includes('PostmanRuntime')) {
-      res.status(200).json({
-        success: true,
-        count: tracks.length,
-        data: tracks,
-      });
+    if(req.header('accept')==='*/*') {
+      res
+        .status(200)
+        .json({
+          success: true,
+          count: tracks.length,
+          data: tracks,
+        });
+    } else {
+
     }
   } else {
-    if(req.headers['user-agent'].includes('PostmanRuntime')) {
-      res.status(200).json(res.advancedResults);
+    if(req.header('accept')==='*/*') {
+      res
+        .status(200)
+        .json(res.advancedResults);
+    } else {
+
     }
   }
 });
@@ -44,10 +52,16 @@ exports.getTrackById = asyncHandler(async (req, res, next) => {
     );
   }
 
-  res.status(200).json({
-    success: true,
-    data: track,
-  });
+  if(req.header('accept')==='*/*') {
+    res
+      .status(200)
+      .json({
+        success: true,
+        data: track,
+      });
+  } else {
+
+  }
 });
 
 // @desc    Create new track
@@ -80,10 +94,16 @@ exports.createTrack = asyncHandler(async (req, res, next) => {
 
   const track = await TrackModel.create(req.body);
 
-  res.status(201).json({
-    success: true,
-    msg: 'Track created successfully',
-  });
+  if(req.header('accept')==='*/*') {
+    res
+      .status(201)
+      .json({
+        success: true,
+        msg: 'Track created successfully',
+      });
+  } else {
+
+  }
 });
 
 // @desc    Update track by ID
@@ -114,11 +134,17 @@ exports.updateTrackById = asyncHandler(async (req, res, next) => {
     runValidators: true,
   });
 
-  res.status(200).json({
-    success: true,
-    msg: `Track with id ${req.params.id} updated successfully`,
-    data: track,
-  });
+  if(req.header('accept')==='*/*') {
+    res
+      .status(200)
+      .json({
+        success: true,
+        msg: `Track with id ${req.params.id} updated successfully`,
+        data: track,
+      });
+  } else {
+
+  }
 });
 
 // @desc    Delete track by ID
@@ -146,10 +172,16 @@ exports.deleteTrackById = asyncHandler(async (req, res, next) => {
 
   await TrackModel.remove();
 
-  res.status(200).json({
-    success: true,
-    msg: `Track with id ${req.params.id} deleted successfully`,
-  });
+  if(req.header('accept')==='*/*') {
+    res
+      .status(200)
+      .json({
+        success: true,
+        msg: `Track with id ${req.params.id} deleted successfully`,
+      });
+  } else {
+
+  }
 });
 
 // @desc    Upload an audio track for a track
@@ -238,10 +270,16 @@ exports.trackAudioUpload = asyncHandler(async (req, res, next) => {
       track_data: audio_base64,
     });
 
-    res.status(200).json({
-      success: true,
-      msg: `Track uploaded to track with id '${req.params.id}' successfully`,
-      data: file.name,
-    });
+    if(req.header('accept')==='*/*') {
+      res
+        .status(200)
+        .json({
+          success: true,
+          msg: `Track uploaded to track with id '${req.params.id}' successfully`,
+          data: file.name,
+        });
+    } else {
+      
+    }
   });
 });

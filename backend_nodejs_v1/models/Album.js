@@ -1,6 +1,16 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Album:
+ *       type: object
+ *       properties:
+ *         album_name: 
+ *           type: string
+ */
 const AlbumSchema = new mongoose.Schema(
   {
     album_name: {

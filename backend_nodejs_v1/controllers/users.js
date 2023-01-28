@@ -6,8 +6,12 @@ const UserModel = require('../models/User');
 // @route   GET /api/v1/auth/users
 // @access  Private/Admin
 exports.getUsers = asyncHandler(async (req, res, next) => {
-  if(req.headers['user-agent'].includes('PostmanRuntime')) {
-    res.status(200).json(res.advancedResults);
+  if(req.header('accept')==='*/*') {
+    res
+      .status(200)
+      .json(res.advancedResults);
+  } else {
+
   }
 });
 
@@ -21,8 +25,15 @@ exports.getUserById = asyncHandler(async (req, res, next) => {
     next(new ErrorResponse(`User with  id ${req.params.id} not found`, 404));
   }
 
-  if(req.headers['user-agent'].includes('PostmanRuntime')) {
-    res.status(200).json({ success: true, data: user });
+  if(req.header('accept')==='*/*') {
+    res
+      .status(200)
+      .json({ 
+        success: true, 
+        data: user 
+      });
+  } else {
+
   }
 });
 
@@ -32,10 +43,16 @@ exports.getUserById = asyncHandler(async (req, res, next) => {
 exports.createUser = asyncHandler(async (req, res, next) => {
   const user = await UserModel.create(req.body);
 
-  if(req.headers['user-agent'].includes('PostmanRuntime')) {
+  if(req.header('accept')==='*/*') {
     res
       .status(201)
-      .json({ success: true, msg: 'User created successfully', data: user });
+      .json({ 
+        success: true, 
+        msg: 'User created successfully', 
+        data: user 
+      });
+  } else {
+
   }
 });
 
@@ -52,12 +69,16 @@ exports.updateUserById = asyncHandler(async (req, res, next) => {
     next(new ErrorResponse(`User with  id ${req.params.id} not found`, 404));
   }
 
-  if(req.headers['user-agent'].includes('PostmanRuntime')) {
-    res.status(200).json({
-      success: true,
-      msg: `User with id ${req.params.id} updated successfully`,
-      data: user,
-    });
+  if(req.header('accept')==='*/*') {
+    res
+      .status(200)
+      .json({
+        success: true,
+        msg: `User with id ${req.params.id} updated successfully`,
+        data: user,
+      });
+  } else {
+
   }
 });
 
@@ -71,10 +92,14 @@ exports.deleteUserById = asyncHandler(async (req, res, next) => {
     next(new ErrorResponse(`User with  id ${req.params.id} not found`, 404));
   }
 
-  if(req.headers['user-agent'].includes('PostmanRuntime')) {
-    res.status(200).json({
-      success: true,
-      msg: `User with id ${req.params.id} deleted successfully`,
-    });
+  if(req.header('accept')==='*/*') {
+    res
+      .status(200)
+      .json({
+        success: true,
+        msg: `User with id ${req.params.id} deleted successfully`,
+      });
+  } else {
+    
   }
 });

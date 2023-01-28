@@ -15,8 +15,8 @@ const options = swaggerJSDoc.Options = {
                 url: 'https://spdx.org/licenses/MIT.html',
             },
             contact: {
-                name: 'JSONPlaceholder',
-                url: 'https://jsonplaceholder.typicode.com',
+                name: 'Return to Online Music Store',
+                url: 'http://localhost:5000',
             },
         },
         servers: [

@@ -11,16 +11,24 @@ exports.getReviews = asyncHandler(async (req, res, next) => {
   if (req.params.albumId) {
     const reviews = await ReviewModel.find({ album: req.params.albumId });
 
-    if(req.headers['user-agent'].includes('PostmanRuntime')) {
-      return res.status(200).json({
-        success: true,
-        count: reviews.length,
-        data: reviews,
-      });
+    if(req.header('accept')==='*/*') {
+      return res
+        .status(200)
+        .json({
+          success: true,
+          count: reviews.length,
+          data: reviews,
+        });
+    } else {
+
     }
   } else {
-    if(req.headers['user-agent'].includes('PostmanRuntime')) {
-      res.status(200).json(res.advancedResults);
+    if(req.header('accept')==='*/*') {
+      res
+        .status(200)
+        .json(res.advancedResults);
+    } else {
+
     }
   }
 });
@@ -38,7 +46,16 @@ exports.getReviewById = asyncHandler(async (req, res, next) => {
     next(new ErrorResponse(`Review with  id ${req.params.id} not found`, 404));
   }
 
-  res.status(200).json({ success: true, data: review });
+  if(req.header('accept')==='*/*') {
+    res
+      .status(200)
+      .json({ 
+        success: true, 
+        data: review 
+      });
+  } else {
+
+  }
 });
 
 // @desc    Create a review
@@ -58,9 +75,17 @@ exports.createReview = asyncHandler(async (req, res, next) => {
 
   const review = await ReviewModel.create(req.body);
 
-  res
-    .status(201)
-    .json({ success: true, msg: 'Review created successfully', data: review });
+  if(req.header('accept')==='*/*') {
+    res
+      .status(201)
+      .json({ 
+        success: true, 
+        msg: 'Review created successfully', 
+        data: review 
+      });
+  } else {
+
+  }
 });
 
 // @desc    Update a review
@@ -86,11 +111,17 @@ exports.updateReviewById = asyncHandler(async (req, res, next) => {
     );
   }
 
-  res.status(200).json({
-    success: true,
-    msg: `Review with id ${req.params.id} updated successfully`,
-    data: review,
-  });
+  if(req.header('accept')==='*/*') {
+    res
+      .status(200)
+      .json({
+        success: true,
+        msg: `Review with id ${req.params.id} updated successfully`,
+        data: review,
+      });
+  } else {
+
+  }
 });
 
 // @desc    Delete a review
@@ -113,8 +144,14 @@ exports.deleteReviewById = asyncHandler(async (req, res, next) => {
     );
   }
 
-  res.status(200).json({
-    success: true,
-    msg: `Review with id ${req.params.id} deleted successfully`,
-  });
+  if(req.header('accept')==='*/*') {
+    res
+      .status(200)
+      .json({
+        success: true,
+        msg: `Review with id ${req.params.id} deleted successfully`,
+      });
+  } else {
+
+  }
 });

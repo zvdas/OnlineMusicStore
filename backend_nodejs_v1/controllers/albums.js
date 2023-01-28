@@ -9,9 +9,13 @@ const ErrorResponse = require('../utils/errorResponse');
 // @access  Public
 exports.getAlbums = asyncHandler(async (req, res, next) => {
   if(req.header('accept')==='*/*') {
-    res.status(200).json(res.advancedResults);
+    res
+      .status(200)
+      .json(res.advancedResults);
   } else {
-    res.status(200).render('albums', {results: res.advancedResults});
+    res
+      .status(200)
+      .render('albums', {results: res.advancedResults});
   }
 });
 
@@ -29,10 +33,12 @@ exports.getAlbumById = asyncHandler(async (req, res, next) => {
   }
   
   if(req.header('accept')==='*/*') {
-    res.status(200).json({
-      success: true,
-      data: album,
-    });
+    res
+      .status(200)
+      .json({
+        success: true,
+        data: album,
+      });
   } else {
     
   }
@@ -61,11 +67,13 @@ exports.createAlbum = asyncHandler(async (req, res, next) => {
   const albums = await AlbumModel.create(req.body);
 
   if(req.header('accept')==='*/*') {
-    res.status(201).json({
-      success: true,
-      // data: albums,
-      msg: 'Album created successfully',
-    });
+    res
+      .status(201)
+      .json({
+        success: true,
+        // data: albums,
+        msg: 'Album created successfully',
+      });
   } else {
 
   }
@@ -100,11 +108,13 @@ exports.updateAlbumById = asyncHandler(async (req, res, next) => {
   });
 
   if(req.header('accept')==='*/*') {
-    res.status(200).json({
-      success: true,
-      msg: `Album with id '${req.params.id}' updated successfully`,
-      data: album,
-    });
+    res
+      .status(200)
+      .json({
+        success: true,
+        msg: `Album with id '${req.params.id}' updated successfully`,
+        data: album,
+      });
   } else {
 
   }
@@ -136,10 +146,12 @@ exports.deleteAlbumById = asyncHandler(async (req, res, next) => {
   album.remove();
 
   if(req.header('accept')==='*/*') {
-    res.status(200).json({
-      success: true,
-      msg: `Album with id '${req.params.id}' deleted successfully`,
-    });
+    res
+      .status(200)
+      .json({
+        success: true,
+        msg: `Album with id '${req.params.id}' deleted successfully`,
+      });
   } else {
 
   }
@@ -229,11 +241,13 @@ exports.albumPhotoUpload = asyncHandler(async (req, res, next) => {
     });
 
     if(req.header('accept')==='*/*') {
-      res.status(200).json({
-        success: true,
-        msg: `Cover photo uploaded to album with id '${req.params.id}' successfully`,
-        data: file.name,
-      });
+      res
+        .status(200)
+        .json({
+          success: true,
+          msg: `Cover photo uploaded to album with id '${req.params.id}' successfully`,
+          data: file.name,
+        });
     } else {
       
     }

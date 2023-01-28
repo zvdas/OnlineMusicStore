@@ -22,7 +22,7 @@ const sendTokenResponse = (user, statusCode, res, msg, urlpath) => {
     options.secure = true;
   }
 
-  // if(req.headers['user-agent'].includes('PostmanRuntime')) {
+  if(req.header('accept')==='*/*') {
     res
     .status(statusCode)
     .cookie('token', token, options)
@@ -31,13 +31,13 @@ const sendTokenResponse = (user, statusCode, res, msg, urlpath) => {
       msg,
       token,
     });
-  // }
-  // console.log(path);
-  // res
-    // .status(statusCode)
-    // .cookie('token', token, options)
-    // .redirect(urlpath);
-    // .render(urlpath, { user, msg });
+  } else {
+    res
+      .status(statusCode)
+      .cookie('token', token, options)
+      // .redirect(urlpath);
+      .render(urlpath, { user, msg });
+  }
 };
 
 // @desc    Register a user
@@ -92,12 +92,13 @@ exports.login = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('Invalid credentials', 401));
   }
   
-  if(req.headers['user-agent'].includes('PostmanRuntime')) {
+  if(req.header('accept')==='*/*') {
     sendTokenResponse(user, 200, res, 'User logged in successfully', '/api/v1/albums');
+  } else {
+    res
+      // .render('albums', { user });
+      .redirect('/api/v1/albums');
   }
-  res
-    // .render('albums', { user });
-    .redirect('/api/v1/albums');
 });
 
 // @desc    Get current logged in user
@@ -106,7 +107,7 @@ exports.login = asyncHandler(async (req, res, next) => {
 exports.getMe = asyncHandler(async (req, res, next) => {
   const user = await UserModel.findById(req.user.id);
 
-  if(req.headers['user-agent'].includes('PostmanRuntime')) {
+  if(req.header('accept')==='*/*') {
     res.status(200).json({
       success: true,
       data: user,
@@ -232,15 +233,25 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
 // @route   GET /api/v1/auth/logout
 // @access  Private
 exports.logout = asyncHandler(async (req, res, next) => {
-  // delete cookie
-  res
-    .cookie('token', 'none', {
-      expires: new Date(Date.now() + 10 * 1000),
-      httpOnly: true,
-    })
-    .status(200)
-    .json({
-      success: true,
-      msg: 'User logged out successfully',
-    });
+  if(req.header('accept')==='*/*') {
+    // delete cookie
+    res
+      .cookie('token', 'none', {
+        expires: new Date(Date.now() + 10 * 1000),
+        httpOnly: true,
+      })
+      .status(200)
+      .json({
+        success: true,
+        msg: 'User logged out successfully',
+      });
+  } else {
+    res
+      .cookie('token', 'none', {
+        expires: new Date(Date.now() + 10 * 1000),
+        httpOnly: true,
+      })
+      .status(200)
+      .redirect('/login')
+  }
 });

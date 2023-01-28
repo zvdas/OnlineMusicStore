@@ -29,17 +29,34 @@ router
 
 /**
  * @openapi
- * paths:
- *  '/api/v1/albums':
- *    get:
- *      tags:
- *        - Albums
- *      description: Get all Albums
- *      responses:
- *        '200':
- *          description: OK
+ * tags:
+ *   name: Albums
+ *   description: APIs to perform CRUD operations on albums
+ * /api/v1/albums:
+ *   get:
+ *     tags:
+ *       - Albums
+ *     description: Retrieve a list of all the albums from the database. The list is paginated and one album is displayed per page.
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Resource not found
+ *   post:
+ *     tags:
+ *       - Albums
+ *     description: Add an album to the database.
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Album'
+ *     response:
+ *       200:
+ *         description: Success
+ *       401:
+ *         description: User not authorized to access this route
 */
-
 router
   .route('/')
   .get(
@@ -52,13 +69,109 @@ router
     .post(protect, authorize('publisher', 'admin'), createAlbum);
     
   
-
+/**
+ * @openapi
+ * /api/v1/albums/{id}:
+ *   get:
+ *     tags:
+ *       - Albums
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Numeric ID of the album to retrieve
+ *         schema:
+ *           type: string
+ *           example: 6361ff4314b08a4853714b68
+ *     description: Get Albums By ID
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Resource not found
+ *   put:
+ *     tags:
+ *       - Albums
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Numeric ID of the album to update
+ *         schema:
+ *           type: string
+ *           example: 6361ff4314b08a4853714b68
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Album'
+ *     description: Update Albums By ID. User needs to login (under "Authorization") before executing this endpoint.
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Resource not found
+ *       401:
+ *         description: User not authorized to access this route
+ *   delete:
+ *     tags:
+ *       - Albums
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Numeric ID of the album to delete
+ *         schema:
+ *           type: string
+ *           example: 6361ff4314b08a4853714b68
+ *     description: Delete Albums By ID. User needs to login (under "Authorization") before executing this endpoint.
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Resource not found
+ *       401:
+ *         description: User not authorized to access this route
+*/
 router
   .route('/:id')
   .get(getAlbumById)
   .put(protect, authorize('publisher', 'admin'), updateAlbumById)
   .delete(protect, authorize('publisher', 'admin'), deleteAlbumById);
 
+/**
+ * @openapi
+ * api/v1/albums/{id}/photo:
+ *   put:
+ *     tags:
+ *       - Albums
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Numeric ID of the album to update
+ *         schema:
+ *           type: string
+ *           example: 6361ff4314b08a4853714b68
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             properties:
+ *               cover_photo:
+ *                 type: string
+ *                 description: Cover photo
+ *                 example: 2023
+ *     description: Upload a Cover Photo for the Albums By ID. User needs to login (under "Authorization") before executing this endpoint.
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Resource not found
+ *       401:
+ *         description: User not authorized to access this route
+ */
 router
   .route('/:id/photo')
   .put(protect, authorize('publisher', 'admin'), albumPhotoUpload);
