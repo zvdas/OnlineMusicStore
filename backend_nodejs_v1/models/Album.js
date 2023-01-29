@@ -10,6 +10,21 @@ const slugify = require('slugify');
  *       properties:
  *         album_name: 
  *           type: string
+ *           required: true
+ *         cover_photo:
+ *           type: string
+ *         artist_slug:
+ *           type: string
+ *         genre:
+ *           type: string
+ *         year:
+ *           type: number
+ *         producer:
+ *           type: string
+ *         description:
+ *           type: string
+ *         album_url:
+ *           type: string
  */
 const AlbumSchema = new mongoose.Schema(
   {

@@ -162,7 +162,6 @@ router
  *               cover_photo:
  *                 type: string
  *                 description: Cover photo
- *                 example: 2023
  *     description: Upload a Cover Photo for the Albums By ID. User needs to login (under "Authorization") before executing this endpoint.
  *     responses:
  *       200:
