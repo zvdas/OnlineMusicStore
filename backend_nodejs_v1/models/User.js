@@ -3,6 +3,62 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *           required: true
+ *         email:
+ *           type: string
+ *           required: true
+ *         role:
+ *           type: string
+ *           enum:
+ *             - user
+ *             - publisher
+ *         password:
+ *           type: string
+ *           required: true
+ *       additionalProperties: false
+ *     Login:
+ *       type: object
+ *       properties:
+ *         email:
+ *           type: string
+ *           required: true
+ *         password:
+ *           type: string
+ *           required: true
+ *       additionalProperties: false
+ *     UserDetails:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *           required: true
+ *         email:
+ *           type: string
+ *           required: true
+ *     ForgotPassword:
+ *       type: object
+ *       properties:
+ *         email:
+ *           type: string
+ *           required: true
+ *       additionalProperties: false
+ *     ResetPassword:
+ *       type: object
+ *       properties:
+ *         password:
+ *           type: string
+ *           required: true
+ *       additionalProperties: false
+ */
 const UserSchema = mongoose.Schema({
   name: {
     type: String,
