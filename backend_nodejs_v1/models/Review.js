@@ -1,5 +1,20 @@
 const mongoose = require('mongoose');
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Review:
+ *       type: object
+ *       properties:
+ *         title:
+ *           type: string
+ *         text:
+ *           type: string
+ *         rating:
+ *           type: string
+ *       additionalProperties: false
+ */
 const ReviewSchema = new mongoose.Schema({
   title: {
     type: String,
