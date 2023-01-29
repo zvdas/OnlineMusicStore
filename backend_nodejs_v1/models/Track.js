@@ -1,6 +1,30 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Track:
+ *       type: object
+ *       properties:
+ *         track_name:
+ *           type: string
+ *           required: true
+ *         featuring:
+ *           type: string
+ *         duration:
+ *           type: string
+ *         track_file:
+ *           type: string
+ *         credit:
+ *           type: string
+ *         file_size:
+ *           type: string
+ *         album:
+ *           type: string
+ *       additionalProperties: false 
+ */
 const TrackSchema = new mongoose.Schema({
   track_name: {
     type: String,
