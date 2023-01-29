@@ -51,8 +51,8 @@ router
  *         application/json:
  *           schema:
  *             $ref: '#/components/schemas/Album'
- *     response:
- *       200:
+ *     responses:
+ *       201:
  *         description: Success
  *       401:
  *         description: User not authorized to access this route
@@ -68,22 +68,21 @@ router
     )
     .post(protect, authorize('publisher', 'admin'), createAlbum);
     
-  
 /**
  * @openapi
  * /api/v1/albums/{id}:
  *   get:
  *     tags:
  *       - Albums
+ *     description: Get Albums By ID
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: Numeric ID of the album to retrieve
+ *         description: Numeric id of the album to retrieve
  *         schema:
  *           type: string
  *           example: 6361ff4314b08a4853714b68
- *     description: Get Albums By ID
  *     responses:
  *       200:
  *         description: Success
@@ -92,11 +91,12 @@ router
  *   put:
  *     tags:
  *       - Albums
+ *     description: Update albums by id. User needs to login (under "Authorization") before executing this endpoint.
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: Numeric ID of the album to update
+ *         description: Numeric id of the album to update
  *         schema:
  *           type: string
  *           example: 6361ff4314b08a4853714b68
@@ -105,7 +105,6 @@ router
  *         application/json:
  *           schema:
  *             $ref: '#/components/schemas/Album'
- *     description: Update Albums By ID. User needs to login (under "Authorization") before executing this endpoint.
  *     responses:
  *       200:
  *         description: Success
@@ -120,11 +119,11 @@ router
  *       - in: path
  *         name: id
  *         required: true
- *         description: Numeric ID of the album to delete
+ *         description: Numeric id of the album to delete
  *         schema:
  *           type: string
  *           example: 6361ff4314b08a4853714b68
- *     description: Delete Albums By ID. User needs to login (under "Authorization") before executing this endpoint.
+ *     description: Delete albums by id. User needs to login (under "Authorization") before executing this endpoint.
  *     responses:
  *       200:
  *         description: Success
@@ -145,24 +144,23 @@ router
  *   put:
  *     tags:
  *       - Albums
+ *     description: Upload a Cover Photo for the Albums By ID. User needs to login (under "Authorization") before executing this endpoint.
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: Numeric ID of the album to update
+ *         description: Numeric id of the album to delete
  *         schema:
  *           type: string
  *           example: 6361ff4314b08a4853714b68
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             properties:
- *               cover_photo:
- *                 type: string
- *                 description: Cover photo
- *     description: Upload a Cover Photo for the Albums By ID. User needs to login (under "Authorization") before executing this endpoint.
+ *       - in: formData
+ *         consumes:
+ *           - multipart/form-data
+ *         name: cover_photo
+ *         required: true
+ *         description: The image file to upload
+ *         schema:
+ *           type: file
  *     responses:
  *       200:
  *         description: Success

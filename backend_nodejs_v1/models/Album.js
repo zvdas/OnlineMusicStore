@@ -25,6 +25,7 @@ const slugify = require('slugify');
  *           type: string
  *         album_url:
  *           type: string
+ *       additionalProperties: false
  */
 const AlbumSchema = new mongoose.Schema(
   {
