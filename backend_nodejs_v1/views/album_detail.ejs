@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD' crossorigin='anonymous'>
+        <title>Album Detail</title>
+    </head>
+    <body>
+        <%- include('navbar') %>
+        <div class='container mx-5 gx-5 px-5'>
+            <h1>Album Details</h1>
+            <div class='card'>
+                <!-- <form id='albumForm' name='albumForm' action='/api/v1/albums' method='post'> -->
+                
+                <div class='d-flex'>
+                    <img class='m-3 row' src='/uploads/albums/<%= result.artist_slug %>-<%= result.album_slug %>/<%= result.cover_photo %>' alt='album cover photo'>
+                </div>
+                <!-- <div class='d-flex'> -->
+                <form id='album' name='albumForm' action='albums/<%= result.id %>' method='POST'>
+                    <input type='hidden' name='_method' value='PUT'>
+                    <!-- <input type='hidden' id='id' value='<%# result.id %>'> -->
+                    
+                    <div class='m-3 row'>
+                        <label for='album_name' class='col-sm-2 col-form-label'>
+                            Album Name:
+                        </label> 
+                        <div class='col'>
+                            <input type='text' id='album_name' name='album_name' class='form-control' value='<%= result.album_name %>'/>
+                        </div>
+                    </div>
+
+                    <%- include('form-template', {form_id: 'album_id', form_name: 'album_name', form_label: 'Album Name:', form_type: 'text', form_value: result.album_name}) %>
+
+                    <div class='m-3 row'>
+                        <label for='artist' class='col-sm-2 col-form-label'>
+                            Artist:
+                        </label> 
+                        <div class='col'>
+                            <input type='text' id='artist' name='artist' class='form-control' value='<%= result.artist %>'/>
+                        </div>
+                    </div>
+
+                    <div class='m-3 row'>
+                        <!-- <form id='photoForm' action='api/v1/albums/<%# result.id %>/photo' method='post'> -->
+                            <label for='cover_photo' class='col-sm-2 col-form-label'>Cover Photo:</label>
+                            <div class='col'>
+                                <input class='form-control' type='file' name='cover_photo' id='cover_photo'/>
+                            </div>
+                            <!-- <input class='col-sm-2 col-form-label btn btn-primary photoButton' type='submit' value='Submit'> -->
+                        </form>
+                    </div>
+
+                    <div class='m-3 row'>
+                        <label for='genre' class='col-sm-2 col-form-label'>
+                            Genre:
+                        </label> 
+                        <div class='col'>
+                            <input type='text' name='genre' id='genre' class='form-control' value='<%= result.genre %>'/>
+                        </div>
+                    </div>
+                    
+                    <div class='m-3 row'>
+                        <label for='year' class='col-sm-2 col-form-label'>
+                            Year:
+                        </label> 
+                        <div class='col'>
+                            <input type='text' name='year' id='year' class='form-control' value='<%= result.year %>'/>
+                        </div>
+                    </div>
+
+                    <div class='m-3 row'>
+                        <label for='producer' class='col-sm-2 col-form-label'>
+                            Producer:
+                        </label> 
+                        <div class='col'>
+                            <input type='text' name='producer' id='producer' class='form-control' value='<%= result.producer %>'/>
+                        </div>
+                    </div>
+
+                    <div class='m-3 row'>
+                        <label for='description' class='col-sm-2 col-form-label'>
+                            Description:
+                        </label> 
+                        <div class='col'>
+                            <input type='text' name='description' id='description' class='form-control' value='<%= result.description %>'/>
+                        </div>
+                    </div>
+                    
+                    <div class='m-3 row'>
+                        <label for='album_url' class='col-sm-2 col-form-label'>
+                            Album URL:
+                        </label> 
+                        <div class='col'>
+                            <input type='text' name='album_url' id='album_url' class='form-control' value='<%= result.album_url %>'/>
+                        </div>
+                    </div>
+
+                    <div class='m-3 row'>
+                        <!-- <input type='submit' class='btn btn-primary form-control albumButton' value='Submit'/> -->
+                        <input type='submit' class='btn btn-primary form-control' value='Submit'/>
+                        <!-- <button type='submit' class='btn btn-primary form-control'>Submit</button> -->
+                        <!-- <button type='submit' class='btn btn-primary form-control' name='<%# result.id %>' id='<%# result.id %>'>Submit</button> -->
+                    </div>
+
+                    <div class='m-3 row'>
+                        Created at: <%= result.createdAt %>
+                    </div>
+                    <!-- </div> -->
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

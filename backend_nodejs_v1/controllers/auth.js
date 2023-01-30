@@ -22,7 +22,7 @@ const sendTokenResponse = (user, statusCode, res, msg, urlpath) => {
     options.secure = true;
   }
 
-  if(req.header('accept')==='*/*') {
+  // if(req.header('accept')==='*/*') {
     res
     .status(statusCode)
     .cookie('token', token, options)
@@ -31,6 +31,7 @@ const sendTokenResponse = (user, statusCode, res, msg, urlpath) => {
       msg,
       token,
     });
+  /*
   } else {
     res
       .status(statusCode)
@@ -38,6 +39,7 @@ const sendTokenResponse = (user, statusCode, res, msg, urlpath) => {
       // .redirect(urlpath);
       .render(urlpath, { user, msg });
   }
+  */
 };
 
 // @desc    Register a user

@@ -40,7 +40,9 @@ exports.getAlbumById = asyncHandler(async (req, res, next) => {
         data: album,
       });
   } else {
-    
+    res
+      .status(200)
+      .render('album_detail', {result: album})
   }
 });
 
@@ -83,6 +85,7 @@ exports.createAlbum = asyncHandler(async (req, res, next) => {
 // @route   PUT /api/v1/albums/:id
 // @access  Private
 exports.updateAlbumById = asyncHandler(async (req, res, next) => {
+  console.log("update album hit", req.body);
   let album = await AlbumModel.findById(req.params.id);
 
   // error for correctly formatted id not present in database
@@ -161,6 +164,7 @@ exports.deleteAlbumById = asyncHandler(async (req, res, next) => {
 // @route   PUT /api/v1/albums/:id/photo
 // @access  Private
 exports.albumPhotoUpload = asyncHandler(async (req, res, next) => {
+  console.log("upload cover photo hit", req.files);
   const album = await AlbumModel.findById(req.params.id);
 
   // error for correctly formatted id not present in database
@@ -249,7 +253,9 @@ exports.albumPhotoUpload = asyncHandler(async (req, res, next) => {
           data: file.name,
         });
     } else {
-      
+      res
+        .status(200)
+        .redirect('album_detail/', req.params.id);
     }
   });
 });

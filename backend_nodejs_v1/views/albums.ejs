@@ -11,11 +11,23 @@
     <%- include('navbar') %>
     <h1>Albums</h1>
     <p><%#user %></p>
-    <p>status: <%= results.success %></p>
-    <p><%= results.count %> results | <%= results.pagination.curr.page %> of <%= results.total %> | prev<%# results.pagination.prev.page %>|<%= results.pagination.curr.page %>|<%# results.pagination.next.page %> next</p>
+    <div class="d-flex col-3 justify-content-around">
+        <p>results <%= results.count %> of <%= results.total %></p>
+        <p>|</p>
+        <% if (results.pagination.prev) { %>
+            <p><a href="/api/v1/albums?page=<%= results.pagination.prev.page %>">prev</a></p>
+            <p>|</p>
+        <% } %>
+        <p>page <%= results.pagination.curr.page %> of <%= results.total %></p>
+        <% if (results.pagination.next) { %>
+            <p>|</p>
+            <p><a href="/api/v1/albums?page=<%= results.pagination.next.page %>">next</a></p>
+        <% } %>
+    </div>
+
     <% results.data.map(album => { %>
         <img src="/uploads/albums/<%= album.artist_slug %>-<%= album.album_slug %>/<%= album.cover_photo %>"/>
-        <p><%= album.album_name %></p>
+        <a href="/api/v1/albums/<%= album.id %>"><%= album.album_name %></a>
     <% }) %>
 </body>
 </html>
