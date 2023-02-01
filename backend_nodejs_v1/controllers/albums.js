@@ -15,7 +15,7 @@ exports.getAlbums = asyncHandler(async (req, res, next) => {
   } else {
     res
       .status(200)
-      .render('albums', {results: res.advancedResults});
+      .render('albums', {results: res.advancedResults, user: req.cookie.user});
   }
 });
 
@@ -42,7 +42,7 @@ exports.getAlbumById = asyncHandler(async (req, res, next) => {
   } else {
     res
       .status(200)
-      .render('album_detail', {result: album})
+      .render('album-detail', {result: album, user: req.cookie.user})
   }
 });
 

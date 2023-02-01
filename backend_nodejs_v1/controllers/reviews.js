@@ -28,7 +28,7 @@ exports.getReviews = asyncHandler(async (req, res, next) => {
         .status(200)
         .json(res.advancedResults);
     } else {
-
+      
     }
   }
 });

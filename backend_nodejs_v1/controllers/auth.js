@@ -5,7 +5,7 @@ const sendEmail = require('../utils/sendEmail');
 const crypto = require('crypto');
 
 // get token from model, create cookie & send response
-const sendTokenResponse = (user, statusCode, res, msg, urlpath) => {
+const sendTokenResponse = (req, user, statusCode, res, msg, urlpath) => {
   // create token
   const token = user.getSignedJwtToken();
 
@@ -20,9 +20,9 @@ const sendTokenResponse = (user, statusCode, res, msg, urlpath) => {
   // set secure protocol (https) for cookie in production
   if (process.env.NODE_ENV === 'production') {
     options.secure = true;
-  }
+  };
 
-  // if(req.header('accept')==='*/*') {
+  if(req.header('accept')==='*/*') {
     res
     .status(statusCode)
     .cookie('token', token, options)
@@ -31,15 +31,13 @@ const sendTokenResponse = (user, statusCode, res, msg, urlpath) => {
       msg,
       token,
     });
-  /*
   } else {
     res
-      .status(statusCode)
-      .cookie('token', token, options)
-      // .redirect(urlpath);
-      .render(urlpath, { user, msg });
-  }
-  */
+    .status(statusCode)
+    .cookie('token', token, options)
+    .cookie('user', user)
+    .render(urlpath, { user });
+  };
 };
 
 // @desc    Register a user
@@ -56,14 +54,16 @@ exports.register = asyncHandler(async (req, res, next) => {
     role,
   });
 
-  sendTokenResponse(user, 200, res, 'User registered successfully');
+  sendTokenResponse(user, 200, res, 'User registered successfully', 'register');
 });
 
 // @desc    Get login user
 // @route   GET /api/v1/auth/login
 // @access  Public
 exports.getlogin = asyncHandler(async (req, res, next) => {
-  res.status(200).render('login');
+  res
+    .status(200)
+    .render('login');
 })
 
 // @desc    Login user
@@ -71,7 +71,6 @@ exports.getlogin = asyncHandler(async (req, res, next) => {
 // @access  Public
 exports.login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
-  console.log(req.body);
 
   // validate email & password
   if (!email || !password) {
@@ -93,30 +92,28 @@ exports.login = asyncHandler(async (req, res, next) => {
   if (!isMatch) {
     return next(new ErrorResponse('Invalid credentials', 401));
   }
-  
-  if(req.header('accept')==='*/*') {
-    sendTokenResponse(user, 200, res, 'User logged in successfully', '/api/v1/albums');
-  } else {
-    res
-      // .render('albums', { user });
-      .redirect('/api/v1/albums');
-  }
+
+  sendTokenResponse(req, user, 200, res, 'User logged in successfully', 'home')
 });
 
 // @desc    Get current logged in user
-// @route   POST /api/v1/auth/me
+// @route   GET /api/v1/auth/me
 // @access  Private
 exports.getMe = asyncHandler(async (req, res, next) => {
   const user = await UserModel.findById(req.user.id);
 
   if(req.header('accept')==='*/*') {
-    res.status(200).json({
-      success: true,
-      data: user,
-    });
+    res
+      .status(200)
+      .json({
+        success: true,
+        data: user,
+      });
+  } else {
+    res
+      .status(200)
+      .render('settings', { user });
   }
-  res
-    .render('navbar', { user });
 });
 
 // @desc    Forgot password
@@ -253,7 +250,8 @@ exports.logout = asyncHandler(async (req, res, next) => {
         expires: new Date(Date.now() + 10 * 1000),
         httpOnly: true,
       })
+      .cookie('user', 'none')
       .status(200)
-      .redirect('/login')
+      .redirect('/');
   }
 });

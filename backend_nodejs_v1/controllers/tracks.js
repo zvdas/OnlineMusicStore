@@ -23,7 +23,9 @@ exports.getTracks = asyncHandler(async (req, res, next) => {
           data: tracks,
         });
     } else {
-
+      res
+        .status(200)
+        .render('tracks', {tracks, user: req.cookies.user});
     }
   } else {
     if(req.header('accept')==='*/*') {
@@ -31,7 +33,9 @@ exports.getTracks = asyncHandler(async (req, res, next) => {
         .status(200)
         .json(res.advancedResults);
     } else {
-
+      res
+        .status(200)
+        .render('tracks', {tracks: res.advancedResults, user: req.cookies.user});
     }
   }
 });
@@ -60,7 +64,9 @@ exports.getTrackById = asyncHandler(async (req, res, next) => {
         data: track,
       });
   } else {
-
+    res
+      .status(200)
+      .render('track-detail', {track, user: req.cookies.user});
   }
 });
 
@@ -102,7 +108,7 @@ exports.createTrack = asyncHandler(async (req, res, next) => {
         msg: 'Track created successfully',
       });
   } else {
-
+    
   }
 });
 

@@ -11,7 +11,9 @@ exports.getUsers = asyncHandler(async (req, res, next) => {
       .status(200)
       .json(res.advancedResults);
   } else {
-
+    res
+      .status(200)
+      .render('users', {users: res.advancedResults, user: req.cookie.user});
   }
 });
 

@@ -13,6 +13,7 @@ const hpp = require('hpp');
 const cors = require('cors');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
+// const session = require('express-session');
 
 // load environment variables
 dotenv.config({ path: './config/config.env' });
@@ -42,6 +43,17 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 // cookie-parser
 app.use(cookieParser());
+
+/*
+// store current logged in user details
+app.use(session({ 
+  secret: process.env.JWT_SECRET,
+  // tells the session store that a particular session is still active after idle time
+  resave: true,
+  // session object will be stored in the session store
+  saveUninitialized: true
+}));
+*/
 
 // express-mongo-sanitize prevent noSQL injections
 app.use(mongoSanitize());
@@ -85,13 +97,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs'); 
 app.set('views', path.join(__dirname, 'views')); 
 
+// check if signed in
+app.use((req, res, next) => {
+  if(req.headers.authorization === null) {
+    res
+      .redirect('/api/v1/auth/login');
+  } else {
+    next();
+  }
+});
+
 // get homepage route
-app.get('/', (req, res) => {
+app.get('/', (req, res, next) => {
   res
     .status(200)
+    .cookie('user', 'none')
     // .json({ success: true, msg: 'Welcome to the online music store' });
     // .redirect('https://documenter.getpostman.com/view/19419701/2s8YzTThXz');
-    .redirect('/api/v1/auth/login');
+    .render('home', {user: req.cookies.user});
 });
 
 // mount routers

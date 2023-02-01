@@ -11,6 +11,7 @@ const {
 
 // use other resource routers
 const trackRouter = require('./tracks');
+const userRouter = require('./users');
 const reviewRouter = require('./reviews');
 
 // use advancedResults middleware with album model
@@ -25,6 +26,7 @@ const { protect, authorize } = require('../middleware/auth');
 // re-route to other resource routers
 router
   .use('/:albumId/tracks', trackRouter)
+  .use('/:albumId/users', userRouter)
   .use('/:albumId/reviews', reviewRouter);
 
 /**
