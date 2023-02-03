@@ -28,7 +28,9 @@ exports.getReviews = asyncHandler(async (req, res, next) => {
         .status(200)
         .json(res.advancedResults);
     } else {
-      
+      res
+        .status(200)
+        .render('reviews', { reviews: res.advancedResults, user: req.cookies.user });
     }
   }
 });
@@ -54,7 +56,9 @@ exports.getReviewById = asyncHandler(async (req, res, next) => {
         data: review 
       });
   } else {
-
+    res
+      .status(200)
+      .render('review-detail', { review, user: req.cookies.user });
   }
 });
 

@@ -7,7 +7,7 @@
         "genre": "Instrumental",
         "year": 2022,
         "producer": "CCMixter",
-        "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, http://dig.ccmixter.org",
+        "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, <a>http://dig.ccmixter.org</a>",
         "album_url": "http://dig.ccmixter.org/people/airtone",
         "user": "636deb3fc36c3f9adb0afb9f"
     },
@@ -19,7 +19,7 @@
         "genre": "Instrumental",
         "year": 2020,
         "producer": "CCMixters",
-        "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, http://dig.ccmixter.org",
+        "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, <a>http://dig.ccmixter.org</a>",
         "album_url": "http://dig.ccmixter.org/people/admiralbob77",
         "user": "63823151fc9ebaaba5228152"
     },
@@ -31,7 +31,7 @@
         "genre": "Instrumental",
         "year": 2021,
         "producer": "CCMixter",
-        "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, http://dig.ccmixter.org",
+        "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, <a>http://dig.ccmixter.org</a>",
         "album_url": "http://dig.ccmixter.org/people/mindmapthat",
         "user": "638232bb5115c7c0ae4b102d"
     },
@@ -43,7 +43,7 @@
         "genre": "Instrumental",
         "year": 2007,
         "producer": "CCMixter",
-        "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, http://dig.ccmixter.org",
+        "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, <a>http://dig.ccmixter.org</a>",
         "album_url": "http://dig.ccmixter.org/people/SiobhanD",
         "user": "6382330f8f89608157d4a795"
     },
@@ -55,7 +55,7 @@
         "genre": "Instrumental",
         "year": 2022,
         "producer": "CCMixter",
-        "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, http://dig.ccmixter.org",
+        "description": "Disclaimer: This album is not meant for sales, promotions or any other commercial use. It is simply sample music for this website to demonstrate CRUD functionality sourced from an open licence music website, <a>http://dig.ccmixter.org</a>",
         "album_url": "http://dig.ccmixter.org/people/Radioontheshelf",
         "user": "63823375743b2c4f10cc7d60"
     }

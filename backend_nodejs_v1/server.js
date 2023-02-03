@@ -13,6 +13,7 @@ const hpp = require('hpp');
 const cors = require('cors');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 // const session = require('express-session');
 
 // load environment variables
@@ -43,6 +44,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 // cookie-parser
 app.use(cookieParser());
+
+// override with '_method' header in the request for PUT & DELETE
+app.use(methodOverride('_method'));
 
 /*
 // store current logged in user details

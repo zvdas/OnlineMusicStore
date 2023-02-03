@@ -13,7 +13,7 @@ exports.getUsers = asyncHandler(async (req, res, next) => {
   } else {
     res
       .status(200)
-      .render('users', {users: res.advancedResults, user: req.cookie.user});
+      .render('users', {results: res.advancedResults, user: req.cookies.user});
   }
 });
 
@@ -21,9 +21,9 @@ exports.getUsers = asyncHandler(async (req, res, next) => {
 // @route   GET /api/v1/auth/users/:id
 // @access  Private/Admin
 exports.getUserById = asyncHandler(async (req, res, next) => {
-  const user = await UserModel.findById(req.params.id);
+  const result = await UserModel.findById(req.params.id);
 
-  if (!user) {
+  if (!result) {
     next(new ErrorResponse(`User with  id ${req.params.id} not found`, 404));
   }
 
@@ -32,10 +32,12 @@ exports.getUserById = asyncHandler(async (req, res, next) => {
       .status(200)
       .json({ 
         success: true, 
-        data: user 
+        data: result 
       });
   } else {
-
+    res
+      .status(200)
+      .render('user-detail', { result, user: req.cookies.user })
   }
 });
 

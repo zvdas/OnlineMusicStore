@@ -64,7 +64,7 @@ router
   .get(
     advancedResults(AlbumModel, {
       path: 'tracks',
-      select: 'track_name featuring duration file_size',
+      select: 'track_name featuring duration file_size track_file',
     }),
     getAlbums
     )
