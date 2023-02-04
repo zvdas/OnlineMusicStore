@@ -42,7 +42,7 @@ const AlbumSchema = new mongoose.Schema(
       type: String,
       default: 'no-photo.jpg',
     },
-    cover_photo_data: String,
+    // cover_photo_data: String,
     artist: {
       type: String,
       required: [true, "Please add an artist's name"],

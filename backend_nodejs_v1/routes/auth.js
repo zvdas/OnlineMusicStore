@@ -9,7 +9,8 @@ const {
   updateDetails,
   updatePassword,
   logout,
-  getlogin,
+  getLogin,
+  getRegister,
 } = require('../controllers/auth');
 
 const router = express.Router();
@@ -38,7 +39,10 @@ const { protect } = require('../middleware/auth');
  *       401: 
  *         description: User not authorized to access this route
  */
-router.route('/register').post(register);
+router
+  .route('/register')
+  .get(getRegister)
+  .post(register);
 
 /**
  * @openapi
@@ -56,7 +60,10 @@ router.route('/register').post(register);
  *       200:
  *         description: Success
  */
-router.route('/login').get(getlogin).post(login);
+router
+  .route('/login')
+  .get(getLogin)
+  .post(login);
 
 /**
  * @openapi
@@ -69,7 +76,9 @@ router.route('/login').get(getlogin).post(login);
  *       200:
  *         description: Success
  */
-router.route('/logout').get(logout);
+router
+  .route('/logout')
+  .get(logout);
 
 /**
  * @openapi
@@ -84,7 +93,9 @@ router.route('/logout').get(logout);
  *       401:
  *         User not authorized to access this route
  */
-router.route('/me').get(protect, getMe);
+router
+  .route('/me')
+  .get(protect, getMe);
 
 /**
  * @openapi
@@ -102,7 +113,9 @@ router.route('/me').get(protect, getMe);
  *       201:
  *         description: Success
  */
-router.route('/forgotpassword').post(forgotPassword);
+router
+  .route('/forgotpassword')
+  .post(forgotPassword);
 
 /**
  * @openapi
@@ -126,7 +139,9 @@ router.route('/forgotpassword').post(forgotPassword);
  *       200:
  *         description: Success
  */
-router.route('/resetpassword/:resettoken').put(resetPassword);
+router
+  .route('/resetpassword/:resettoken')
+  .put(resetPassword);
 
 /**
  * @openapi
@@ -147,7 +162,9 @@ router.route('/resetpassword/:resettoken').put(resetPassword);
  *       401: 
  *         description: User not authorized to access this route
  */
-router.route('/updatedetails').put(protect, updateDetails);
+router
+  .route('/updatedetails')
+  .put(protect, updateDetails);
 
 /**
  * @openapi
@@ -167,6 +184,8 @@ router.route('/updatedetails').put(protect, updateDetails);
  *       401: 
  *         description: User not authorized to access this route
  */
-router.route('/updatepassword').put(protect, updatePassword);
+router
+  .route('/updatepassword')
+  .put(protect, updatePassword);
 
 module.exports = router;

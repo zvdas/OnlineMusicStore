@@ -40,6 +40,15 @@ const sendTokenResponse = (req, user, statusCode, res, msg, urlpath) => {
   };
 };
 
+// @desc    Get register page
+// @route   GET /api/v1/auth/register
+// @access  Public
+exports.getRegister = asyncHandler(async (req, res, next) => {
+  res
+    .status(200)
+    .render('register');
+});
+
 // @desc    Register a user
 // @route   POST /api/v1/auth/register
 // @access  Public
@@ -54,17 +63,23 @@ exports.register = asyncHandler(async (req, res, next) => {
     role,
   });
 
-  sendTokenResponse(user, 200, res, 'User registered successfully', 'register');
+  if(req.header('accept')==='*/*') {
+    sendTokenResponse(user, 200, res, 'User registered successfully', '');
+  } else {
+    res
+      .status(200)
+      .redirect('login');
+  }
 });
 
-// @desc    Get login user
+// @desc    Get login page
 // @route   GET /api/v1/auth/login
 // @access  Public
-exports.getlogin = asyncHandler(async (req, res, next) => {
+exports.getLogin = asyncHandler(async (req, res, next) => {
   res
     .status(200)
     .render('login');
-})
+});
 
 // @desc    Login user
 // @route   POST /api/v1/auth/login

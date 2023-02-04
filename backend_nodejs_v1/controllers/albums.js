@@ -15,7 +15,7 @@ exports.getAlbums = asyncHandler(async (req, res, next) => {
   } else {
     res
       .status(200)
-      .render('albums', {results: res.advancedResults, user: req.cookies.user});
+      .render('albums', {msg: '', results: res.advancedResults, user: req.cookies.user});
   }
 });
 
@@ -42,7 +42,7 @@ exports.getAlbumById = asyncHandler(async (req, res, next) => {
   } else {
     res
       .status(200)
-      .render('album-detail', {result: album, user: req.cookies.user})
+      .render('album-detail', {msg: '', result: album, user: req.cookies.user})
   }
 });
 
@@ -73,7 +73,7 @@ exports.createAlbum = asyncHandler(async (req, res, next) => {
       .status(201)
       .json({
         success: true,
-        // data: albums,
+        data: albums,
         msg: 'Album created successfully',
       });
   } else {
@@ -85,7 +85,6 @@ exports.createAlbum = asyncHandler(async (req, res, next) => {
 // @route   PUT /api/v1/albums/:id
 // @access  Private
 exports.updateAlbumById = asyncHandler(async (req, res, next) => {
-  console.log("update album hit", req.body);
   let album = await AlbumModel.findById(req.params.id);
 
   // error for correctly formatted id not present in database
@@ -119,7 +118,13 @@ exports.updateAlbumById = asyncHandler(async (req, res, next) => {
         data: album,
       });
   } else {
-
+    res
+      .status(200)
+      .render('album-detail', {
+        msg: `Album with id '${req.params.id}' updated successfully`, 
+        result: album,
+        user: req.cookies.user
+      });
   }
 });
 
@@ -127,6 +132,7 @@ exports.updateAlbumById = asyncHandler(async (req, res, next) => {
 // @route   DELETE /api/v1/albums/:id
 // @access  Private
 exports.deleteAlbumById = asyncHandler(async (req, res, next) => {
+  console.log("delete request hit: ", req.params.id);
   const album = await AlbumModel.findById(req.params.id);
 
   // error for correctly formatted id not present in database
@@ -156,7 +162,13 @@ exports.deleteAlbumById = asyncHandler(async (req, res, next) => {
         msg: `Album with id '${req.params.id}' deleted successfully`,
       });
   } else {
-
+    res
+      .status(200)
+      .render('album', {
+        msg: `Album with id '${req.params.id}' deleted successfully`, 
+        result: res.advancedResults,
+        user: req.cookies.user
+      });
   }
 });
 
@@ -164,7 +176,6 @@ exports.deleteAlbumById = asyncHandler(async (req, res, next) => {
 // @route   PUT /api/v1/albums/:id/photo
 // @access  Private
 exports.albumPhotoUpload = asyncHandler(async (req, res, next) => {
-  console.log("upload cover photo hit", req.files);
   const album = await AlbumModel.findById(req.params.id);
 
   // error for correctly formatted id not present in database
@@ -191,7 +202,8 @@ exports.albumPhotoUpload = asyncHandler(async (req, res, next) => {
   const file = req.files.photo;
 
   // ensure the image is a photo
-  if (!file.mimetype.startsWith('image')) {
+  // if (!file.mimetype.startsWith('image')) {
+  if (!file.mimetype.includes('image')) {
     return next(new ErrorResponse(`Kindly upload an image file`, 400));
   }
 
@@ -255,7 +267,11 @@ exports.albumPhotoUpload = asyncHandler(async (req, res, next) => {
     } else {
       res
         .status(200)
-        .redirect('album_detail/', req.params.id);
+        .render('album-detail', {
+          msg: `Cover photo uploaded to album with id '${req.params.id}' successfully`, 
+          result: album,
+          user: req.cookies.user
+        });
     }
   });
 });

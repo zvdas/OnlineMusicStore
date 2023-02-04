@@ -1,51 +1,51 @@
-<nav class='navbar navbar-expand-lg bg-dark'>
-    <div class='container-fluid'>
-        <a class='navbar-brand text-primary' href='/'>Online Music Store</a>
-        <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
-            <span class='navbar-toggler-icon'></span>
+<nav class="navbar navbar-expand-lg bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand text-primary" href="/">Online Music Store</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
-        <div class='collapse navbar-collapse' id='navbarSupportedContent'>
-            <ul class='navbar-nav me-auto mb-2 mb-lg-0'>
-                <li class='nav-item active'>
-                    <a class='nav-link text-primary' aria-current='page' href='/'>Home</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link text-primary" aria-current="page" href="/">Home</a>
                 </li>
-                <li class='nav-item'>
-                    <a class='nav-link text-primary' href='/api/v1/albums'>Albums</a>
+                <li class="nav-item">
+                    <a class="nav-link text-primary" href="/api/v1/albums">Albums</a>
                 </li>
-                <li class='nav-item'>
-                    <a class='nav-link text-primary' href='/api/v1/tracks'>Tracks</a>
+                <li class="nav-item">
+                    <a class="nav-link text-primary" href="/api/v1/tracks">Tracks</a>
                 </li>
-                <li class='nav-item'>
-                    <a class='nav-link text-primary' href='/api/v1/reviews'>Reviews</a>
+                <li class="nav-item">
+                    <a class="nav-link text-primary" href="/api/v1/reviews">Reviews</a>
                 </li>
-                <li class='nav-item'>
-                    <a class='nav-link text-primary' href='/api/v1/auth/users'>Users</a>
+                <li class="nav-item">
+                    <a class="nav-link text-primary" href="/api/v1/auth/users">Users</a>
                 </li>
-                <li class='nav-item'>
-                    <a class='nav-link text-primary' href='/docs'>API Docs</a>
+                <li class="nav-item">
+                    <a class="nav-link text-primary" href="/docs">API Docs</a>
                 </li>
             </ul>
-            <ul class='navbar-nav ms-auto mb-2 mb-lg-0'>
-                <li class='nav-item'>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
                     <% if (!user.email) { %>
-                        <li class='nav-item'>
-                            <a class='nav-link text-primary' href='/api/v1/auth/login'>Login</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-primary" href="/api/v1/auth/login">Login</a>
                         </li>
-                        <li class='nav-item'>
-                            <a class='nav-link text-primary' href='/api/v1/auth/register'>Register</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-primary" href="/api/v1/auth/register">Register</a>
                         </li>
                     <% } else { %>
-                        <a class='nav-link text-primary' href='#'><%= user.email %>(<%= user.role %>)</a>
-                        <li class='nav-item'>
-                            <a class='nav-link text-primary' href='/api/v1/auth/me'>Settings</a>
+                        <a class="nav-link text-primary" href="#"><%= user.email %>(<%= user.role %>)</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-primary" href="/api/v1/auth/me">Settings</a>
                         </li>
                     <% } %>
                 </li>
-                <li class='nav-item'>
-                    <a class='nav-link text-primary' href='/api/v1/auth/logout'>Logout</a>
+                <li class="nav-item">
+                    <a class="nav-link text-primary" href="/api/v1/auth/logout">Logout</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-<p class='text-center text-white bg-secondary mt-2'>Click <a class='text-dark' href='https://zvdas.github.io'>here</a> to go to portfolio website.</p>
+<p class="text-center text-white bg-secondary mt-2">Click <a class="text-dark" href="https://zvdas.github.io">here</a> to go to portfolio website.</p>
