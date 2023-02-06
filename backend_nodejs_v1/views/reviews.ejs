@@ -19,7 +19,7 @@
         <title>Reviews</title>
     </head>
     <body>
-        <%- include("navbar", { user }); %>
+        <%- include("navbar", { user }) %>
         <div class="container p-2">
             <h1 class="text-center">Reviews</h1>
             <div class="card m-2 p-2">
@@ -65,6 +65,7 @@
                     </div>
 
                     <div class="row p-2 my-2 mx-2">
+                        <a class="btn btn-primary col mx-2" href="/api/v1/reviews/newreview">Add</a>
                         <a class="btn btn-primary col mx-2" href="/api/v1/reviews/<%= review.id %>">Edit</a>
                         <form class="col mx-2" action="/api/v1/reviews/<%= review.id %>?_method=DELETE" method="post">
                             <input type="hidden" name="_method" value="DELETE"/>

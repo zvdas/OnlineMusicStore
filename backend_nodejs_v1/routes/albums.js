@@ -3,6 +3,7 @@ const express = require('express');
 const {
   getAlbums,
   getAlbumById,
+  getCreateAlbum,
   createAlbum,
   updateAlbumById,
   deleteAlbumById,
@@ -66,10 +67,13 @@ router
       path: 'tracks',
       select: 'track_name featuring duration file_size track_file',
     }),
-    getAlbums
-    )
+    getAlbums)
     .post(protect, authorize('publisher', 'admin'), createAlbum);
-    
+
+router
+  .route('/newalbum')
+  .get(protect, authorize('publisher', 'admin'), getCreateAlbum);
+
 /**
  * @openapi
  * /api/v1/albums/{id}:

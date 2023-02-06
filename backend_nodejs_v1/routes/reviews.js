@@ -3,6 +3,7 @@ const express = require('express');
 const {
   getReviews,
   getReviewById,
+  getCreateReview,
   createReview,
   updateReviewById,
   deleteReviewById,
@@ -66,6 +67,10 @@ router
     getReviews
   )
   .post(protect, authorize('user', 'admin'), createReview);
+
+router
+  .route('/newreview')
+  .get(protect, authorize('user', 'admin'), getCreateReview);
 
 /**
  * @openapi

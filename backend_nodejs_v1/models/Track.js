@@ -38,7 +38,7 @@ const TrackSchema = new mongoose.Schema({
     type: String,
     default: 'no-track',
   },
-  track_data: String,
+  // track_data: String,
   credit: String,
   file_size: String,
   createdAt: {

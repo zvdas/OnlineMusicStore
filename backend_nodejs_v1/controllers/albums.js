@@ -8,6 +8,8 @@ const ErrorResponse = require('../utils/errorResponse');
 // @route   GET /api/v1/albums
 // @access  Public
 exports.getAlbums = asyncHandler(async (req, res, next) => {
+  const albums = await (await AlbumModel.find()).map(x=>{const {id, album_name} = x; return {id, album_name}})
+  
   if(req.header('accept')==='*/*') {
     res
       .status(200)
@@ -15,6 +17,7 @@ exports.getAlbums = asyncHandler(async (req, res, next) => {
   } else {
     res
       .status(200)
+      .cookie('albums', albums)
       .render('albums', {msg: '', results: res.advancedResults, user: req.cookies.user});
   }
 });
@@ -42,8 +45,21 @@ exports.getAlbumById = asyncHandler(async (req, res, next) => {
   } else {
     res
       .status(200)
-      .render('album-detail', {msg: '', result: album, user: req.cookies.user})
+      .render('album-detail', {msg: '', result: album, user: req.cookies.user});
   }
+});
+
+// @desc    Get create new album page
+// @route   GET /api/v1/albums/newalbum
+// @access  Private
+exports.getCreateAlbum = asyncHandler(async (req, res, next) => {
+  res
+    .status(200)
+    .render('album-detail', {
+      msg: '', 
+      result: {},
+      user: req.cookies.user
+    });
 });
 
 // @desc    Create new album
@@ -66,18 +82,24 @@ exports.createAlbum = asyncHandler(async (req, res, next) => {
     );
   }
 
-  const albums = await AlbumModel.create(req.body);
+  const album = await AlbumModel.create(req.body);
 
   if(req.header('accept')==='*/*') {
     res
       .status(201)
       .json({
         success: true,
-        data: albums,
+        data: album,
         msg: 'Album created successfully',
       });
   } else {
-
+    res
+      .status(201)
+      .render('album-detail', { 
+        msg: 'Album created successfully',
+        result: album, 
+        user: req.cookies.user 
+      });
   }
 });
 
@@ -164,11 +186,7 @@ exports.deleteAlbumById = asyncHandler(async (req, res, next) => {
   } else {
     res
       .status(200)
-      .render('album', {
-        msg: `Album with id '${req.params.id}' deleted successfully`, 
-        result: res.advancedResults,
-        user: req.cookies.user
-      });
+      .redirect('/api/v1/albums');
   }
 });
 
@@ -243,7 +261,7 @@ exports.albumPhotoUpload = asyncHandler(async (req, res, next) => {
   }
 
   // convert the file to buffer string and send to database
-  const image_base64 = file.data.toString('base64');
+  // const image_base64 = file.data.toString('base64');
 
   // upload the file
   file.mv(`${folder_path}/${file.name}`, async (err) => {
@@ -253,7 +271,7 @@ exports.albumPhotoUpload = asyncHandler(async (req, res, next) => {
 
     await AlbumModel.findByIdAndUpdate(req.params.id, {
       cover_photo: file.name,
-      cover_photo_data: image_base64,
+      // cover_photo_data: image_base64,
     });
 
     if(req.header('accept')==='*/*') {

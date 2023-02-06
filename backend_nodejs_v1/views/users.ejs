@@ -61,6 +61,7 @@
                     </div>
 
                     <div class="row p-2 my-2 mx-2">
+                        <a class="btn btn-primary col mx-2" href="/api/v1/auth/users/newuser">Add</a>
                         <a class="btn btn-primary col mx-2" href="/api/v1/auth/users/<%= result.id %>">Edit</a>
                         <form class="col mx-2" action="/api/v1/auth/users/<%= result.id %>?_method=DELETE" method="post">
                             <input type="hidden" name="_method" value="DELETE"/>

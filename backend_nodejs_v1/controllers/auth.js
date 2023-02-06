@@ -221,7 +221,7 @@ exports.updateDetails = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    message: `Name ${req.body.name} & email ${req.body.email} of user with id ${req.user.id} updated successfullly`,
+    message: `Name ${req.body.name} & email ${req.body.email} of user with id ${req.user.id} updated successfully`,
   });
 });
 

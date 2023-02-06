@@ -17,30 +17,42 @@
     </head>
     <body>
         <%- include("navbar", { user }) %>
-        <div class="container mx-5 gx-5 px-5">
+        <div class="container m-5 g-5 p-5">
             <h1 class="text-center">Album Details</h1>
             <div class="card">
-                <img class="m-3 z-3 w-25 align-self-center" src="/uploads/albums/<%= result.artist_slug %>-<%= result.album_slug %>/<%= result.cover_photo %>" alt="album cover photo">
+                <% if (result.cover_photo) { %>
+                    <img class="m-3 z-3 w-25 align-self-center" src="/uploads/albums/<%= result.artist_slug %>-<%= result.album_slug %>/<%= result.cover_photo %>" alt="album cover photo">
+                <% } %>
+
+                <% if (result.id) { %>
+                    <!-- put -->
+                    <form action="/api/v1/albums/<%= result.id %>?_method=PUT" method="POST">
+                        <input type="hidden" name="_method" value="PUT">
+                <% } else { %>
+                    <!-- post -->
+                    <form action="/api/v1/albums" method="POST">
+                <% } %>
                 
-                <form action="/api/v1/albums/<%= result.id %>?_method=PUT" method="POST">
-                    <input type="hidden" name="_method" value="PUT">
                     <%- include("form-template", {form_id: "album_id", form_name: "album_name", form_label: "Album Name:", form_type: "text", form_value: result.album_name, form_placeholder: ""}) %>
                     <%- include("form-template", {form_id: "artist", form_name: "artist", form_label: "Artist:", form_type: "text", form_value: result.artist, form_placeholder: ""}) %>
                     
-                    <form action="/api/v1/albums/<%= result.id %>/photo?_method=PUT" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="_method" value="PUT">
-                        <div class="m-2 row">
-                            <label for="cover_photo" class="col-4 col-form-label">
-                                Cover Photo:
-                            </label> 
-                            <div class="col">
-                                <input type="file" id="photo" name="photo" class="form-control" value="<%= result.cover_photo %>"/>
+                    <% if (result.id) { %>
+                        <form action="/api/v1/albums/<%= result.id %>/photo?_method=PUT" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="_method" value="PUT">
+                            <div class="m-2 row">
+                                <label for="cover_photo" class="col-4 col-form-label">
+                                    Cover Photo:
+                                </label> 
+                                <div class="col input-group">
+                                    <input type="file" id="photo" name="photo" class="form-control" value="<%= result.cover_photo %>"/>
+                                    <span class="input-group-text"><%= result.cover_photo %></span>
+                                </div>
+                                <div class="col-2">
+                                    <input type="submit" class="btn btn-primary input-group" value="Submit" formaction="/api/v1/albums/<%= result.id %>/photo?_method=PUT" formenctype="multipart/form-data" formmethod="POST"/>
+                                </div>
                             </div>
-                            <div class="col-2">
-                                <input type="submit" class="btn btn-primary input-group" value="Submit" formaction="/api/v1/albums/<%= result.id %>/photo?_method=PUT" formenctype="multipart/form-data" formmethod="POST"/>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    <% } %>
 
                     <%- include("form-template", {form_id: "genre", form_name: "genre", form_label: "Genre:", form_type: "text", form_value: result.genre, form_placeholder: ""}) %>
                     <%- include("form-template", {form_id: "year", form_name: "year", form_label: "Year:", form_type: "text", form_value: result.year, form_placeholder: ""}) %>
@@ -50,13 +62,19 @@
 
                     <div class="m-3 row">
                         <a type="button" class="btn btn-secondary form-control col mx-1" href="/api/v1/albums">Return to Albums</a>
-                        <input type="submit" class="btn btn-primary form-control col mx-1" value="Submit" formaction="/api/v1/albums/<%= result.id %>?_method=PUT" formmethod="POST"/>
-                        <a type="button" class="btn btn-secondary form-control col mx-1" href="/api/v1/albums/<%= result.id %>">Cancel</a>
+                        <% if (result.id) { %>
+                            <input type="submit" class="btn btn-primary form-control col mx-1" value="Submit" formaction="/api/v1/albums/<%= result.id %>?_method=PUT" formmethod="POST"/>
+                            <a type="button" class="btn btn-secondary form-control col mx-1" href="/api/v1/albums/<%= result.id %>">Cancel</a>
+                        <% } else { %>
+                            <input type="submit" class="btn btn-primary form-control col mx-1" value="Submit" formaction="/api/v1/albums" formmethod="POST"/>
+                        <% } %> 
                     </div>
 
                     <div class="m-3 row">
                         <p><%= msg %></p>
-                        <p>Created at: <%= result.createdAt %></p>
+                        <% if (result.createdAt) { %>
+                            <p>Created at: <%= result.createdAt %></p>
+                        <% } %>
                     </div>
                 </form>
             </div>

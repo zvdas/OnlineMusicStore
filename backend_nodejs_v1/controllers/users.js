@@ -37,7 +37,7 @@ exports.getUserById = asyncHandler(async (req, res, next) => {
   } else {
     res
       .status(200)
-      .render('user-detail', { result, user: req.cookies.user })
+      .render('user-detail', { result, user: req.cookies.user });
   }
 });
 
@@ -56,7 +56,13 @@ exports.createUser = asyncHandler(async (req, res, next) => {
         data: user 
       });
   } else {
-
+    res
+      .status(201)
+      .render('user-detail', { 
+        msg: 'User created successfully', 
+        result, 
+        user: req.cookies.user 
+      });
   }
 });
 
@@ -81,8 +87,14 @@ exports.updateUserById = asyncHandler(async (req, res, next) => {
         msg: `User with id ${req.params.id} updated successfully`,
         data: user,
       });
-  } else {
-
+    } else {
+      res
+      .status(200)
+      .render('user-detail', {
+        msg: `User with id ${req.params.id} updated successfully`,
+        result, 
+        user: req.cookies.user 
+      });
   }
 });
 
@@ -104,6 +116,8 @@ exports.deleteUserById = asyncHandler(async (req, res, next) => {
         msg: `User with id ${req.params.id} deleted successfully`,
       });
   } else {
-    
+    res
+      .status(200)
+      .redirect('/api/v1/users');
   }
 });

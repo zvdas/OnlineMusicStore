@@ -25,7 +25,7 @@ exports.getTracks = asyncHandler(async (req, res, next) => {
     } else {
       res
         .status(200)
-        .render('tracks', {tracks, user: req.cookies.user});
+        .render('tracks', { album_id: req.params.albumId, tracks, user: req.cookies.user });
     }
   } else {
     if(req.header('accept')==='*/*') {
@@ -35,7 +35,7 @@ exports.getTracks = asyncHandler(async (req, res, next) => {
     } else {
       res
         .status(200)
-        .render('tracks', {tracks: res.advancedResults, user: req.cookies.user});
+        .render('tracks', { tracks: res.advancedResults, user: req.cookies.user });
     }
   }
 });
@@ -46,7 +46,7 @@ exports.getTracks = asyncHandler(async (req, res, next) => {
 exports.getTrackById = asyncHandler(async (req, res, next) => {
   const track = await TrackModel.findById(req.params.id).populate({
     path: 'album',
-    select: 'album_name album_url createdAt',
+    select: 'album_name album_url createdAt album_slug artist_slug',
   });
 
   // error for correctly formatted id not present in database
@@ -66,8 +66,25 @@ exports.getTrackById = asyncHandler(async (req, res, next) => {
   } else {
     res
       .status(200)
-      .render('track-detail', {track, user: req.cookies.user});
+      .render('track-detail', { msg: '', track, user: req.cookies.user });
   }
+});
+
+// @desc    Get create new track page
+// @route   GET /api/v1/albums/:albumId/tracks/newtrack
+// @access  Private
+exports.getCreateTrack = asyncHandler(async (req, res, next) => {
+  const album_id = req.params.albumId;
+
+  res
+    .status(200)
+    .render('track-detail', {
+      msg: '',
+      track: {},
+      album_id,
+      albums: req.cookies.albums,
+      user: req.cookies.user
+    });
 });
 
 // @desc    Create new track
@@ -108,7 +125,13 @@ exports.createTrack = asyncHandler(async (req, res, next) => {
         msg: 'Track created successfully',
       });
   } else {
-    
+    res
+      .status(201)
+      .render('track-detail', { 
+        msg: 'Track created successfully',
+        track, 
+        user: req.cookies.user 
+      });
   }
 });
 
@@ -149,7 +172,13 @@ exports.updateTrackById = asyncHandler(async (req, res, next) => {
         data: track,
       });
   } else {
-
+    res
+      .status(200)
+      .render('track-detail', {
+        msg: `Track with id ${req.params.id} updated successfully`,
+        track, 
+        user: req.cookies.user
+      });
   }
 });
 
@@ -176,7 +205,7 @@ exports.deleteTrackById = asyncHandler(async (req, res, next) => {
     );
   }
 
-  await TrackModel.remove();
+  await track.remove();
 
   if(req.header('accept')==='*/*') {
     res
@@ -186,7 +215,9 @@ exports.deleteTrackById = asyncHandler(async (req, res, next) => {
         msg: `Track with id ${req.params.id} deleted successfully`,
       });
   } else {
-
+    res
+      .status(200)
+      .redirect('/api/v1/tracks');
   }
 });
 
@@ -219,8 +250,8 @@ exports.trackAudioUpload = asyncHandler(async (req, res, next) => {
 
   const file = req.files.audio;
 
-  // ensure the image is a photo
-  if (!file.mimetype.startsWith('audio')) {
+  // ensure the file is audio type
+  if (!file.mimetype.includes('audio')) {
     return next(new ErrorResponse(`Kindly upload an audio file`, 400));
   }
 
@@ -263,7 +294,7 @@ exports.trackAudioUpload = asyncHandler(async (req, res, next) => {
   }
 
   // convert the file to buffer string and send to database
-  const audio_base64 = req.files.audio.data.toString('base64');
+  // const audio_base64 = req.files.audio.data.toString('base64');
 
   // upload the file
   file.mv(`${folder_path}/${file.name}`, async (err) => {
@@ -273,7 +304,7 @@ exports.trackAudioUpload = asyncHandler(async (req, res, next) => {
 
     await TrackModel.findByIdAndUpdate(req.params.id, {
       track_file: file.name,
-      track_data: audio_base64,
+      // track_data: audio_base64,
     });
 
     if(req.header('accept')==='*/*') {
@@ -285,7 +316,13 @@ exports.trackAudioUpload = asyncHandler(async (req, res, next) => {
           data: file.name,
         });
     } else {
-      
+      res
+        .status(200)
+        .render('track-detail', {
+          msg: `Track uploaded to track with id '${req.params.id}' successfully`,
+          track, 
+          user: req.cookies.user
+        });      
     }
   });
 });

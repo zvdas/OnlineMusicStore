@@ -20,7 +20,9 @@ exports.getReviews = asyncHandler(async (req, res, next) => {
           data: reviews,
         });
     } else {
-
+      res 
+        .status(200)
+        .render('reviews', { reviews, user: req.cookies.user });
     }
   } else {
     if(req.header('accept')==='*/*') {
@@ -58,8 +60,25 @@ exports.getReviewById = asyncHandler(async (req, res, next) => {
   } else {
     res
       .status(200)
-      .render('review-detail', { review, user: req.cookies.user });
+      .render('review-detail', { msg: '', review, user: req.cookies.user });
   }
+});
+
+// @desc    Get create new review page
+// @route   GET /api/v1/albums/:albumId/reviews/newreview
+// @access  Private/User
+exports.getCreateReview = asyncHandler(async (req, res, next) => {
+  const album_id = req.params.albumId;
+
+  res
+    .status(200)
+    .render('review-detail', {
+      msg: '',
+      review: {},
+      album_id,
+      albums: req.cookies.albums,
+      user: req.cookies.user
+    });
 });
 
 // @desc    Create a review
@@ -88,11 +107,18 @@ exports.createReview = asyncHandler(async (req, res, next) => {
         data: review 
       });
   } else {
-
+    res
+      .status(201)
+      .render('review-detail', { 
+        msg: 'Review created successfully', 
+        review, 
+        album_id: req.params.albumId,
+        user: req.cookies.user 
+      });
   }
 });
 
-// @desc    Update a review
+// @desc    Update review by ID
 // @route   PUT /api/v1/reviews/:id
 // @access  Private/User
 exports.updateReviewById = asyncHandler(async (req, res, next) => {
@@ -124,7 +150,13 @@ exports.updateReviewById = asyncHandler(async (req, res, next) => {
         data: review,
       });
   } else {
-
+    res
+      .status(200)
+      .render('review-detail', { 
+        msg: `Review with id ${req.params.id} updated successfully`,
+        review, 
+        user: req.cookies.user 
+      });
   }
 });
 
@@ -156,6 +188,8 @@ exports.deleteReviewById = asyncHandler(async (req, res, next) => {
         msg: `Review with id ${req.params.id} deleted successfully`,
       });
   } else {
-
+    res
+      .status(200)
+      .redirect('/api/v1/reviews');
   }
 });

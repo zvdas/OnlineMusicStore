@@ -92,9 +92,17 @@ AlbumSchema.virtual('tracks', {
   justOne: false,
 });
 
+AlbumSchema.virtual('reviews', {
+  ref: 'Review',
+  localField: '_id',
+  foreignField: 'album',
+  justOne: false,
+});
+
 // cascade delete tracks when an album is deleted
 AlbumSchema.pre('remove', async function (next) {
   await this.model('Track').deleteMany({ album: this._id });
+  // await this.model('Review').deleteMany({ album: this._id });
   next();
 });
 

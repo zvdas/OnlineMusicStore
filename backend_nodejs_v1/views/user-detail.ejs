@@ -20,7 +20,7 @@
         <div class="container mx-5 gx-5 p-5">
             <h1 class="text-center">User Details</h1>
             <div class="card">
-                <form id="album" name="albumForm" action="auth/users/<%= result.id %>?_method=PUT" method="POST">
+                <form action="/api/v1/auth/users/<%= result.id %>?_method=PUT" method="POST">
                     <input type="hidden" name="_method" value="PUT">
                     <%- include("form-template", {form_id: "name", form_name: "name", form_label: "Name:", form_type: "text", form_value: result.name, form_placeholder: ""}) %>
                     <%- include("form-template", {form_id: "email", form_name: "email", form_label: "Email:", form_type: "text", form_value: result.email, form_placeholder: ""}) %>
@@ -28,12 +28,13 @@
                 
                     <div class="m-3 row">
                         <a type="button" class="btn btn-secondary form-control col mx-1" href="/api/v1/auth/users">Return to Users</a>
-                        <input type="submit" class="btn btn-primary form-control col mx-1" value="Submit"/>
-                        <a type="button" class="btn btn-secondary form-control col mx-1" href="#">Cancel</a>
+                        <input type="submit" class="btn btn-primary form-control col mx-1" value="Submit" formaction="/api/v1/auth/users/<%= result.id %>?_method=PUT" formmethod="POST"/>
+                        <a type="button" class="btn btn-secondary form-control col mx-1" href="/api/v1/auth/users/<%= result.id %>">Cancel</a>
                     </div>
 
                     <div class="m-3 row">
-                        Created at: <%= result.createdAt %>
+                        <p><%= msg %></p>
+                        <p>Created at: <%= result.createdAt %></p>
                     </div>
                 </form>
             </div>

@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { getTracks, createTrack, getTrackById, updateTrackById, deleteTrackById, trackAudioUpload } = require('../controllers/tracks');
+const { getTracks, createTrack, getTrackById, updateTrackById, deleteTrackById, trackAudioUpload, getCreateTrack } = require('../controllers/tracks');
 
 // use advancedResults middleware with track model
 const TrackModel = require('../models/Track');
@@ -52,8 +52,12 @@ const { protect, authorize } = require('../middleware/auth');
  */
 router
     .route('/')
-    .get(advancedResults(TrackModel, { path: 'album', select: 'album_name album_url createdAt' }), getTracks)
+    .get(advancedResults(TrackModel, { path: 'album', select: 'album_name album_url createdAt album_slug artist_slug' }), getTracks)
     .post(protect, authorize('publisher', 'admin'), createTrack);
+
+router
+    .route('/newtrack')
+    .get(protect, authorize('publisher', 'admin'), getCreateTrack);
 
 /**
  * @openapi
