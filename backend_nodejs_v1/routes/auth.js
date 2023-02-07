@@ -11,6 +11,8 @@ const {
   logout,
   getLogin,
   getRegister,
+  getForgotPassword,
+  getResetPassword,
 } = require('../controllers/auth');
 
 const router = express.Router();
@@ -115,7 +117,12 @@ router
  */
 router
   .route('/forgotpassword')
+  .get(getForgotPassword)
   .post(forgotPassword);
+
+router
+  .route('/resetpassword')
+  .get(getResetPassword);
 
 /**
  * @openapi

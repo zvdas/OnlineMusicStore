@@ -24,9 +24,10 @@
       <div class="card-body">
         <form class="row g-2 m-2 p-2" name="loginForm" action="login" method="POST">
           <%- include("form-template", {form_id: "inputEmail", form_name: "email", form_label: "Email", form_type: "email", form_value: "",form_placeholder: "example@email.com"}) %>
-          
           <%- include("form-template", {form_id: "inputPassword", form_name: "password", form_label: "Password", form_type: "password", form_value: "", form_placeholder: ""}) %>
-          
+          <div class="row m-2">
+            <a class="d-flex justify-content-end" href="/api/v1/auth/forgotpassword">forgot password?</a>          
+          </div>
           <div class="m-2 row">
             <input type="submit" class="btn btn-primary mx-2 col" value="Submit"/>
             <a class="btn btn-primary mx-2 col" href="/api/v1/auth/register">Register</a>

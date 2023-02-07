@@ -131,6 +131,15 @@ exports.getMe = asyncHandler(async (req, res, next) => {
   }
 });
 
+// @desc    Get forgot password page
+// @route   GET /api/v1/auth/forgotpassword
+// @access  Public
+exports.getForgotPassword = asyncHandler(async (req, res, next) => {
+  res
+    .status(200)
+    .render('password-forgot');
+});
+
 // @desc    Forgot password
 // @route   POST /api/v1/auth/forgotpassword
 // @access  Public
@@ -175,6 +184,15 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
 
     return next(new ErrorResponse('Email could not be sent', 500));
   }
+});
+
+// @desc    Get reset password
+// @route   GET /api/v1/auth/resetpassword
+// @access  Public
+exports.getResetPassword = asyncHandler(async (req, res, next) => {
+  res
+    .status(200)
+    .render('password-reset');
 });
 
 // @desc    Reset Password
