@@ -16,11 +16,20 @@
         <title>Error</title>
     </head>
     <body>
-        <div class="container p-2 g-2 m-2">
-            <h1 class="text-center">Error</h1>
-            <div class="card p-2 m-2">
-                <p>Error Code</p>
-                <p>Message</p>
+        <p class="text-center text-white bg-secondary mt-2">Click <a class="text-dark" href="https://zvdas.github.io">here</a> to go to portfolio website.</p>
+        <div class="card m-5 col-6" style="margin-left: 20% !important;margin-top: 10% !important;">
+            <div class="card-header">
+                Error
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-center mx-2">
+                    <div class="col">
+                        <p>Error Message</p>
+                    </div>
+                    <div class="col">
+                        <p><%= error %></p>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
