@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const TrackModel = require('../models/Track');
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');
+const TrackModel = require('../models/Track');
 const AlbumModel = require('../models/Album');
 
 // @desc    Get all tracks

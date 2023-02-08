@@ -24,55 +24,64 @@
             <h1 class="text-center">Reviews</h1>
             <div class="card m-2 p-2">
                 <div class="d-flex justify-content-around">
-                    <p>display <%= reviews.limit %> results per page</p>
-                    <p>|</p>
-                    <p>results <%= reviews.pagination.curr.page %> of <%= reviews.total %></p>
-                    <p>|</p>
-                    <% if (reviews.pagination.prev) { %>
-                        <p><a href="/api/v1/reviews?page=<%= reviews.pagination.prev.page %>">prev</a></p>
+                    <% if (reviews.limit) { %>
+                        <p>display <%= reviews.limit %> results per page</p>
                         <p>|</p>
                     <% } %>
-                    <p>page <%= reviews.pagination.curr.page %> of <%= reviews.total %></p>
-                    <% if (reviews.pagination.next) { %>
+                    <% if (reviews.pagination) { %>
+                        <p>results <%= reviews.pagination.curr.page %> of <%= reviews.total %></p>
                         <p>|</p>
-                        <p><a href="/api/v1/reviews?page=<%= reviews.pagination.next.page %>">next</a></p>
+                        <% if (reviews.pagination.prev) { %>
+                            <p><a href="/api/v1/reviews?page=<%= reviews.pagination.prev.page %>">prev</a></p>
+                            <p>|</p>
+                        <% } %>
+                        <p>page <%= reviews.pagination.curr.page %> of <%= reviews.total %></p>
+                        <% if (reviews.pagination.next) { %>
+                            <p>|</p>
+                            <p><a href="/api/v1/reviews?page=<%= reviews.pagination.next.page %>">next</a></p>
+                        <% } %>
                     <% } %>
                 </div>
                 
-                <% reviews.data.map(review => { %>
-                    <div class="card p-2 my-2 mx-2">
-                        <div class="card-title text-center"><strong>Review Information</strong></div>
-                        <div class="row mx-5">
-                            <p class="col">Review Title</p>
-                            <p class="col"><%= review.title %></p>
+                <% if (!reviews.data) { %>
+                    <p class="text-center">No reviews added</p>
+                    <p class="text-center"><a href="/api/v1/albums/<%= album_id %>/reviews/newreview" class="btn btn-primary w-75">Add</a></p>
+                <% } else { %>
+                    <% reviews.data.map(review => { %>
+                        <div class="card p-2 my-2 mx-2">
+                            <div class="card-title text-center"><strong>Review Information</strong></div>
+                            <div class="row mx-5">
+                                <p class="col">Review Title</p>
+                                <p class="col"><%= review.title %></p>
+                            </div>
+                            <div class="row mx-5">
+                                <p class="col">Review text</p>
+                                <p class="col"><%= review.text %></p>
+                            </div>
+                            <div class="row mx-5">
+                                <p class="col">Rating</p>
+                                <p class="col"><%= review.rating %></p>
+                            </div>
+                            <div class="row mx-5">
+                                <p class="col">created At</p>
+                                <p class="col"><%= review.createdAt %></p>
+                            </div>
+                            <div class="row mx-5">
+                                <p class="col">Album Name</p>
+                                <p class="col"><%= review.album.album_name %></p>
+                            </div>
                         </div>
-                        <div class="row mx-5">
-                            <p class="col">Review text</p>
-                            <p class="col"><%= review.text %></p>
+    
+                        <div class="row p-2 my-2 mx-2">
+                            <a class="btn btn-primary col mx-2" href="/api/v1/reviews/newreview">Add</a>
+                            <a class="btn btn-primary col mx-2" href="/api/v1/reviews/<%= review.id %>">Edit</a>
+                            <form class="col mx-2" action="/api/v1/reviews/<%= review.id %>?_method=DELETE" method="post">
+                                <input type="hidden" name="_method" value="DELETE"/>
+                                <input class="btn btn-primary w-100" type="submit" value="Delete"/>
+                            </form>
                         </div>
-                        <div class="row mx-5">
-                            <p class="col">Rating</p>
-                            <p class="col"><%= review.rating %></p>
-                        </div>
-                        <div class="row mx-5">
-                            <p class="col">created At</p>
-                            <p class="col"><%= review.createdAt %></p>
-                        </div>
-                        <div class="row mx-5">
-                            <p class="col">Album Name</p>
-                            <p class="col"><%= review.album.album_name %></p>
-                        </div>
-                    </div>
-
-                    <div class="row p-2 my-2 mx-2">
-                        <a class="btn btn-primary col mx-2" href="/api/v1/reviews/newreview">Add</a>
-                        <a class="btn btn-primary col mx-2" href="/api/v1/reviews/<%= review.id %>">Edit</a>
-                        <form class="col mx-2" action="/api/v1/reviews/<%= review.id %>?_method=DELETE" method="post">
-                            <input type="hidden" name="_method" value="DELETE"/>
-                            <input class="btn btn-primary w-100" type="submit" value="Delete"/>
-                        </form>
-                    </div>
-                <% }) %>
+                    <% }) %>
+                <% } %>
             </div>
         </div>
     </body>

@@ -28,11 +28,9 @@
                     <!-- post -->
                     <form action="/api/v1/albums/<%= album_id %>/reviews/newreview" method="POST">
                 <% } %>
-
                     <%- include("form-template", {form_id: "title", form_name: "title", form_label: "Review Title:", form_type: "text", form_value: review.title, form_placeholder: ""}) %>
                     <%- include("form-template", {form_id: "text", form_name: "text", form_label: "Review Text:", form_type: "text", form_value: review.text, form_placeholder: ""}) %>
                     <%- include("form-template", {form_id: "rating", form_name: "rating", form_label: "Rating:", form_type: "number", form_value: review.rating, form_placeholder: ""}) %>
-                    
                     <% if (review.id) { %>
                         <%- include("form-template", {form_id: "album", form_name: "album", form_label: "Album:", form_type: "text", form_value: review.album.id, form_placeholder: ""}) %>
                     <% } else { %>
@@ -49,6 +47,8 @@
                                         </select>
                                     </div>
                                 </div>
+                            <% } else { %>
+                                <%- include("form-template", {form_id: "album", form_name: "album", form_label: "Album ID:", form_type: "text", form_value: album_id, form_placeholder: ""}) %> 
                             <% } %>
                         <% } %>
                     <% } %>
@@ -59,7 +59,7 @@
                             <input type="submit" class="btn btn-primary form-control col mx-1" value="Submit" formaction="/api/v1/reviews/<%= review.id %>?_method=PUT" formmethod="POST"/>
                             <a type="button" class="btn btn-secondary form-control col mx-1" href="/api/v1/reviews/<%= review.id %>">Cancel</a>
                         <% } else { %>
-                            <input type="submit" class="btn btn-primary form-control col mx-1" value="Submit" formaction="/api/v1/albums/<%= album_id %>/reviews/newreview" formmethod="POST"/>
+                            <input type="submit" class="btn btn-primary form-control col mx-1" value="Submit" formaction="/api/v1/albums/<%= album_id %>/reviews" formmethod="POST"/>
                         <% } %>
                     </div>
 

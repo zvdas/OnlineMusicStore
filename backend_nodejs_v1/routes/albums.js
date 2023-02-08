@@ -23,6 +23,7 @@ const router = express.Router();
 
 // use protect & authorize middleware
 const { protect, authorize } = require('../middleware/auth');
+const fileUpload = require('express-fileupload');
 
 // re-route to other resource routers
 router
@@ -63,10 +64,14 @@ router
 router
   .route('/')
   .get(
-    advancedResults(AlbumModel, {
-      path: 'tracks',
-      select: 'track_name featuring duration file_size track_file',
-    }),
+    advancedResults(AlbumModel, [
+      {
+        path: 'tracks',
+        select: 'track_name featuring duration file_size track_file',
+      },
+      'reviews',
+      'user'
+    ]),
     getAlbums)
     .post(protect, authorize('publisher', 'admin'), createAlbum);
 
@@ -146,7 +151,7 @@ router
 
 /**
  * @openapi
- * api/v1/albums/{id}/photo:
+ * /api/v1/albums/{id}/photo:
  *   put:
  *     tags:
  *       - Albums
@@ -155,18 +160,20 @@ router
  *       - in: path
  *         name: id
  *         required: true
- *         description: Numeric id of the album to delete
+ *         description: Numeric id of the album for which cover photo is to be uploaded
  *         schema:
  *           type: string
  *           example: 6361ff4314b08a4853714b68
- *       - in: formData
- *         consumes:
- *           - multipart/form-data
- *         name: cover_photo
- *         required: true
- *         description: The image file to upload
- *         schema:
- *           type: file
+ *     requestBody:
+ *       required: true     
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               photo:
+ *                 type: string
+ *                 format: binary
  *     responses:
  *       200:
  *         description: Success

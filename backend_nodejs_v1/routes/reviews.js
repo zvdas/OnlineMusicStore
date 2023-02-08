@@ -9,7 +9,8 @@ const {
   deleteReviewById,
 } = require('../controllers/reviews');
 
-const Review = require('../models/Review');
+// use advancedResults middleware with review model
+const ReviewModel = require('../models/Review');
 
 const advancedResults = require('../middleware/advancedResults');
 
@@ -60,7 +61,7 @@ const { protect, authorize } = require('../middleware/auth');
 router
   .route('/')
   .get(
-    advancedResults(Review, {
+    advancedResults(ReviewModel, {
       path: 'album',
       select: 'album_name description',
     }),

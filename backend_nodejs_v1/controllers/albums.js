@@ -194,6 +194,7 @@ exports.deleteAlbumById = asyncHandler(async (req, res, next) => {
 // @route   PUT /api/v1/albums/:id/photo
 // @access  Private
 exports.albumPhotoUpload = asyncHandler(async (req, res, next) => {
+  console.log("files: ", req.files);
   const album = await AlbumModel.findById(req.params.id);
 
   // error for correctly formatted id not present in database
@@ -216,7 +217,7 @@ exports.albumPhotoUpload = asyncHandler(async (req, res, next) => {
   if (!req.files) {
     return next(new ErrorResponse(`Kindly upload a file`, 400));
   }
-
+  
   const file = req.files.photo;
 
   // ensure the image is a photo

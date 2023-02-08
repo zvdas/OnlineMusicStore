@@ -14,7 +14,6 @@ const cors = require('cors');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
-// const session = require('express-session');
 
 // load environment variables
 dotenv.config({ path: './config/config.env' });
@@ -47,17 +46,6 @@ app.use(cookieParser());
 
 // override with '_method' header in the request for PUT & DELETE
 app.use(methodOverride('_method'));
-
-/*
-// store current logged in user details
-app.use(session({ 
-  secret: process.env.JWT_SECRET,
-  // tells the session store that a particular session is still active after idle time
-  resave: true,
-  // session object will be stored in the session store
-  saveUninitialized: true
-}));
-*/
 
 // express-mongo-sanitize prevent noSQL injections
 app.use(mongoSanitize());

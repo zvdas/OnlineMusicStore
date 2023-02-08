@@ -66,6 +66,10 @@
                             <p class="col"><%- album.description %></p>
                         </div>
                         <div class="row mx-5">
+                            <p class="col">Created By</p>
+                            <p class="col"><%= album.user.name %> (role: <%= album.user.name %>)</p>
+                        </div>
+                        <div class="row mx-5">
                             <p class="col">Created At</p>
                             <p class="col"><%= album.createdAt %></p>
                         </div>
@@ -135,6 +139,60 @@
                                             </div>
                                         <% }) %>
                                         <p class="text-center"><a href="/api/v1/albums/<%= album.id %>/tracks" class="btn btn-primary w-75">Add Tracks</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <div class="card p-2 my-2 mx-2">
+                        <div class="card-title text-center"><strong>Review Information</strong></div>
+                        <% if (album.reviews.length === 0) { %>
+                            <p class="text-center">No reviews added</p>
+                            <p class="text-center"><a href="/api/v1/albums/<%= album.id %>/reviews" class="btn btn-primary w-75">Add Reviews</a></p>
+                        <% } else { %>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div id="list-example" class="list-group">
+                                        <% album.reviews.map((track, index) => { %>
+                                            <a class="list-group-item list-group-item-action text-primary bg-body-secondary" href="#list-item-<%= index + 1 %>"><%= index + 1 %>. <%= track.title %></a>
+                                        <% }) %>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-8">
+                                    <div style="overflow-y: scroll; height: 250px;" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" data-bs-offset="50" class="scrollspy-example" tabindex="0">
+                                        <% album.reviews.map((review, index) => { %>
+                                            <div id="list-item-<%= index + 1 %>">
+                                                <div class="row mx-5">
+                                                    <p class="col">Review Title</p>
+                                                    <p class="col"><%= review.track_name %></p>
+                                                </div>
+                                                <div class="row mx-5">
+                                                    <p class="col">Review Text</p>
+                                                    <p class="col"><%= review.text %></p>
+                                                </div>
+                                                <div class="row mx-5">
+                                                    <p class="col">Rating</p>
+                                                    <p class="col"><%= review.rating %></p>
+                                                </div>
+                                                <div class="row mx-5">
+                                                    <p class="col">
+                                                        <a class="btn btn-primary w-100" href="/api/v1/reviews/<%= review._id %>">
+                                                            Edit
+                                                        </a>
+                                                    </p>
+                                                    <p class="col">
+                                                        <a class="btn btn-primary w-100" href="/api/v1/reviews/<%= review._id %>?_method=DELETE">
+                                                            <input type="hidden" name="_method" value="DELETE">
+                                                            Delete
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                                <hr/>
+                                            </div>
+                                        <% }) %>
+                                        <p class="text-center"><a href="/api/v1/albums/<%= album.id %>/reviews" class="btn btn-primary w-75">Add Reviews</a></p>
                                     </div>
                                 </div>
                             </div>

@@ -1,9 +1,18 @@
 const express = require('express');
 
-const { getTracks, createTrack, getTrackById, updateTrackById, deleteTrackById, trackAudioUpload, getCreateTrack } = require('../controllers/tracks');
+const {
+  getTracks,
+  getTrackById,
+  getCreateTrack,
+  createTrack,
+  updateTrackById,
+  deleteTrackById,
+  trackAudioUpload,
+} = require('../controllers/tracks');
 
 // use advancedResults middleware with track model
 const TrackModel = require('../models/Track');
+
 const advancedResults = require('../middleware/advancedResults');
 
 const router = express.Router({ mergeParams: true });
@@ -51,13 +60,19 @@ const { protect, authorize } = require('../middleware/auth');
  *         description: User not authorized to access this route
  */
 router
-    .route('/')
-    .get(advancedResults(TrackModel, { path: 'album', select: 'album_name album_url createdAt album_slug artist_slug' }), getTracks)
-    .post(protect, authorize('publisher', 'admin'), createTrack);
+  .route('/')
+  .get(
+    advancedResults(TrackModel, {
+      path: 'album',
+      select: 'album_name album_url createdAt album_slug artist_slug',
+    }),
+    getTracks
+  )
+  .post(protect, authorize('publisher', 'admin'), createTrack);
 
 router
-    .route('/newtrack')
-    .get(protect, authorize('publisher', 'admin'), getCreateTrack);
+  .route('/newtrack')
+  .get(protect, authorize('publisher', 'admin'), getCreateTrack);
 
 /**
  * @openapi
@@ -122,16 +137,16 @@ router
  *         description: Resource not found
  *       401:
  *         description: User not authorized to access this route
-*/
+ */
 router
-    .route('/:id')
-    .get(getTrackById)
-    .put(protect, authorize('publisher', 'admin'), updateTrackById)
-    .delete(protect, authorize('publisher', 'admin'), deleteTrackById);
+  .route('/:id')
+  .get(getTrackById)
+  .put(protect, authorize('publisher', 'admin'), updateTrackById)
+  .delete(protect, authorize('publisher', 'admin'), deleteTrackById);
 
 /**
  * @openapi
- * api/v1/albums/{id}/audio:
+ * /api/v1/tracks/{id}/audio:
  *   put:
  *     tags:
  *       - Tracks
@@ -144,14 +159,24 @@ router
  *         schema:
  *           type: string
  *           example: 63674371637b3b4560a9cb77
- *       - in: formData
- *         consumes:
- *           - multipart/form-data
- *         name: track_name
- *         required: true
- *         description: The track file to upload
- *         schema:
- *           type: file
+ #*       - in: formData
+ #*         consumes:
+ #*           - multipart/form-data
+ #*         name: track_name
+ #*         required: true
+ #*         description: The track file to upload
+ #*         schema:
+ #*           type: file
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               audio:
+ *                 type: string
+ *                 format: binary
  *     responses:
  *       200:
  *         description: Success
@@ -161,7 +186,7 @@ router
  *         description: User not authorized to access this route
  */
 router
-    .route('/:id/audio')
-    .put(protect, authorize('publisher', 'admin'), trackAudioUpload);
+  .route('/:id/audio')
+  .put(protect, authorize('publisher', 'admin'), trackAudioUpload);
 
 module.exports = router;

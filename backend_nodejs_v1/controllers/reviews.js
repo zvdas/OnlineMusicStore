@@ -22,7 +22,7 @@ exports.getReviews = asyncHandler(async (req, res, next) => {
     } else {
       res 
         .status(200)
-        .render('reviews', { reviews, user: req.cookies.user });
+        .render('reviews', { album_id: req.params.albumId, reviews, user: req.cookies.user });
     }
   } else {
     if(req.header('accept')==='*/*') {
@@ -112,7 +112,6 @@ exports.createReview = asyncHandler(async (req, res, next) => {
       .render('review-detail', { 
         msg: 'Review created successfully', 
         review, 
-        album_id: req.params.albumId,
         user: req.cookies.user 
       });
   }
