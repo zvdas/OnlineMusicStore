@@ -16,18 +16,19 @@ const options = swaggerJSDoc.Options = {
             },
             contact: {
                 name: 'Return to Online Music Store',
-                url: 'http://localhost:5000',
+                // url: 'http://localhost:5000',
+                url: 'https://oms-n7hw.onrender.com',
             },
         },
         servers: [
             {
+                url: 'https://oms-n7hw.onrender.com',
+                description: 'Production server'
+            },
+            {
                 url: 'http://localhost:5000',
                 description: 'Development server',
             },
-            {
-                url: 'https://oms-n7hw.onrender.com',
-                description: 'Production server'
-            }
         ],
         components: {
             securitySchemas: {
