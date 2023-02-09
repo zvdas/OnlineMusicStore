@@ -34,16 +34,16 @@
                                 <!-- post -->
                                 <form action="/api/v1/albums/<%= album_id %>/reviews/newreview" method="POST">
                             <% } %>
-                                <%- include("form-template", {form_id: "title", form_name: "title", form_label: "Review Title:", form_type: "text", form_value: review.title, form_placeholder: ""}) %>
-                                <%- include("form-template", {form_id: "text", form_name: "text", form_label: "Review Text:", form_type: "text", form_value: review.text, form_placeholder: ""}) %>
-                                <%- include("form-template", {form_id: "rating", form_name: "rating", form_label: "Rating:", form_type: "number", form_value: review.rating, form_placeholder: ""}) %>
+                                <%- include("form-template", {form_id: "title", form_name: "title", form_label: "Review Title", form_type: "text", form_value: review.title, form_placeholder: ""}) %>
+                                <%- include("form-template", {form_id: "text", form_name: "text", form_label: "Review Text", form_type: "text", form_value: review.text, form_placeholder: ""}) %>
+                                <%- include("form-template", {form_id: "rating", form_name: "rating", form_label: "Rating", form_type: "number", form_value: review.rating, form_placeholder: ""}) %>
                                 <% if (review.id) { %>
-                                    <%- include("form-template", {form_id: "album", form_name: "album", form_label: "Album:", form_type: "text", form_value: review.album.id, form_placeholder: ""}) %>
+                                    <%- include("form-template", {form_id: "album", form_name: "album", form_label: "Album", form_type: "text", form_value: review.album.id, form_placeholder: ""}) %>
                                 <% } else { %>
                                     <% if (!review.album) { %>
                                         <% if (!album_id) { %>
                                             <div class="m-2 row">
-                                                <label for="album" class="col-4 col-form-label">Album:</label>
+                                                <label for="album" class="col-4 col-form-label">Album</label>
                                                 <div class="col">
                                                     <select class="form-select" id="album" name="album" aria-label="select">
                                                         <option selected>Select Album</option>
@@ -54,7 +54,7 @@
                                                 </div>
                                             </div>
                                         <% } else { %>
-                                            <%- include("form-template", {form_id: "album", form_name: "album", form_label: "Album ID:", form_type: "text", form_value: album_id, form_placeholder: ""}) %> 
+                                            <%- include("form-template", {form_id: "album", form_name: "album", form_label: "Album ID", form_type: "text", form_value: album_id, form_placeholder: ""}) %> 
                                         <% } %>
                                     <% } %>
                                 <% } %>

@@ -40,15 +40,15 @@
                             <!-- post -->
                             <form action="/api/v1/albums/<%= album_id %>/tracks" method="POST">
                         <% } %>
-                            <%- include("form-template", {form_id: "track_name", form_name: "track_name", form_label: "Track Name:", form_type: "text", form_value: track.track_name, form_placeholder: ""}) %>
-                            <%- include("form-template", {form_id: "featuring", form_name: "featuring", form_label: "Featuring:", form_type: "text", form_value: track.featuring, form_placeholder: ""}) %>
-                            <%- include("form-template", {form_id: "duration", form_name: "duration", form_label: "Duration:", form_type: "text", form_value: track.duration, form_placeholder: ""}) %>
+                            <%- include("form-template", {form_id: "track_name", form_name: "track_name", form_label: "Track Name", form_type: "text", form_value: track.track_name, form_placeholder: ""}) %>
+                            <%- include("form-template", {form_id: "featuring", form_name: "featuring", form_label: "Featuring", form_type: "text", form_value: track.featuring, form_placeholder: ""}) %>
+                            <%- include("form-template", {form_id: "duration", form_name: "duration", form_label: "Duration", form_type: "text", form_value: track.duration, form_placeholder: ""}) %>
                             <% if (track.id) { %>
                                 <form action="/api/v1/tracks/<%= track.id %>/audio?_method=PUT" method="POST" enctype="multipart/form-data">
                                     <input type="hidden" name="_method" value="PUT">
                                     <div class="m-2 row">
                                         <label for="audio" class="col-4 col-form-label">
-                                            Track File:
+                                            Track File
                                         </label> 
                                         <div class="col input-group">
                                             <input type="file" id="audio" name="audio" class="form-control" value="<%= track.track_file %>"/>
@@ -60,12 +60,12 @@
                                     </div>
                                 </form>
                             <% } %>
-                            <%- include("form-template", {form_id: "credit", form_name: "credit", form_label: "Credit:", form_type: "text", form_value: track.credit, form_placeholder: ""}) %>
-                            <%- include("form-template", {form_id: "file_size", form_name: "file_size", form_label: "File Size:", form_type: "text", form_value: track.file_size, form_placeholder: ""}) %>
+                            <%- include("form-template", {form_id: "credit", form_name: "credit", form_label: "Credit", form_type: "text", form_value: track.credit, form_placeholder: ""}) %>
+                            <%- include("form-template", {form_id: "file_size", form_name: "file_size", form_label: "File Size", form_type: "text", form_value: track.file_size, form_placeholder: ""}) %>
                             <% if (!track.album) { %>
                                 <% if (!album_id) { %>
                                     <div class="m-2 row">
-                                        <label for="album" class="col-4 col-form-label">Album:</label>
+                                        <label for="album" class="col-4 col-form-label">Album</label>
                                         <div class="col">
                                             <select class="form-select" id="album" name="album" aria-label="select">
                                                 <option selected>Select Album</option>
@@ -76,11 +76,11 @@
                                         </div>
                                     </div>
                                 <% } else { %>
-                                    <%- include("form-template", {form_id: "album", form_name: "album", form_label: "Album ID:", form_type: "text", form_value: album_id, form_placeholder: ""}) %>
+                                    <%- include("form-template", {form_id: "album", form_name: "album", form_label: "Album ID", form_type: "text", form_value: album_id, form_placeholder: ""}) %>
                                 <% } %>
                             <% } else { %>
-                                <%- include("form-template", {form_id: "album_name", form_name: "album_name", form_label: "Album Name:", form_type: "text", form_value: track.album.album_name, form_placeholder: ""}) %>
-                                <%- include("form-template", {form_id: "album_url", form_name: "album_url", form_label: "Album URL:", form_type: "text", form_value: track.album.album_url, form_placeholder: ""}) %>
+                                <%- include("form-template", {form_id: "album_name", form_name: "album_name", form_label: "Album Name", form_type: "text", form_value: track.album.album_name, form_placeholder: ""}) %>
+                                <%- include("form-template", {form_id: "album_url", form_name: "album_url", form_label: "Album URL", form_type: "text", form_value: track.album.album_url, form_placeholder: ""}) %>
                             <% } %>
                 
                             <div class="m-3 row">

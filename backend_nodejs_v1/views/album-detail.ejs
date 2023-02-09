@@ -38,15 +38,15 @@
                                 <form action="/api/v1/albums" method="POST">
                             <% } %>
                 
-                                <%- include("form-template", {form_id: "album_id", form_name: "album_name", form_label: "Album Name:", form_type: "text", form_value: result.album_name, form_placeholder: ""}) %>
-                                <%- include("form-template", {form_id: "artist", form_name: "artist", form_label: "Artist:", form_type: "text", form_value: result.artist, form_placeholder: ""}) %>
+                                <%- include("form-template", {form_id: "album_id", form_name: "album_name", form_label: "Album Name", form_type: "text", form_value: result.album_name, form_placeholder: ""}) %>
+                                <%- include("form-template", {form_id: "artist", form_name: "artist", form_label: "Artist", form_type: "text", form_value: result.artist, form_placeholder: ""}) %>
                                 
                                 <% if (result.id) { %>
                                     <form action="/api/v1/albums/<%= result.id %>/photo?_method=PUT" method="POST" enctype="multipart/form-data">
                                         <input type="hidden" name="_method" value="PUT">
                                         <div class="m-2 row">
                                             <label for="cover_photo" class="col-4 col-form-label">
-                                                Cover Photo:
+                                                Cover Photo
                                             </label> 
                                             <div class="col input-group">
                                                 <input type="file" id="photo" name="photo" class="form-control" value="<%= result.cover_photo %>"/>
@@ -59,11 +59,11 @@
                                     </form>
                                 <% } %>
 
-                                <%- include("form-template", {form_id: "genre", form_name: "genre", form_label: "Genre:", form_type: "text", form_value: result.genre, form_placeholder: ""}) %>
-                                <%- include("form-template", {form_id: "year", form_name: "year", form_label: "Year:", form_type: "text", form_value: result.year, form_placeholder: ""}) %>
-                                <%- include("form-template", {form_id: "producer", form_name: "producer", form_label: "Producer:", form_type: "text", form_value: result.producer, form_placeholder: ""}) %>
-                                <%- include("form-template", {form_id: "description", form_name: "description", form_label: "Description:", form_type: "text", form_value: result.description, form_placeholder: ""}) %>
-                                <%- include("form-template", {form_id: "album_url", form_name: "album_url", form_label: "Album URL:", form_type: "text", form_value: result.album_url, form_placeholder: ""}) %>
+                                <%- include("form-template", {form_id: "genre", form_name: "genre", form_label: "Genre", form_type: "text", form_value: result.genre, form_placeholder: ""}) %>
+                                <%- include("form-template", {form_id: "year", form_name: "year", form_label: "Year", form_type: "text", form_value: result.year, form_placeholder: ""}) %>
+                                <%- include("form-template", {form_id: "producer", form_name: "producer", form_label: "Producer", form_type: "text", form_value: result.producer, form_placeholder: ""}) %>
+                                <%- include("form-template", {form_id: "description", form_name: "description", form_label: "Description", form_type: "text", form_value: result.description, form_placeholder: ""}) %>
+                                <%- include("form-template", {form_id: "album_url", form_name: "album_url", form_label: "Album URL", form_type: "text", form_value: result.album_url, form_placeholder: ""}) %>
 
                                 <div class="m-3 row">
                                     <a type="button" class="btn btn-secondary form-control col mx-1" href="/api/v1/albums">Return to Albums</a>
