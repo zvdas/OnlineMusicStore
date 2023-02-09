@@ -37,7 +37,7 @@ exports.getUserById = asyncHandler(async (req, res, next) => {
   } else {
     res
       .status(200)
-      .render('user-detail', { result, user: req.cookies.user });
+      .render('user-detail', { msg: '', result, user: req.cookies.user });
   }
 });
 

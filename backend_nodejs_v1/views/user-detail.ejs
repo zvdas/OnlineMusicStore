@@ -71,7 +71,9 @@
 
           <div class="m-3 row">
             <p><%= msg %></p>
-            <p>Created at: <%= result.createdAt %></p>
+            <% if(result.createdAt) { %>
+              <p>Created at: <%= result.createdAt %></p>
+            <% } %>
           </div>
         </form>
       </div>

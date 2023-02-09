@@ -10,24 +10,46 @@
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
       crossorigin="anonymous"
     />
+    <style>
+      body {
+        background-image: linear-gradient(
+          to right,
+          #ff8177 0%,
+          #ff867a 0%,
+          #ff8c7f 21%,
+          #f99185 52%,
+          #cf556c 78%,
+          #b12a5b 100%
+        );
+      }
+      .container {
+        background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+      }
+    </style>
     <title>Settings</title>
   </head>
   <body>
     <%- include("navbar", { user }) %>
-    <h1>User Details</h1>
-    <div class="d-flex">
-      <div class="">
-        <p>Name</p>
-        <p>Email</p>
-        <p>Role</p>
-        <p>Created At</p>
+    <div
+      class="card m-5 col-6"
+      style="margin-left: 20% !important; margin-top: 10% !important"
+    >
+      <div class="card-header">User Details</div>
+      <div class="card-body">
+        <div class="d-flex justify-content-center mx-2">
+          <div class="col-3">
+            <p>Name</p>
+            <p>Email</p>
+            <p>Role</p>
+            <p>Created At</p>
+          </div>
+          <div class="col">
+            <p><%= user.name %></p>
+            <p><%= user.email %></p>
+            <p><%= user.role %></p>
+            <p><%= user.createdAt %></p>
+          </div>
+        </div>
       </div>
-      <div class="">
-        <p><%= user.name %></p>
-        <p><%= user.email %></p>
-        <p><%= user.role %></p>
-        <p><%= user.createdAt %></p>
-      </div>
-    </div>
   </body>
 </html>

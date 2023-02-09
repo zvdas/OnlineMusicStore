@@ -81,7 +81,7 @@ if (process.env.NODE_ENV === 'development') {
 // file upload
 app.use(fileUpload());
 
-// set public folder static folder
+// set public folder as static folder
 // app.use(express.static(path.join(__dirname, 'views')));
 app.use(express.static(path.join(__dirname, 'public')));
 
