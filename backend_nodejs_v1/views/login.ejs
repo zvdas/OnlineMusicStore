@@ -25,6 +25,9 @@
       .container {
         background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
       }
+      .card.m-5.p-5 {
+        background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+      }
     </style>
     <title>Login</title>
   </head>
@@ -33,42 +36,42 @@
       Click <a class="text-dark" href="https://zvdas.github.io">here</a> to go
       to portfolio website.
     </p>
-    <div
-      class="card m-5 col-6"
-      style="margin-left: 20% !important; margin-top: 10% !important"
-    >
-      <div class="card-header">Login</div>
-      <div class="card-body">
-        <form
-          class="row g-2 m-2 p-2"
-          name="loginForm"
-          action="login"
-          method="POST"
-        >
-          <%- include("form-template", {form_id: "inputEmail", form_name:
-          "email", form_label: "Email", form_type: "email", form_value:
-          "",form_placeholder: "example@email.com"}) %> <%-
-          include("form-template", {form_id: "inputPassword", form_name:
-          "password", form_label: "Password", form_type: "password", form_value:
-          "", form_placeholder: ""}) %>
-          <div class="row m-2">
-            <a
-              class="d-flex justify-content-end"
-              href="/api/v1/auth/forgotpassword"
-              >forgot password?</a
-            >
+    <div class="d-flex justify-content-center">
+      <div class="container p-4 m-4">
+        <div class="card p-5 m-5">
+          <div class="card">
+            <div class="card-header">Login</div>
+            <div class="card-body">
+              <form class="row" name="loginForm" action="login" method="POST">
+                <%- include("form-template", {form_id: "inputEmail", form_name:
+                "email", form_label: "Email", form_type: "email", form_value:
+                "",form_placeholder: "example@email.com"}) %> <%-
+                include("form-template", {form_id: "inputPassword", form_name:
+                "password", form_label: "Password", form_type: "password",
+                form_value: "", form_placeholder: ""}) %>
+                <div class="row m-2">
+                  <a
+                    class="d-flex justify-content-end"
+                    href="/api/v1/auth/forgotpassword"
+                    >forgot password?</a
+                  >
+                </div>
+                <div class="m-2 row">
+                  <input
+                    type="submit"
+                    class="btn btn-primary mx-2 col"
+                    value="Submit"
+                  />
+                  <a
+                    class="btn btn-primary mx-2 col"
+                    href="/api/v1/auth/register"
+                    >Register</a
+                  >
+                </div>
+              </form>
+            </div>
           </div>
-          <div class="m-2 row">
-            <input
-              type="submit"
-              class="btn btn-primary mx-2 col"
-              value="Submit"
-            />
-            <a class="btn btn-primary mx-2 col" href="/api/v1/auth/register"
-              >Register</a
-            >
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </body>

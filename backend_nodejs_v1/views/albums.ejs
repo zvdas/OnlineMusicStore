@@ -33,292 +33,294 @@
   </head>
   <body>
     <%- include("navbar", { user }) %>
-    <div class="container p-2">
-      <h1 class="text-center">Albums</h1>
-      <div class="card m-2 p-2">
-        <div class="d-flex justify-content-around">
-          <p>display <%= results.limit %> results per page</p>
-          <p>|</p>
-          <p>
-            results <%= results.pagination.curr.page %> of <%= results.total %>
-          </p>
-          <p>|</p>
-          <% if (results.pagination.prev) { %>
-          <p>
-            <a href="/api/v1/albums?page=<%= results.pagination.prev.page %>"
-              >prev</a
-            >
-          </p>
-          <p>|</p>
-          <% } %>
-          <p>
-            page <%= results.pagination.curr.page %> of <%= results.total %>
-          </p>
-          <% if (results.pagination.next) { %>
-          <p>|</p>
-          <p>
-            <a href="/api/v1/albums?page=<%= results.pagination.next.page %>"
-              >next</a
-            >
-          </p>
-          <% } %>
-        </div>
-
-        <% results.data.map(album => { %>
-        <div class="d-flex justify-content-center mb-3">
-          <img
-            src="/uploads/albums/<%= album.artist_slug %>-<%= album.album_slug %>/<%= album.cover_photo %>"
-            class="w-25"
-          />
-        </div>
-        <div class="card p-2 my-2 mx-2">
-          <div class="card-title text-center">
-            <strong>Album Information</strong>
-          </div>
-          <div class="row mx-5">
-            <p class="col">Album Name</p>
-            <p class="col"><%= album.album_name %></p>
-          </div>
-          <div class="row mx-5">
-            <p class="col">Artist</p>
-            <p class="col"><%= album.artist %></p>
-          </div>
-          <div class="row mx-5">
-            <p class="col">Year</p>
-            <p class="col"><%= album.year %></p>
-          </div>
-          <div class="row mx-5">
-            <p class="col">Producer</p>
-            <p class="col"><%= album.producer %></p>
-          </div>
-          <div class="row mx-5">
-            <p class="col">Description</p>
-            <p class="col"><%- album.description %></p>
-          </div>
-          <div class="row mx-5">
-            <p class="col">Created By</p>
-            <p class="col">
-              <%= album.user.name %> (role: <%= album.user.name %>)
+    <div class="d-flex justify-content-center">
+      <div class="container p-2 m-2">
+        <h1 class="text-center">Albums</h1>
+        <div class="card p-2 m-2">
+          <div class="d-flex justify-content-around">
+            <p>display <%= results.limit %> results per page</p>
+            <p>|</p>
+            <p>
+              results <%= results.pagination.curr.page %> of <%= results.total %>
             </p>
-          </div>
-          <div class="row mx-5">
-            <p class="col">Created At</p>
-            <p class="col"><%= album.createdAt %></p>
-          </div>
-          <div class="row mx-5">
-            <p class="col">Album URL</p>
-            <p class="col">
-              <a href="<%= album.album_url %>"><%= album.album_url %></a>
+            <p>|</p>
+            <% if (results.pagination.prev) { %>
+            <p>
+              <a href="/api/v1/albums?page=<%= results.pagination.prev.page %>"
+                >prev</a
+              >
             </p>
-          </div>
-        </div>
-
-        <div class="card p-2 my-2 mx-2">
-          <div class="card-title text-center">
-            <strong>Track Information</strong>
-          </div>
-          <% if (album.tracks.length === 0) { %>
-          <p class="text-center">No tracks added</p>
-          <p class="text-center">
-            <a
-              href="/api/v1/albums/<%= album.id %>/tracks"
-              class="btn btn-primary w-75"
-              >Add Tracks</a
-            >
-          </p>
-          <% } else { %>
-          <div class="row">
-            <div class="col-4">
-              <div id="list-example" class="list-group">
-                <% album.tracks.map((track, index) => { %>
-                <a
-                  class="list-group-item list-group-item-action text-primary bg-body-secondary"
-                  href="#list-item-<%= index + 1 %>"
-                  ><%= index + 1 %>. <%= track.track_name %></a
-                >
-                <% }) %>
-              </div>
-            </div>
-
-            <div class="col-8">
-              <div
-                style="overflow-y: scroll; height: 250px"
-                data-bs-spy="scroll"
-                data-bs-target="#list-example"
-                data-bs-smooth-scroll="true"
-                data-bs-offset="50"
-                class="scrollspy-example"
-                tabindex="0"
+            <p>|</p>
+            <% } %>
+            <p>
+              page <%= results.pagination.curr.page %> of <%= results.total %>
+            </p>
+            <% if (results.pagination.next) { %>
+            <p>|</p>
+            <p>
+              <a href="/api/v1/albums?page=<%= results.pagination.next.page %>"
+                >next</a
               >
-                <% album.tracks.map((track, index) => { %>
-                <div id="list-item-<%= index + 1 %>">
-                  <div class="row mx-5">
-                    <p class="col">Track Name</p>
-                    <p class="col"><%= track.track_name %></p>
-                  </div>
-                  <div class="row mx-5">
-                    <p class="col">Featuring</p>
-                    <p class="col"><%= track.featuring %></p>
-                  </div>
-                  <div class="row mx-5">
-                    <p class="col">Duration</p>
-                    <p class="col"><%= track.duration %></p>
-                  </div>
-                  <div class="row mx-5">
-                    <p class="col">File Size</p>
-                    <p class="col"><%= track.file_size %></p>
-                  </div>
-                  <div class="row mx-5">
-                    <p class="col">File Preview</p>
-                    <p class="col">
-                      <audio controls>
-                        <source
-                          src="/uploads/albums/<%= album.artist_slug %>-<%= album.album_slug %>/<%= track.track_file %>"
-                          type="audio/mp3"
-                        />
-                      </audio>
-                    </p>
-                  </div>
-                  <div class="row mx-5">
-                    <p class="col">
-                      <a
-                        class="btn btn-primary w-100"
-                        href="/api/v1/tracks/<%= track._id %>"
-                      >
-                        Edit
-                      </a>
-                    </p>
-                    <p class="col">
-                      <a
-                        class="btn btn-primary w-100"
-                        href="/api/v1/tracks/<%= track._id %>?_method=DELETE"
-                      >
-                        <input type="hidden" name="_method" value="DELETE" />
-                        Delete
-                      </a>
-                    </p>
-                  </div>
-                  <hr />
-                </div>
-                <% }) %>
-                <p class="text-center">
-                  <a
-                    href="/api/v1/albums/<%= album.id %>/tracks"
-                    class="btn btn-primary w-75"
-                    >Add Tracks</a
-                  >
-                </p>
-              </div>
+            </p>
+            <% } %>
+          </div>
+
+          <% results.data.map(album => { %>
+          <div class="d-flex justify-content-center mb-3">
+            <img
+              src="/uploads/albums/<%= album.artist_slug %>-<%= album.album_slug %>/<%= album.cover_photo %>"
+              class="w-25"
+            />
+          </div>
+          <div class="card p-2 my-2 mx-2">
+            <div class="card-title text-center">
+              <strong>Album Information</strong>
+            </div>
+            <div class="row mx-5">
+              <p class="col">Album Name</p>
+              <p class="col"><%= album.album_name %></p>
+            </div>
+            <div class="row mx-5">
+              <p class="col">Artist</p>
+              <p class="col"><%= album.artist %></p>
+            </div>
+            <div class="row mx-5">
+              <p class="col">Year</p>
+              <p class="col"><%= album.year %></p>
+            </div>
+            <div class="row mx-5">
+              <p class="col">Producer</p>
+              <p class="col"><%= album.producer %></p>
+            </div>
+            <div class="row mx-5">
+              <p class="col">Description</p>
+              <p class="col"><%- album.description %></p>
+            </div>
+            <div class="row mx-5">
+              <p class="col">Created By</p>
+              <p class="col">
+                <%= album.user.name %> (role: <%= album.user.name %>)
+              </p>
+            </div>
+            <div class="row mx-5">
+              <p class="col">Created At</p>
+              <p class="col"><%= album.createdAt %></p>
+            </div>
+            <div class="row mx-5">
+              <p class="col">Album URL</p>
+              <p class="col">
+                <a href="<%= album.album_url %>"><%= album.album_url %></a>
+              </p>
             </div>
           </div>
-          <% } %>
-        </div>
 
-        <div class="card p-2 my-2 mx-2">
-          <div class="card-title text-center">
-            <strong>Review Information</strong>
-          </div>
-          <% if (album.reviews.length === 0) { %>
-          <p class="text-center">No reviews added</p>
-          <p class="text-center">
-            <a
-              href="/api/v1/albums/<%= album.id %>/reviews"
-              class="btn btn-primary w-75"
-              >Add Reviews</a
-            >
-          </p>
-          <% } else { %>
-          <div class="row">
-            <div class="col-4">
-              <div id="list-example" class="list-group">
-                <% album.reviews.map((track, index) => { %>
-                <a
-                  class="list-group-item list-group-item-action text-primary bg-body-secondary"
-                  href="#list-item-<%= index + 1 %>"
-                  ><%= index + 1 %>. <%= track.title %></a
-                >
-                <% }) %>
-              </div>
+          <div class="card p-2 my-2 mx-2">
+            <div class="card-title text-center">
+              <strong>Track Information</strong>
             </div>
-
-            <div class="col-8">
-              <div
-                style="overflow-y: scroll; height: 250px"
-                data-bs-spy="scroll"
-                data-bs-target="#list-example"
-                data-bs-smooth-scroll="true"
-                data-bs-offset="50"
-                class="scrollspy-example"
-                tabindex="0"
+            <% if (album.tracks.length === 0) { %>
+            <p class="text-center">No tracks added</p>
+            <p class="text-center">
+              <a
+                href="/api/v1/albums/<%= album.id %>/tracks"
+                class="btn btn-primary w-75"
+                >Add Tracks</a
               >
-                <% album.reviews.map((review, index) => { %>
-                <div id="list-item-<%= index + 1 %>">
-                  <div class="row mx-5">
-                    <p class="col">Review Title</p>
-                    <p class="col"><%= review.track_name %></p>
-                  </div>
-                  <div class="row mx-5">
-                    <p class="col">Review Text</p>
-                    <p class="col"><%= review.text %></p>
-                  </div>
-                  <div class="row mx-5">
-                    <p class="col">Rating</p>
-                    <p class="col"><%= review.rating %></p>
-                  </div>
-                  <div class="row mx-5">
-                    <p class="col">
-                      <a
-                        class="btn btn-primary w-100"
-                        href="/api/v1/reviews/<%= review._id %>"
-                      >
-                        Edit
-                      </a>
-                    </p>
-                    <p class="col">
-                      <a
-                        class="btn btn-primary w-100"
-                        href="/api/v1/reviews/<%= review._id %>?_method=DELETE"
-                      >
-                        <input type="hidden" name="_method" value="DELETE" />
-                        Delete
-                      </a>
-                    </p>
-                  </div>
-                  <hr />
-                </div>
-                <% }) %>
-                <p class="text-center">
+            </p>
+            <% } else { %>
+            <div class="row">
+              <div class="col-4">
+                <div id="list-example" class="list-group">
+                  <% album.tracks.map((track, index) => { %>
                   <a
-                    href="/api/v1/albums/<%= album.id %>/reviews"
-                    class="btn btn-primary w-75"
-                    >Add Reviews</a
+                    class="list-group-item list-group-item-action text-primary bg-body-secondary"
+                    href="#list-item-<%= index + 1 %>"
+                    ><%= index + 1 %>. <%= track.track_name %></a
                   >
-                </p>
+                  <% }) %>
+                </div>
+              </div>
+
+              <div class="col-8">
+                <div
+                  style="overflow-y: scroll; height: 250px"
+                  data-bs-spy="scroll"
+                  data-bs-target="#list-example"
+                  data-bs-smooth-scroll="true"
+                  data-bs-offset="50"
+                  class="scrollspy-example"
+                  tabindex="0"
+                >
+                  <% album.tracks.map((track, index) => { %>
+                  <div id="list-item-<%= index + 1 %>">
+                    <div class="row mx-5">
+                      <p class="col">Track Name</p>
+                      <p class="col"><%= track.track_name %></p>
+                    </div>
+                    <div class="row mx-5">
+                      <p class="col">Featuring</p>
+                      <p class="col"><%= track.featuring %></p>
+                    </div>
+                    <div class="row mx-5">
+                      <p class="col">Duration</p>
+                      <p class="col"><%= track.duration %></p>
+                    </div>
+                    <div class="row mx-5">
+                      <p class="col">File Size</p>
+                      <p class="col"><%= track.file_size %></p>
+                    </div>
+                    <div class="row mx-5">
+                      <p class="col">File Preview</p>
+                      <p class="col">
+                        <audio controls>
+                          <source
+                            src="/uploads/albums/<%= album.artist_slug %>-<%= album.album_slug %>/<%= track.track_file %>"
+                            type="audio/mp3"
+                          />
+                        </audio>
+                      </p>
+                    </div>
+                    <div class="row mx-5">
+                      <p class="col">
+                        <a
+                          class="btn btn-primary w-100"
+                          href="/api/v1/tracks/<%= track._id %>"
+                        >
+                          Edit
+                        </a>
+                      </p>
+                      <p class="col">
+                        <a
+                          class="btn btn-primary w-100"
+                          href="/api/v1/tracks/<%= track._id %>?_method=DELETE"
+                        >
+                          <input type="hidden" name="_method" value="DELETE" />
+                          Delete
+                        </a>
+                      </p>
+                    </div>
+                    <hr />
+                  </div>
+                  <% }) %>
+                  <p class="text-center">
+                    <a
+                      href="/api/v1/albums/<%= album.id %>/tracks"
+                      class="btn btn-primary w-75"
+                      >Add Tracks</a
+                    >
+                  </p>
+                </div>
               </div>
             </div>
+            <% } %>
           </div>
-          <% } %>
-        </div>
 
-        <div class="row p-2 my-2 mx-2">
-          <a class="btn btn-primary col mx-1" href="/api/v1/albums/newalbum"
-            >Add</a
-          >
-          <a
-            class="btn btn-primary col mx-1"
-            href="/api/v1/albums/<%= album.id %>"
-            >Edit</a
-          >
-          <form
-            class="col mx-1"
-            action="/api/v1/albums/<%= album.id %>?_method=DELETE"
-            method="post"
-          >
-            <input type="hidden" name="_method" value="DELETE" />
-            <input class="btn btn-primary w-100" type="submit" value="Delete" />
-          </form>
+          <div class="card p-2 my-2 mx-2">
+            <div class="card-title text-center">
+              <strong>Review Information</strong>
+            </div>
+            <% if (album.reviews.length === 0) { %>
+            <p class="text-center">No reviews added</p>
+            <p class="text-center">
+              <a
+                href="/api/v1/albums/<%= album.id %>/reviews"
+                class="btn btn-primary w-75"
+                >Add Reviews</a
+              >
+            </p>
+            <% } else { %>
+            <div class="row">
+              <div class="col-4">
+                <div id="list-example" class="list-group">
+                  <% album.reviews.map((track, index) => { %>
+                  <a
+                    class="list-group-item list-group-item-action text-primary bg-body-secondary"
+                    href="#list-item-<%= index + 1 %>"
+                    ><%= index + 1 %>. <%= track.title %></a
+                  >
+                  <% }) %>
+                </div>
+              </div>
+
+              <div class="col-8">
+                <div
+                  style="overflow-y: scroll; height: 250px"
+                  data-bs-spy="scroll"
+                  data-bs-target="#list-example"
+                  data-bs-smooth-scroll="true"
+                  data-bs-offset="50"
+                  class="scrollspy-example"
+                  tabindex="0"
+                >
+                  <% album.reviews.map((review, index) => { %>
+                  <div id="list-item-<%= index + 1 %>">
+                    <div class="row mx-5">
+                      <p class="col">Review Title</p>
+                      <p class="col"><%= review.track_name %></p>
+                    </div>
+                    <div class="row mx-5">
+                      <p class="col">Review Text</p>
+                      <p class="col"><%= review.text %></p>
+                    </div>
+                    <div class="row mx-5">
+                      <p class="col">Rating</p>
+                      <p class="col"><%= review.rating %></p>
+                    </div>
+                    <div class="row mx-5">
+                      <p class="col">
+                        <a
+                          class="btn btn-primary w-100"
+                          href="/api/v1/reviews/<%= review._id %>"
+                        >
+                          Edit
+                        </a>
+                      </p>
+                      <p class="col">
+                        <a
+                          class="btn btn-primary w-100"
+                          href="/api/v1/reviews/<%= review._id %>?_method=DELETE"
+                        >
+                          <input type="hidden" name="_method" value="DELETE" />
+                          Delete
+                        </a>
+                      </p>
+                    </div>
+                    <hr />
+                  </div>
+                  <% }) %>
+                  <p class="text-center">
+                    <a
+                      href="/api/v1/albums/<%= album.id %>/reviews"
+                      class="btn btn-primary w-75"
+                      >Add Reviews</a
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+            <% } %>
+          </div>
+
+          <div class="row p-2 my-2 mx-2">
+            <a class="btn btn-primary col mx-1" href="/api/v1/albums/newalbum"
+              >Add</a
+            >
+            <a
+              class="btn btn-primary col mx-1"
+              href="/api/v1/albums/<%= album.id %>"
+              >Edit</a
+            >
+            <form
+              class="col mx-1"
+              action="/api/v1/albums/<%= album.id %>?_method=DELETE"
+              method="post"
+            >
+              <input type="hidden" name="_method" value="DELETE" />
+              <input class="btn btn-primary w-100" type="submit" value="Delete" />
+            </form>
+          </div>
+          <% }) %>
         </div>
-        <% }) %>
       </div>
     </div>
   </body>

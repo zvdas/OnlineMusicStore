@@ -33,81 +33,90 @@
   </head>
   <body>
     <%- include("navbar", { user }) %>
-    <div class="container p-2">
-      <h1 class="text-center">Users</h1>
-      <div class="card m-2 p-2">
-        <div class="d-flex justify-content-around">
-          <p>display <%= results.limit %> results per page</p>
-          <p>|</p>
-          <p>
-            results <%= results.pagination.curr.page %> of <%= results.total %>
-          </p>
-          <p>|</p>
-          <% if (results.pagination.prev) { %>
-          <p>
-            <a
-              href="/api/v1/auth/users?page=<%= results.pagination.prev.page %>"
-              >prev</a
-            >
-          </p>
-          <p>|</p>
-          <% } %>
-          <p>
-            page <%= results.pagination.curr.page %> of <%= results.total %>
-          </p>
-          <% if (results.pagination.next) { %>
-          <p>|</p>
-          <p>
-            <a
-              href="/api/v1/auth/users?page=<%= results.pagination.next.page %>"
-              >next</a
-            >
-          </p>
-          <% } %>
-        </div>
+    <div class="d-flex justify-content-center">
+      <div class="container p-2 m-2">
+        <h1 class="text-center">Users</h1>
+        <div class="card m-2 p-2">
+          <div class="d-flex justify-content-around">
+            <p>display <%= results.limit %> results per page</p>
+            <p>|</p>
+            <p>
+              results <%= results.pagination.curr.page %> of <%= results.total
+              %>
+            </p>
+            <p>|</p>
+            <% if (results.pagination.prev) { %>
+            <p>
+              <a
+                href="/api/v1/auth/users?page=<%= results.pagination.prev.page %>"
+                >prev</a
+              >
+            </p>
+            <p>|</p>
+            <% } %>
+            <p>
+              page <%= results.pagination.curr.page %> of <%= results.total %>
+            </p>
+            <% if (results.pagination.next) { %>
+            <p>|</p>
+            <p>
+              <a
+                href="/api/v1/auth/users?page=<%= results.pagination.next.page %>"
+                >next</a
+              >
+            </p>
+            <% } %>
+          </div>
 
-        <% results.data.map(result => { %>
-        <div class="card p-2 my-2 mx-2">
-          <div class="card-title text-center">
-            <strong>User Information</strong>
+          <% results.data.map(result => { %>
+          <div class="card p-2 my-2 mx-2">
+            <div class="card-title text-center">
+              <strong>User Information</strong>
+            </div>
+            <div class="row mx-5">
+              <p class="col">Name</p>
+              <p class="col"><%= result.name %></p>
+            </div>
+            <div class="row mx-5">
+              <p class="col">Email</p>
+              <p class="col"><%= result.email %></p>
+            </div>
+            <div class="row mx-5">
+              <p class="col">Role</p>
+              <p class="col"><%= result.role %></p>
+            </div>
+            <div class="row mx-5">
+              <p class="col">created At</p>
+              <p class="col"><%= result.createdAt %></p>
+            </div>
           </div>
-          <div class="row mx-5">
-            <p class="col">Name</p>
-            <p class="col"><%= result.name %></p>
-          </div>
-          <div class="row mx-5">
-            <p class="col">Email</p>
-            <p class="col"><%= result.email %></p>
-          </div>
-          <div class="row mx-5">
-            <p class="col">Role</p>
-            <p class="col"><%= result.role %></p>
-          </div>
-          <div class="row mx-5">
-            <p class="col">created At</p>
-            <p class="col"><%= result.createdAt %></p>
-          </div>
-        </div>
 
-        <div class="row p-2 my-2 mx-2">
-          <a class="btn btn-primary col mx-2" href="/api/v1/auth/users/newuser"
-            >Add</a
-          >
-          <a
-            class="btn btn-primary col mx-2"
-            href="/api/v1/auth/users/<%= result.id %>"
-            >Edit</a
-          >
-          <form
-            class="col mx-2"
-            action="/api/v1/auth/users/<%= result.id %>?_method=DELETE"
-            method="post"
-          >
-            <input type="hidden" name="_method" value="DELETE" />
-            <input class="btn btn-primary w-100" type="submit" value="Delete" />
-          </form>
+          <div class="row p-2 my-2 mx-2">
+            <a
+              class="btn btn-primary col mx-2"
+              href="/api/v1/auth/users/newuser"
+              >Add</a
+            >
+            <a
+              class="btn btn-primary col mx-2"
+              href="/api/v1/auth/users/<%= result.id %>"
+              >Edit</a
+            >
+            <form
+              class="col mx-2"
+              action="/api/v1/auth/users/<%= result.id %>?_method=DELETE"
+              method="post"
+            >
+              <input type="hidden" name="_method" value="DELETE" />
+              <input
+                class="btn btn-primary w-100"
+                type="submit"
+                value="Delete"
+              />
+            </form>
+          </div>
+          <% }) %>
         </div>
-        <% }) %>
       </div>
     </div>
   </body>

@@ -12,64 +12,73 @@
             .container {
                 background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
             }
+            .card.m-3.p-3 {
+                background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+            }
         </style>
         <title>Review Detail</title>
     </head>
     <body>
         <%- include("navbar", { user }) %>
-        <div class="container mx-5 gx-5 p-5">
-            <h1 class="text-center">Review Details</h1>
-            <div class="card">
-                <% if (review.id) { %>
-                    <!-- put -->
-                    <form action="/api/v1/reviews/<%= review.id %>?_method=PUT" method="POST">
-                        <input type="hidden" name="_method" value="PUT">
-                <% } else { %>
-                    <!-- post -->
-                    <form action="/api/v1/albums/<%= album_id %>/reviews/newreview" method="POST">
-                <% } %>
-                    <%- include("form-template", {form_id: "title", form_name: "title", form_label: "Review Title:", form_type: "text", form_value: review.title, form_placeholder: ""}) %>
-                    <%- include("form-template", {form_id: "text", form_name: "text", form_label: "Review Text:", form_type: "text", form_value: review.text, form_placeholder: ""}) %>
-                    <%- include("form-template", {form_id: "rating", form_name: "rating", form_label: "Rating:", form_type: "number", form_value: review.rating, form_placeholder: ""}) %>
-                    <% if (review.id) { %>
-                        <%- include("form-template", {form_id: "album", form_name: "album", form_label: "Album:", form_type: "text", form_value: review.album.id, form_placeholder: ""}) %>
-                    <% } else { %>
-                        <% if (!review.album) { %>
-                            <% if (!album_id) { %>
-                                <div class="m-2 row">
-                                    <label for="album" class="col-4 col-form-label">Album:</label>
-                                    <div class="col">
-                                        <select class="form-select" id="album" name="album" aria-label="select">
-                                            <option selected>Select Album</option>
-                                            <% albums.map(album => { %>
-                                                <option value="<%= album.id %>"><%= album.album_name %></option>
-                                            <% }) %>
-                                        </select>
-                                    </div>
-                                </div>
+        <div class="d-flex justify-content-center">
+            <div class="container m-2 p-2">
+                <h1 class="text-center">Review Details</h1>
+                <div class="card m-3 p-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <% if (review.id) { %>
+                                <!-- put -->
+                                <form action="/api/v1/reviews/<%= review.id %>?_method=PUT" method="POST">
+                                    <input type="hidden" name="_method" value="PUT">
                             <% } else { %>
-                                <%- include("form-template", {form_id: "album", form_name: "album", form_label: "Album ID:", form_type: "text", form_value: album_id, form_placeholder: ""}) %> 
+                                <!-- post -->
+                                <form action="/api/v1/albums/<%= album_id %>/reviews/newreview" method="POST">
                             <% } %>
-                        <% } %>
-                    <% } %>
+                                <%- include("form-template", {form_id: "title", form_name: "title", form_label: "Review Title:", form_type: "text", form_value: review.title, form_placeholder: ""}) %>
+                                <%- include("form-template", {form_id: "text", form_name: "text", form_label: "Review Text:", form_type: "text", form_value: review.text, form_placeholder: ""}) %>
+                                <%- include("form-template", {form_id: "rating", form_name: "rating", form_label: "Rating:", form_type: "number", form_value: review.rating, form_placeholder: ""}) %>
+                                <% if (review.id) { %>
+                                    <%- include("form-template", {form_id: "album", form_name: "album", form_label: "Album:", form_type: "text", form_value: review.album.id, form_placeholder: ""}) %>
+                                <% } else { %>
+                                    <% if (!review.album) { %>
+                                        <% if (!album_id) { %>
+                                            <div class="m-2 row">
+                                                <label for="album" class="col-4 col-form-label">Album:</label>
+                                                <div class="col">
+                                                    <select class="form-select" id="album" name="album" aria-label="select">
+                                                        <option selected>Select Album</option>
+                                                        <% albums.map(album => { %>
+                                                            <option value="<%= album.id %>"><%= album.album_name %></option>
+                                                        <% }) %>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        <% } else { %>
+                                            <%- include("form-template", {form_id: "album", form_name: "album", form_label: "Album ID:", form_type: "text", form_value: album_id, form_placeholder: ""}) %> 
+                                        <% } %>
+                                    <% } %>
+                                <% } %>
 
-                    <div class="m-3 row">
-                        <a type="button" class="btn btn-secondary form-control col mx-1" href="/api/v1/reviews">Return to Reviews</a>
-                        <% if (review.id) { %>
-                            <input type="submit" class="btn btn-primary form-control col mx-1" value="Submit" formaction="/api/v1/reviews/<%= review.id %>?_method=PUT" formmethod="POST"/>
-                            <a type="button" class="btn btn-secondary form-control col mx-1" href="/api/v1/reviews/<%= review.id %>">Cancel</a>
-                        <% } else { %>
-                            <input type="submit" class="btn btn-primary form-control col mx-1" value="Submit" formaction="/api/v1/albums/<%= album_id %>/reviews" formmethod="POST"/>
-                        <% } %>
-                    </div>
+                                <div class="m-3 row">
+                                    <a type="button" class="btn btn-secondary form-control col mx-1" href="/api/v1/reviews">Return to Reviews</a>
+                                    <% if (review.id) { %>
+                                        <input type="submit" class="btn btn-primary form-control col mx-1" value="Submit" formaction="/api/v1/reviews/<%= review.id %>?_method=PUT" formmethod="POST"/>
+                                        <a type="button" class="btn btn-secondary form-control col mx-1" href="/api/v1/reviews/<%= review.id %>">Cancel</a>
+                                    <% } else { %>
+                                        <input type="submit" class="btn btn-primary form-control col mx-1" value="Submit" formaction="/api/v1/albums/<%= album_id %>/reviews" formmethod="POST"/>
+                                    <% } %>
+                                </div>
 
-                    <div class="m-3 row">
-                        <p><%= msg %></p>
-                        <% if (review.createdAt) { %>
-                            <p>Created at: <%= review.createdAt %></p>
-                        <% } %>
+                                <div class="m-3 row">
+                                    <p><%= msg %></p>
+                                    <% if (review.createdAt) { %>
+                                        <p>Created at: <%= review.createdAt %></p>
+                                    <% } %>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </body>

@@ -25,54 +25,65 @@
       .container {
         background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
       }
+      .card.m-5.p-5 {
+        background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+      }
     </style>
     <title>Home</title>
   </head>
   <body>
     <%- include("navbar", { user }) %>
-    <div class="container p-5 m-5">
-      <div class="card p-5 m-5">
-        <h1 class="text-center">Welcome to Online Music Store</h1>
-        <p>
-          Welcome to the Online Music Store, where visitors can view information
-          about albums and the tracks and reviews within each album posted by
-          other users. Users can also post reviews for a particular album. Users
-          can also play and pause the tracks within each album.
-        </p>
-        <p>
-          Apart from the role of user, the roles of admin and publisher have
-          also been integrated. Three accounts have been created for
-          demonstration purposes.
-        </p>
-        <div class="d-flex flex-column align-content-between mb-3">
-          <div class="row">
-            <div class="col">Role: Admin</div>
-            <div class="col">Email: admin@gmail</div>
-          </div>
-          <div class="row">
-            <div class="col">Role: Publisher</div>
-            <div class="col">Email: publisher@gmail</div>
-          </div>
-          <div class="row">
-            <div class="col">Role: User</div>
-            <div class="col">Email: user@gmail</div>
-          </div>
-          <div class="row">
-            <div class="col">Password for all three accounts: 123456</div>
+    <div class="d-flex justify-content-center">
+      <div class="container p-4 m-4">
+        <div class="card p-5 m-5">
+          <div class="card">
+            <h1 class="text-center">Welcome to Online Music Store</h1>
+            <div class="card-body">
+              <p>
+                Welcome to the Online Music Store, where visitors can view
+                information about albums and the tracks and reviews within each
+                album posted by other users. Users can also post reviews for a
+                particular album. Users can also play and pause the tracks
+                within each album.
+              </p>
+              <p>
+                Apart from the role of user, the roles of admin and publisher
+                have also been integrated. Three accounts have been created for
+                demonstration purposes.
+              </p>
+              <div class="d-flex flex-column align-content-between mb-3">
+                <div class="row">
+                  <div class="col">Role: Admin</div>
+                  <div class="col">Email: admin@gmail</div>
+                </div>
+                <div class="row">
+                  <div class="col">Role: Publisher</div>
+                  <div class="col">Email: publisher@gmail</div>
+                </div>
+                <div class="row">
+                  <div class="col">Role: User</div>
+                  <div class="col">Email: user@gmail</div>
+                </div>
+                <div class="row">
+                  <div class="col">Password for all three accounts: 123456</div>
+                </div>
+              </div>
+              <p>
+                Users can only view albums and tracks, but can view as well as
+                add reviews for albums.
+              </p>
+              <p>
+                Publishers can only create and view albums and tracks, but
+                cannot add reviews for albums.
+              </p>
+              <p>
+                Admins have full access to all the modules: albums, tracks,
+                reviews and users. Resources can be created, read, updated &
+                deleted.
+              </p>
+            </div>
           </div>
         </div>
-        <p>
-          Users can only view albums and tracks, but can view as well as add
-          reviews for albums.
-        </p>
-        <p>
-          Publishers can only create and view albums and tracks, but cannot add
-          reviews for albums.
-        </p>
-        <p>
-          Admins have full access to all the modules: albums, tracks, reviews
-          and users. Resources can be created, read, updated & deleted.
-        </p>
       </div>
     </div>
   </body>

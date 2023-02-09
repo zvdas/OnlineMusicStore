@@ -12,90 +12,96 @@
             .container {
                 background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
             }
+            .card.m-3.p-3 {
+                background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+            }
         </style>
         <title>Track Detail</title>
     </head>
     <body>
         <%- include("navbar", { user }); %>
-        <div class="container m-5 g-5 p-5">
-            <h1 class="text-center">Track Details</h1>
-            <% if (track.track_file) { %>
-                <div class="d-flex justify-content-center my-2">
-                    <audio controls>
-                        <source src="/uploads/albums/<%= track.album.artist_slug %>-<%= track.album.album_slug %>/<%= track.track_file %>" type="audio/mp3">
-                    </audio>
-                </div>
-            <% } %>
-            <div class="card">
-                <% if (track.id) { %>
-                    <!-- put -->
-                    <form action="/api/v1/tracks/<%= track.id %>?_method=PUT" method="POST">
-                        <input type="hidden" name="_method" value="PUT">
-                <% } else { %>
-                    <!-- post -->
-                    <form action="/api/v1/albums/<%= album_id %>/tracks" method="POST">
-                <% } %>
-                    <%- include("form-template", {form_id: "track_name", form_name: "track_name", form_label: "Track Name:", form_type: "text", form_value: track.track_name, form_placeholder: ""}) %>
-                    <%- include("form-template", {form_id: "featuring", form_name: "featuring", form_label: "Featuring:", form_type: "text", form_value: track.featuring, form_placeholder: ""}) %>
-                    <%- include("form-template", {form_id: "duration", form_name: "duration", form_label: "Duration:", form_type: "text", form_value: track.duration, form_placeholder: ""}) %>
-                    <%# include("form-template", {form_id: "track_file", form_name: "track_file", form_label: "Track File:", form_type: "text", form_value: track.track_file, form_placeholder: ""}) %>
-                    <% if (track.id) { %>
-                        <form action="/api/v1/tracks/<%= track.id %>/audio?_method=PUT" method="POST" enctype="multipart/form-data">
-                            <input type="hidden" name="_method" value="PUT">
-                            <div class="m-2 row">
-                                <label for="audio" class="col-4 col-form-label">
-                                    Track File:
-                                </label> 
-                                <div class="col input-group">
-                                    <input type="file" id="audio" name="audio" class="form-control" value="<%= track.track_file %>"/>
-                                    <span class="input-group-text"><%= track.track_file %></span>
-                                </div>
-                                <div class="col-2">
-                                    <input type="submit" class="btn btn-primary input-group" value="Submit" formaction="/api/v1/tracks/<%= track.id %>/audio?_method=PUT" formenctype="multipart/form-data" formmethod="POST"/>
-                                </div>
+        <div class="d-flex justify-content-center">
+            <div class="container m-2 p-2">
+                <h1 class="text-center">Track Details</h1>
+                <div class="card m-3 p-3">
+                    <% if (track.track_file) { %>
+                        <div class="d-flex justify-content-center my-2">
+                            <audio controls>
+                                <source src="/uploads/albums/<%= track.album.artist_slug %>-<%= track.album.album_slug %>/<%= track.track_file %>" type="audio/mp3">
+                            </audio>
+                        </div>
+                    <% } %>
+                    <div class="card">
+                        <% if (track.id) { %>
+                            <!-- put -->
+                            <form action="/api/v1/tracks/<%= track.id %>?_method=PUT" method="POST">
+                                <input type="hidden" name="_method" value="PUT">
+                        <% } else { %>
+                            <!-- post -->
+                            <form action="/api/v1/albums/<%= album_id %>/tracks" method="POST">
+                        <% } %>
+                            <%- include("form-template", {form_id: "track_name", form_name: "track_name", form_label: "Track Name:", form_type: "text", form_value: track.track_name, form_placeholder: ""}) %>
+                            <%- include("form-template", {form_id: "featuring", form_name: "featuring", form_label: "Featuring:", form_type: "text", form_value: track.featuring, form_placeholder: ""}) %>
+                            <%- include("form-template", {form_id: "duration", form_name: "duration", form_label: "Duration:", form_type: "text", form_value: track.duration, form_placeholder: ""}) %>
+                            <% if (track.id) { %>
+                                <form action="/api/v1/tracks/<%= track.id %>/audio?_method=PUT" method="POST" enctype="multipart/form-data">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <div class="m-2 row">
+                                        <label for="audio" class="col-4 col-form-label">
+                                            Track File:
+                                        </label> 
+                                        <div class="col input-group">
+                                            <input type="file" id="audio" name="audio" class="form-control" value="<%= track.track_file %>"/>
+                                            <span class="input-group-text"><%= track.track_file %></span>
+                                        </div>
+                                        <div class="col-2">
+                                            <input type="submit" class="btn btn-primary input-group" value="Submit" formaction="/api/v1/tracks/<%= track.id %>/audio?_method=PUT" formenctype="multipart/form-data" formmethod="POST"/>
+                                        </div>
+                                    </div>
+                                </form>
+                            <% } %>
+                            <%- include("form-template", {form_id: "credit", form_name: "credit", form_label: "Credit:", form_type: "text", form_value: track.credit, form_placeholder: ""}) %>
+                            <%- include("form-template", {form_id: "file_size", form_name: "file_size", form_label: "File Size:", form_type: "text", form_value: track.file_size, form_placeholder: ""}) %>
+                            <% if (!track.album) { %>
+                                <% if (!album_id) { %>
+                                    <div class="m-2 row">
+                                        <label for="album" class="col-4 col-form-label">Album:</label>
+                                        <div class="col">
+                                            <select class="form-select" id="album" name="album" aria-label="select">
+                                                <option selected>Select Album</option>
+                                                <% albums.map(album => { %>
+                                                    <option value="<%= album.id %>"><%= album.album_name %></option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                <% } else { %>
+                                    <%- include("form-template", {form_id: "album", form_name: "album", form_label: "Album ID:", form_type: "text", form_value: album_id, form_placeholder: ""}) %>
+                                <% } %>
+                            <% } else { %>
+                                <%- include("form-template", {form_id: "album_name", form_name: "album_name", form_label: "Album Name:", form_type: "text", form_value: track.album.album_name, form_placeholder: ""}) %>
+                                <%- include("form-template", {form_id: "album_url", form_name: "album_url", form_label: "Album URL:", form_type: "text", form_value: track.album.album_url, form_placeholder: ""}) %>
+                            <% } %>
+                
+                            <div class="m-3 row">
+                                <a type="button" class="btn btn-secondary form-control col mx-1" href="/api/v1/tracks">Return to Tracks</a>
+                                <% if (track.id) { %>
+                                    <input type="submit" class="btn btn-primary form-control col mx-1" value="Submit" formaction="/api/v1/tracks/<%= track.id %>?_method=PUT" formmethod="POST"/>
+                                    <a type="button" class="btn btn-secondary form-control col mx-1" href="/api/v1/tracks/<%= track.id %>">Cancel</a>
+                                <% } else { %>
+                                    <input type="submit" class="btn btn-primary form-control col mx-1" value="Submit" formaction="/api/v1/albums/<%= album_id %>/tracks" formmethod="POST"/>
+                                <% } %>
+                            </div>
+
+                            <div class="m-3 row">
+                                <p><%= msg %></p>
+                                <% if (track.createdAt) { %>
+                                    <p>Created at: <%= track.createdAt %></p>
+                                <% } %>
                             </div>
                         </form>
-                    <% } %>
-                    <%- include("form-template", {form_id: "credit", form_name: "credit", form_label: "Credit:", form_type: "text", form_value: track.credit, form_placeholder: ""}) %>
-                    <%- include("form-template", {form_id: "file_size", form_name: "file_size", form_label: "File Size:", form_type: "text", form_value: track.file_size, form_placeholder: ""}) %>
-                    <% if (!track.album) { %>
-                        <% if (!album_id) { %>
-                            <div class="m-2 row">
-                                <label for="album" class="col-4 col-form-label">Album:</label>
-                                <div class="col">
-                                    <select class="form-select" id="album" name="album" aria-label="select">
-                                        <option selected>Select Album</option>
-                                        <% albums.map(album => { %>
-                                            <option value="<%= album.id %>"><%= album.album_name %></option>
-                                        <% }) %>
-                                    </select>
-                                </div>
-                            </div>
-                        <% } else { %>
-                            <%- include("form-template", {form_id: "album", form_name: "album", form_label: "Album ID:", form_type: "text", form_value: album_id, form_placeholder: ""}) %>
-                        <% } %>
-                    <% } else { %>
-                        <%- include("form-template", {form_id: "album_name", form_name: "album_name", form_label: "Album Name:", form_type: "text", form_value: track.album.album_name, form_placeholder: ""}) %>
-                        <%- include("form-template", {form_id: "album_url", form_name: "album_url", form_label: "Album URL:", form_type: "text", form_value: track.album.album_url, form_placeholder: ""}) %>
-                    <% } %>
-                
-                    <div class="m-3 row">
-                        <a type="button" class="btn btn-secondary form-control col mx-1" href="/api/v1/tracks">Return to Tracks</a>
-                        <% if (track.id) { %>
-                            <input type="submit" class="btn btn-primary form-control col mx-1" value="Submit" formaction="/api/v1/tracks/<%= track.id %>?_method=PUT" formmethod="POST"/>
-                            <a type="button" class="btn btn-secondary form-control col mx-1" href="/api/v1/tracks/<%= track.id %>">Cancel</a>
-                        <% } else { %>
-                            <input type="submit" class="btn btn-primary form-control col mx-1" value="Submit" formaction="/api/v1/albums/<%= album_id %>/tracks" formmethod="POST"/>
-                        <% } %>
                     </div>
-
-                    <div class="m-3 row">
-                        <p><%= msg %></p>
-                        <% if (track.createdAt) { %>
-                            <p>Created at: <%= track.createdAt %></p>
-                        <% } %>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </body>

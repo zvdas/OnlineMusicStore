@@ -25,6 +25,9 @@
       .container {
         background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
       }
+      .card.m-5.p-5 {
+        background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+      }
     </style>
     <title>Error</title>
   </head>
@@ -33,18 +36,16 @@
       Click <a class="text-dark" href="https://zvdas.github.io">here</a> to go
       to portfolio website.
     </p>
-    <div
-      class="card m-5 col-6"
-      style="margin-left: 20% !important; margin-top: 10% !important"
-    >
-      <div class="card-header">Error</div>
-      <div class="card-body">
-        <div class="d-flex justify-content-center mx-2"><%= error %></div>
-        <!--
-                <div class="d-flex justify-content-center mx-2">
-                    <button onclick="history.back()" class="btn btn-primary col-4">Return to previous page</button>
-                </div>
-                -->
+    <div class="d-flex justify-content-center">
+      <div class="container p-4 m-4">
+        <div class="card p-5 m-5">
+          <div class="card">
+            <div class="card-header">Error</div>
+            <div class="card-body">
+              <div class="d-flex justify-content-center mx-2"><%= error %></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </body>

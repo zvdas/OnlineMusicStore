@@ -25,57 +25,76 @@
       .container {
         background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
       }
+      .card.m-3.p-3 {
+        background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+      }
     </style>
     <title>User Detail</title>
   </head>
   <body>
     <%- include("navbar", { user }) %>
-    <div class="container mx-5 gx-5 p-5">
-      <h1 class="text-center">User Details</h1>
-      <div class="card">
-        <form
-          action="/api/v1/auth/users/<%= result.id %>?_method=PUT"
-          method="POST"
-        >
-          <input type="hidden" name="_method" value="PUT" />
-          <%- include("form-template", {form_id: "name", form_name: "name",
-          form_label: "Name:", form_type: "text", form_value: result.name,
-          form_placeholder: ""}) %> <%- include("form-template", {form_id:
-          "email", form_name: "email", form_label: "Email:", form_type: "text",
-          form_value: result.email, form_placeholder: ""}) %> <%-
-          include("form-template", {form_id: "role", form_name: "role",
-          form_label: "Role:", form_type: "text", form_value: result.role,
-          form_placeholder: ""}) %>
+    <div class="d-flex justify-content-center">
+      <div class="container m-2 p-2">
+        <h1 class="text-center">User Details</h1>
+        <div class="card m-3 p-3">
+          <div class="card">
+            <div class="card-body">
+              <% if (result.id) { %>
+                <!-- put -->
+                <form
+                  action="/api/v1/auth/users/<%= result.id %>?_method=PUT"
+                  method="POST"
+                >
+                <input type="hidden" name="_method" value="PUT" />
+              <% } else { %>
+                  <!-- post -->
+                  <form action="/api/v1/auth/users" method="POST">
+              <% } %>
+                <%- include("form-template", {form_id: "name", form_name: "name",
+                form_label: "Name:", form_type: "text", form_value: result.name,
+                form_placeholder: ""}) %> <%- include("form-template", {form_id:
+                "email", form_name: "email", form_label: "Email:", form_type: "text",
+                form_value: result.email, form_placeholder: ""}) %> <%-
+                include("form-template", {form_id: "role", form_name: "role",
+                form_label: "Role:", form_type: "text", form_value: result.role,
+                form_placeholder: ""}) %>
 
-          <div class="m-3 row">
-            <a
-              type="button"
-              class="btn btn-secondary form-control col mx-1"
-              href="/api/v1/auth/users"
-              >Return to Users</a
-            >
-            <input
-              type="submit"
-              class="btn btn-primary form-control col mx-1"
-              value="Submit"
-              formaction="/api/v1/auth/users/<%= result.id %>?_method=PUT"
-              formmethod="POST"
-            />
-            <a
-              type="button"
-              class="btn btn-secondary form-control col mx-1"
-              href="/api/v1/auth/users/<%= result.id %>"
-              >Cancel</a
-            >
-          </div>
+                <div class="m-3 row">
+                  <a
+                    type="button"
+                    class="btn btn-secondary form-control col mx-1"
+                    href="/api/v1/auth/users"
+                    >Return to Users</a
+                  >
+                  <% if (result.id) { %>
+                    <input
+                      type="submit"
+                      class="btn btn-primary form-control col mx-1"
+                      value="Submit"
+                      formaction="/api/v1/auth/users/<%= result.id %>?_method=PUT"
+                      formmethod="POST"
+                    />
+                    <a
+                      type="button"
+                      class="btn btn-secondary form-control col mx-1"
+                      href="/api/v1/auth/users/<%= result.id %>"
+                      >Cancel</a
+                    >
+                  <% } else { %>
+                    <input type="submit" class="btn btn-primary form-control col mx-1" value="Submit" formaction="/api/v1/albums" formmethod="POST"/>
+                  <% } %>
+                </div>
 
-          <div class="m-3 row">
-            <p><%= msg %></p>
-            <% if(result.createdAt) { %>
-              <p>Created at: <%= result.createdAt %></p>
-            <% } %>
+                <div class="m-3 row">
+                  <p><%= msg %></p>
+                  <% if(result.createdAt) { %>
+                    <p>Created at: <%= result.createdAt %></p>
+                  <% } %>
+                </div>
+              </form>
+            </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </body>
