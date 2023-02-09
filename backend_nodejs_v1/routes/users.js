@@ -6,6 +6,7 @@ const {
   getUserById,
   updateUserById,
   deleteUserById,
+  getCreateUser,
 } = require('../controllers/users');
 
 const User = require('../models/User');
@@ -51,10 +52,9 @@ router.use(authorize('admin'));
  *       401:
  *         description: User not authorized to access this route
  */
-router
-  .route('/')
-  .get(advancedResults(User), getUsers)
-  .post(createUser);
+router.route('/').get(advancedResults(User), getUsers).post(createUser);
+
+router.route('/newuser').get(getCreateUser);
 
 /**
  * @openapi

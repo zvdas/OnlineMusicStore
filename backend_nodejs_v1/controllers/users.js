@@ -6,14 +6,13 @@ const UserModel = require('../models/User');
 // @route   GET /api/v1/auth/users
 // @access  Private/Admin
 exports.getUsers = asyncHandler(async (req, res, next) => {
-  if(req.header('accept')==='*/*') {
-    res
-      .status(200)
-      .json(res.advancedResults);
+  if (req.header('accept') === '*/*') {
+    res.status(200).json(res.advancedResults);
   } else {
-    res
-      .status(200)
-      .render('users', {results: res.advancedResults, user: req.cookies.user});
+    res.status(200).render('users', {
+      results: res.advancedResults,
+      user: req.cookies.user,
+    });
   }
 });
 
@@ -27,18 +26,27 @@ exports.getUserById = asyncHandler(async (req, res, next) => {
     next(new ErrorResponse(`User with  id ${req.params.id} not found`, 404));
   }
 
-  if(req.header('accept')==='*/*') {
-    res
-      .status(200)
-      .json({ 
-        success: true, 
-        data: result 
-      });
+  if (req.header('accept') === '*/*') {
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
   } else {
     res
       .status(200)
       .render('user-detail', { msg: '', result, user: req.cookies.user });
   }
+});
+
+// @desc    Get create new album page
+// @route   GET /api/v1/albums/newuser
+// @access  Private
+exports.getCreateUser = asyncHandler(async (req, res, next) => {
+  res.status(200).render('user-detail', {
+    msg: '',
+    result: {},
+    user: req.cookies.user,
+  });
 });
 
 // @desc    Create a user
@@ -47,22 +55,18 @@ exports.getUserById = asyncHandler(async (req, res, next) => {
 exports.createUser = asyncHandler(async (req, res, next) => {
   const user = await UserModel.create(req.body);
 
-  if(req.header('accept')==='*/*') {
-    res
-      .status(201)
-      .json({ 
-        success: true, 
-        msg: 'User created successfully', 
-        data: user 
-      });
+  if (req.header('accept') === '*/*') {
+    res.status(201).json({
+      success: true,
+      msg: 'User created successfully',
+      data: user,
+    });
   } else {
-    res
-      .status(201)
-      .render('user-detail', { 
-        msg: 'User created successfully', 
-        result, 
-        user: req.cookies.user 
-      });
+    res.status(201).render('user-detail', {
+      msg: 'User created successfully',
+      result,
+      user: req.cookies.user,
+    });
   }
 });
 
@@ -79,22 +83,18 @@ exports.updateUserById = asyncHandler(async (req, res, next) => {
     next(new ErrorResponse(`User with  id ${req.params.id} not found`, 404));
   }
 
-  if(req.header('accept')==='*/*') {
-    res
-      .status(200)
-      .json({
-        success: true,
-        msg: `User with id ${req.params.id} updated successfully`,
-        data: user,
-      });
-    } else {
-      res
-      .status(200)
-      .render('user-detail', {
-        msg: `User with id ${req.params.id} updated successfully`,
-        result, 
-        user: req.cookies.user 
-      });
+  if (req.header('accept') === '*/*') {
+    res.status(200).json({
+      success: true,
+      msg: `User with id ${req.params.id} updated successfully`,
+      data: user,
+    });
+  } else {
+    res.status(200).render('user-detail', {
+      msg: `User with id ${req.params.id} updated successfully`,
+      result,
+      user: req.cookies.user,
+    });
   }
 });
 
@@ -108,16 +108,12 @@ exports.deleteUserById = asyncHandler(async (req, res, next) => {
     next(new ErrorResponse(`User with  id ${req.params.id} not found`, 404));
   }
 
-  if(req.header('accept')==='*/*') {
-    res
-      .status(200)
-      .json({
-        success: true,
-        msg: `User with id ${req.params.id} deleted successfully`,
-      });
+  if (req.header('accept') === '*/*') {
+    res.status(200).json({
+      success: true,
+      msg: `User with id ${req.params.id} deleted successfully`,
+    });
   } else {
-    res
-      .status(200)
-      .redirect('/api/v1/users');
+    res.status(200).redirect('/api/v1/users');
   }
 });
