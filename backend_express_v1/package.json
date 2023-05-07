@@ -1,5 +1,5 @@
 {
-  "name": "backend_nodejs_v1",
+  "name": "backend_express_v1",
   "version": "1.0.0",
   "description": "Backend for Online Music Store created using Node.js",
   "main": "server.js",
