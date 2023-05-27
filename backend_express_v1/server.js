@@ -104,6 +104,7 @@ app.get('/', (req, res, next) => {
   res
     .status(200)
     .cookie('user', 'none')
+    .cookie('user.email', '')
     // .json({ success: true, msg: 'Welcome to the online music store' });
     // .redirect('https://documenter.getpostman.com/view/19419701/2s8YzTThXz');
     .render('home', {user: req.cookies.user});
