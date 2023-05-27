@@ -19,7 +19,7 @@ const methodOverride = require('method-override');
 dotenv.config({ path: './config/config.env' });
 
 // config file
-const connectDB = require('./config/database');
+const connectDB = require('./config/mongodb.config');
 
 // route files - apis
 const albums = require('./routes/albums');
@@ -86,8 +86,8 @@ app.use(fileUpload());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // set view render engine as 'ejs'
-app.set('view engine', 'ejs'); 
-app.set('views', path.join(__dirname, 'views')); 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 // check if signed in
 app.use((req, res, next) => {
