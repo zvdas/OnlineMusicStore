@@ -27,7 +27,7 @@
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <% if (!user.email) { %>
+                    <% if (user === 'none') { %>
                         <li class="nav-item">
                             <a class="nav-link text-primary" href="/api/v1/auth/login">Login</a>
                         </li>
