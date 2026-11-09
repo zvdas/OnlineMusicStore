@@ -1,5 +1,7 @@
 # Online Music Store
 
+**Important Note : This app is hosted on render.com in free tier, so it may take upto a minute to render the website once the link is opened**
+
 ## Online Music Store created using Node.js &amp; Express, where users can listen to &amp; purchase the latest music by trending artists.
 
 1. Create a folder called lms to store the backend files & folders.
